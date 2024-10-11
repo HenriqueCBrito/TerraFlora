@@ -1,0 +1,52 @@
+/* TerraFlora theme colors */
+:root {
+    --terraflora-green: #556b2f; /* Olive green */
+    --terraflora-sand: #f4f1e1;  /* Light sand */
+}
+
+/* Body background */
+body {
+    background-color: var(--terraflora-sand);
+    color: var(--terraflora-green);
+    font-family: 'Arial', sans-serif;
+}
+
+/* Header and Footer */
+.bg-terraflora-green {
+    background-color: var(--terraflora-green);
+}
+
+.text-terraflora-sand {
+    color: var(--terraflora-sand);
+}
+
+/* Links */
+a {
+    color: #6b8e23; /* Olive Drab for links */
+}
+
+a:hover {
+    color: #8fbc8f; /* Dark Sea Green for hover */
+}
+
+/* Buttons */
+button {
+    background-color: #a9a979; /* Light Olive/Sand */
+    color: #2e8b57; /* Sea Green text */
+    border: 1px solid #556b2f; /* Olive Green border */
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #8fbc8f; /* Dark Sea Green for hover */
+}
+
+/* Form container */
+.form-container {
+    background-color: #e3d6b5; /* Sand background for forms */
+    border: 1px solid #a9a979; /* Light Olive/Sand border */
+    padding: 20px;
+    border-radius: 10px;
+}

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}Registro - TerraFlora{% endblock %}
+
+{% block content %}
+    <h2 style="color: var(--terraflora-green);">Registro</h2>
+
+    {% if messages %}
+        <div class="alert alert-info" role="alert">
+            {% for message in messages %}
+                {{ message }}<br>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <form method="POST" action="{% url 'register' %}">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="email" class="form-label" style="color: var(--terraflora-green);">Endereço de Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="mb-3">
+            <label for="username" class="form-label" style="color: var(--terraflora-green);">Nome de Usuário</label>
+            <input type="text" class="form-control" id="username" name="username" required>
+        </div>
+        <div class="mb-3">
+            <label for="full_Name" class="form-label" style="color: var(--terraflora-green);">Nome Completo</label>
+            <input type="text" class="form-control" id="full_Name" name="full_Name" required>
+        </div>
+        <div class="mb-3">
+            <label for="cpf" class="form-label" style="color: var(--terraflora-green);">CPF</label>
+            <input type="text" class="form-control" id="cpf" name="cpf">
+        </div>
+        <div class="mb-3">
+            <label for="phone_number" class="form-label" style="color: var(--terraflora-green);">Número de Telefone</label>
+            <input type="text" class="form-control" id="phone_number" name="phone_number">
+        </div>
+        <div class="mb-3">
+            <label for="street" class="form-label" style="color: var(--terraflora-green);">Rua</label>
+            <input type="text" class="form-control" id="street" name="street">
+        </div>
+        <div class="mb-3">
+            <label for="home_number" class="form-label" style="color: var(--terraflora-green);">Número da Casa</label>
+            <input type="text" class="form-control" id="home_number" name="home_number">
+        </div>
+        <div class="mb-3">
+            <label for="city" class="form-label" style="color: var(--terraflora-green);">Cidade</label>
+            <input type="text" class="form-control" id="city" name="city">
+        </div>
+        <div class="mb-3">
+            <label for="state" class="form-label" style="color: var(--terraflora-green);">Estado</label>
+            <input type="text" class="form-control" id="state" name="state">
+        </div>
+        <div class="mb-3">
+            <label for="country" class="form-label" style="color: var(--terraflora-green);">País</label>
+            <input type="text" class="form-control" id="country" name="country">
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label" style="color: var(--terraflora-green);">Senha</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <div class="mb-3">
+            <label for="confirm_password" class="form-label" style="color: var(--terraflora-green);">Confirmar Senha</label>
+            <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+        </div>
+        <button type="submit" class="btn btn-success">Registrar</button>
+    </form>
+{% endblock %}

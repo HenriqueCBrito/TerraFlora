@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalhes da Fazenda - TerraFlora{% endblock %}
+
+{% block content %}
+    <h2 style="color: var(--terraflora-green);">{{ farm.farm_name }}</h2>
+
+    <p><strong>Endereço:</strong> {{ farm.street }} {{ farm.home_number }}, {{ farm.city }}, {{ farm.state }}, {{ farm.country }}</p>
+    <p><strong>Tamanho:</strong> {{ farm.size }} {{ farm.get_size_unit_display }}</p>
+
+    <a href="{% url 'edit_farm' farm.id %}" class="btn btn-warning">Editar Fazenda</a>
+    <a href="{% url 'farm_list' %}" class="btn btn-primary">Voltar à Lista de Fazendas</a>
+{% endblock %}

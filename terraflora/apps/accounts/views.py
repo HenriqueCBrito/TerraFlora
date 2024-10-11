@@ -9,10 +9,13 @@ from .models import CustomUser
 def home(request):
     return render(request, 'home.html') 
 
+def menu(request):
+    return render(request, 'menu.html')
+
 def logoff(request):
     logout(request)
     messages.success(request, 'You have been logged off.')
-    return redirect('home')
+    return redirect('home.html')
 
 def register(request):
     if request.method == 'POST':

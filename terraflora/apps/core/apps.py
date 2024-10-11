@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class CropsConfig(AppConfig):
+class CoreConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "apps.crops"
+    name = "apps.core"

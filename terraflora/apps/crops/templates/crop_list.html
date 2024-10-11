@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Culturas Registradas para a Fazenda: {{ farm.farm_name }}</h2>
+
+{% if crops %}
+    <ul>
+        {% for crop in crops %}
+            <li>
+                <a href="{% url 'crop_detail' crop.id %}">{{ crop.name }}</a> 
+                - Tipo: {{ crop.get_crop_type_display }}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Não há culturas registradas para esta fazenda.</p>
+{% endif %}
+
+<a href="{% url 'register_crop' %}">Registrar nova cultura</a>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Registro de Fazenda - TerraFlora{% endblock %}
+
+{% block content %}
+    <h2 style="color: var(--terraflora-green);">Registro de Fazenda</h2>
+
+    {% if messages %}
+        <div class="alert alert-info" role="alert">
+            {% for message in messages %}
+                {{ message }}<br>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <form method="POST" action="{% url 'register_farm' %}">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="farm_name" class="form-label" style="color: var(--terraflora-green);">Nome da Fazenda</label>
+            <input type="text" class="form-control" id="farm_name" name="farm_name" required>
+        </div>
+        <div class="mb-3">
+            <label for="street" class="form-label" style="color: var(--terraflora-green);">Rua</label>
+            <input type="text" class="form-control" id="street" name="street" required>
+        </div>
+        <div class="mb-3">
+            <label for="home_number" class="form-label" style="color: var(--terraflora-green);">Número da Casa</label>
+            <input type="text" class="form-control" id="home_number" name="home_number" required>
+        </div>
+        <div class="mb-3">
+            <label for="city" class="form-label" style="color: var(--terraflora-green);">Cidade</label>
+            <input type="text" class="form-control" id="city" name="city" required>
+        </div>
+        <div class="mb-3">
+            <label for="state" class="form-label" style="color: var(--terraflora-green);">Estado</label>
+            <input type="text" class="form-control" id="state" name="state" required>
+        </div>
+        <div class="mb-3">
+            <label for="country" class="form-label" style="color: var(--terraflora-green);">País</label>
+            <input type="text" class="form-control" id="country" name="country" value="Brasil" required>
+        </div>
+        <div class="mb-3">
+            <label for="size" class="form-label" style="color: var(--terraflora-green);">Tamanho</label>
+            <input type="number" class="form-control" id="size" name="size" required>
+        </div>
+        <div class="mb-3">
+            <label for="size_unit" class="form-label" style="color: var(--terraflora-green);">Unidade de Tamanho</label>
+            <select class="form-control" id="size_unit" name="size_unit" required>
+                <option value="m2">Metros Quadrados</option>
+                <option value="ac">Acres</option>
+                <option value="ha">Hectares</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success">Registrar Fazenda</button>
+    </form>
+{% endblock %}

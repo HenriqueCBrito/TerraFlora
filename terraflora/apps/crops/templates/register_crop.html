@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Registrar Cultura</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    <label for="name">Nome da Cultura:</label>
+    <input type="text" id="name" name="name" required><br>
+
+    <label for="crop_type">Tipo de Cultura:</label>
+    <select id="crop_type" name="crop_type" required>
+        <option value="vegetable">Vegetal</option>
+        <option value="fruit">Fruta</option>
+        <option value="grain">Grão</option>
+        <option value="herb">Erva</option>
+        <option value="flower">Flor</option>
+    </select><br>
+
+    <label for="planting_season">Estação de Plantio:</label>
+    <input type="text" id="planting_season" name="planting_season" required><br>
+
+    <label for="harvest_season">Estação de Colheita:</label>
+    <input type="text" id="harvest_season" name="harvest_season" required><br>
+
+    <label for="growing_conditions">Condições de Crescimento:</label>
+    <textarea id="growing_conditions" name="growing_conditions" required></textarea><br>
+
+    <label for="compatible_plants">Plantas Compatíveis:</label>
+    <textarea id="compatible_plants" name="compatible_plants"></textarea><br>
+
+    <label for="common_pests">Pragas Comuns:</label>
+    <textarea id="common_pests" name="common_pests"></textarea><br>
+
+    <label for="watering_needs">Necessidades de Irrigação:</label>
+    <input type="text" id="watering_needs" name="watering_needs" required><br>
+
+    <label for="sun_exposure">Exposição ao Sol:</label>
+    <input type="text" id="sun_exposure" name="sun_exposure" required><br>
+
+    <label for="notes">Notas Adicionais:</label>
+    <textarea id="notes" name="notes"></textarea><br>
+
+    <button type="submit">Registrar Cultura</button>
+</form>
+
+{% endblock %}

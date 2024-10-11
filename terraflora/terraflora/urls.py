@@ -16,8 +16,13 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from apps.accounts import views  # Adjust the import based on your folder structure
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path('', views.home, name='home'),  # Custom home view
+    path('accounts/', include('apps.accounts.urls')),  # Include Accounts app routes
+    path('farms/', include('apps.farm.urls')),
+    path('menu/', views.menu, name='menu'),  # Custom menu view
 ]

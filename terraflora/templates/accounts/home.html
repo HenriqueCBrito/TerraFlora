@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TerraFlora - Início</title>
+    {% load static %}  <!-- Carrega a tag static do Django -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- Certifique-se de que o arquivo CSS esteja correto -->
+</head>
+<body>
+
+    <header class="bg-terraflora-green text-terraflora-sand">
+        <nav class="navbar">
+            <div class="logo">
+                <img src="{% static 'images/LOGO_TREVO1.jpg' %}" alt="Logo TerraFlora"> <!-- Certifique-se de que a imagem esteja no caminho correto -->
+                <span>Cor em andamento...</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">INÍCIO</a></li>
+                <li><a href="#">QUEM SOMOS</a></li>
+                <li><a href="#">CLIENTE</a>
+                    <ul class="dropdown">
+                        <li><a href="#">Opção 1</a></li>
+                        <li><a href="#">Opção 2</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">PROCESSO</a>
+                    <ul class="dropdown">
+                        <li><a href="#">Opção 1</a></li>
+                        <li><a href="#">Opção 2</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">NOSSA SOLUÇÃO</a>
+                    <ul class="dropdown">
+                        <li><a href="#">Opção 1</a></li>
+                        <li><a href="#">Opção 2</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">More</a>
+                    <ul class="dropdown">
+                        <li><a href="#">Opção 1</a></li>
+                        <li><a href="#">Opção 2</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="main-banner">
+        <h1>O "TERRAFLORA"</h1>
+        <p>
+            tem como principal objetivo desenvolver uma solução inovadora para ajudar nosso cliente, 
+            <strong>CAIS - Coletivo Agroecológico Inovando em Sustentabilidade</strong>. Apresentaremos nesse site 
+            o resultado e a documentação do processo de nossas habilidades profissionais, interpessoais e técnicas 
+            que resultaram o produto final seguindo os requisitos de Projetos 2 e necessidades do cliente.
+        </p>
+    </div>
+
+</body>
+</html>

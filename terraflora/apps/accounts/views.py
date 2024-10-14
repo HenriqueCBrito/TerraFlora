@@ -1,23 +1,25 @@
-from django.contrib.auth import login
+from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.core.exceptions import ValidationError
-from django.contrib.auth import authenticate, login, logout
-from django.core.mail import send_mail
-
 from .models import CustomUser
+
 def home(request):
-    return render(request, 'home.html') 
+    """View para renderizar a página inicial."""
+    return render(request, 'accounts/home.html')  # Corrigido para refletir a estrutura atual
 
 def menu(request):
-    return render(request, 'menu.html')
+    """View para renderizar a página do menu."""
+    return render(request, 'accounts/menu.html')  # Corrigido para refletir a estrutura atual
 
 def logoff(request):
+    """View para realizar o logoff do usuário."""
     logout(request)
-    messages.success(request, 'You have been logged off.')
-    return redirect('home.html')
+    messages.success(request, 'Você foi desconectado com sucesso.')
+    return redirect('home')  # Redireciona para a URL nomeada 'home'
 
 def register(request):
+    """View para registrar um novo usuário."""
     if request.method == 'POST':
         email = request.POST.get('email')
         username = request.POST.get('username')
@@ -31,12 +33,12 @@ def register(request):
         state = request.POST.get('state')
         country = request.POST.get('country')
 
-        # Basic validation
+        # Validação básica
         if not email or not username or not password:
-            messages.error(request, 'Please fill all required fields.')
-            return render(request, 'accounts/register.html')
+            messages.error(request, 'Por favor, preencha todos os campos obrigatórios.')
+            return render(request, 'accounts/register.html')  # Corrigido para refletir a estrutura atual
 
-        # Create user
+        # Criação do usuário
         try:
             user = CustomUser(
                 email=email,
@@ -50,34 +52,35 @@ def register(request):
                 state=state,
                 country=country,
             )
-            user.set_password(password)  # Hash the password
-            user.full_clean()  # Validate the model fields
+            user.set_password(password)  # Criptografa a senha
+            user.full_clean()  # Valida os campos do modelo
             user.save()
 
-            login(request, user)  # Log the user in after registration
-            messages.success(request, 'Registration successful!')
-            return redirect('menu')
+            login(request, user)  # Faz login automaticamente após o registro
+            messages.success(request, 'Registro realizado com sucesso!')
+            return redirect('menu')  # Redireciona para a página do menu
 
         except ValidationError as e:
-            messages.error(request, f"Error: {e}")
-            return render(request, 'accounts/register.html')
+            messages.error(request, f"Erro: {e}")
+            return render(request, 'accounts/register.html')  # Corrigido para refletir a estrutura atual
 
-    return render(request, 'accounts/register.html')
+    return render(request, 'accounts/register.html')  # Corrigido para refletir a estrutura atual
 
 def user_login(request):
+    """View para realizar o login do usuário."""
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
 
-        # Authenticate the user
+        # Autenticação do usuário
         user = authenticate(request, username=email, password=password)
         
         if user is not None:
             login(request, user)
-            messages.success(request, 'Login successful!')
-            return redirect('menu')
+            messages.success(request, 'Login realizado com sucesso!')
+            return redirect('menu')  # Redireciona para a página do menu
         else:
-            messages.error(request, 'Invalid email or password.')
-            return render(request, 'accounts/login.html')
+            messages.error(request, 'E-mail ou senha inválidos.')
+            return render(request, 'accounts/login.html')  # Corrigido para refletir a estrutura atual
 
-    return render(request, 'accounts/login.html')
+    return render(request, 'accounts/login.html')  # Corrigido para refletir a estrutura atual

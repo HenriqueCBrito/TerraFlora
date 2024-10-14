@@ -1,52 +1,113 @@
 /* TerraFlora theme colors */
 :root {
-    --terraflora-green: #556b2f; /* Olive green */
-    --terraflora-sand: #f4f1e1;  /* Light sand */
+    --terraflora-green: #567d46; /* Cor exata extraída do fundo da imagem */
+    --terraflora-light-green: #a1c04d;  /* Verde mais claro */
+    --terraflora-sand: #d8d6a8;  /* Cor areia clara */
 }
 
 /* Body background */
 body {
-    background-color: var(--terraflora-sand);
+    background-color: var(--terraflora-sand);  /* Cor de fundo areia clara */
     color: var(--terraflora-green);
     font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
-/* Header and Footer */
-.bg-terraflora-green {
+/* Header */
+header {
+    background-color: var(--terraflora-green); /* Fundo verde atualizado com a cor exata da imagem */
+    padding: 20px 0;  /* Aumenta o tamanho do header */
+    font-size: 1.2em;  /* Aumenta o tamanho da fonte */
+}
+
+/* Navbar com flexbox */
+.navbar {
+    display: flex;
+    justify-content: space-between;  /* Garante que a logo fique à esquerda e os links à direita */
+    align-items: center;
+    padding: 0 50px;
+}
+
+.navbar .logo {
+    display: flex;
+    align-items: center;
+}
+
+.navbar .logo img {
+    width: 100px; /* Ajuste o tamanho da logo conforme necessário */
+    margin-right: 10px;
+}
+
+.navbar .logo span {
+    font-size: 1.5em; /* Aumenta o tamanho da fonte do nome do site */
+    color: var(--terraflora-sand); /* Cor clara para o texto */
+}
+
+.nav-links {
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    margin-left: 20px;
+    position: relative;
+}
+
+.nav-links li a {
+    color: var(--terraflora-sand); /* Cor clara para os links */
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.nav-links li .dropdown {
+    display: none;
+    position: absolute;
     background-color: var(--terraflora-green);
+    top: 100%;
+    left: 0;
+    padding: 10px;
 }
 
-.text-terraflora-sand {
-    color: var(--terraflora-sand);
+.nav-links li:hover .dropdown {
+    display: block;
 }
 
-/* Links */
-a {
-    color: #6b8e23; /* Olive Drab for links */
+.dropdown li {
+    display: block;
+    margin-top: 5px;
 }
 
-a:hover {
-    color: #8fbc8f; /* Dark Sea Green for hover */
-}
-
-/* Buttons */
-button {
-    background-color: #a9a979; /* Light Olive/Sand */
-    color: #2e8b57; /* Sea Green text */
-    border: 1px solid #556b2f; /* Olive Green border */
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #8fbc8f; /* Dark Sea Green for hover */
-}
-
-/* Form container */
-.form-container {
-    background-color: #e3d6b5; /* Sand background for forms */
-    border: 1px solid #a9a979; /* Light Olive/Sand border */
-    padding: 20px;
+/* Main banner with background */
+.main-banner {
+    background-color: var(--terraflora-sand); /* Fundo amarelado claro */
+    padding: 40px;
+    text-align: left;
+    max-width: 800px;
+    margin: 20px auto;
     border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
+
+.main-banner h1 {
+    color: var(--terraflora-green);  /* Usando o verde principal do logo */
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.main-banner p {
+    font-size: 1.2em;
+    line-height: 1.6;
+}
+
+/* Footer - caso precise adicionar */
+footer {
+    background-color: var(--terraflora-green); /* Verde do rodapé */
+    color: var(--terraflora-sand); /* Texto claro */
+    padding: 20px;
+    text-align: center;
+}
+

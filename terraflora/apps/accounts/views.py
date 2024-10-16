@@ -1,25 +1,24 @@
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.core.exceptions import ValidationError
+from django.contrib.auth.decorators import login_required
 from .models import CustomUser
 
+# Exige que o usuário esteja autenticado para acessar a página home
+@login_required(login_url='login')
 def home(request):
-    """View para renderizar a página inicial."""
-    return render(request, 'accounts/home.html')  # Corrigido para refletir a estrutura atual
+    return render(request, 'accounts/home.html')
 
 def menu(request):
-    """View para renderizar a página do menu."""
-    return render(request, 'accounts/menu.html')  # Corrigido para refletir a estrutura atual
+    return render(request, 'menu.html')
 
 def logoff(request):
-    """View para realizar o logoff do usuário."""
     logout(request)
-    messages.success(request, 'Você foi desconectado com sucesso.')
-    return redirect('home')  # Redireciona para a URL nomeada 'home'
+    messages.success(request, 'Você saiu com sucesso.')
+    return redirect('login')
 
 def register(request):
-    """View para registrar um novo usuário."""
     if request.method == 'POST':
         email = request.POST.get('email')
         username = request.POST.get('username')
@@ -35,10 +34,10 @@ def register(request):
 
         # Validação básica
         if not email or not username or not password:
-            messages.error(request, 'Por favor, preencha todos os campos obrigatórios.')
-            return render(request, 'accounts/register.html')  # Corrigido para refletir a estrutura atual
+            messages.error(request, 'Preencha todos os campos obrigatórios.')
+            return render(request, 'accounts/register.html')
 
-        # Criação do usuário
+        # Criar o usuário
         try:
             user = CustomUser(
                 email=email,
@@ -52,35 +51,37 @@ def register(request):
                 state=state,
                 country=country,
             )
-            user.set_password(password)  # Criptografa a senha
+            user.set_password(password)  # Define a senha criptografada
             user.full_clean()  # Valida os campos do modelo
             user.save()
 
-            login(request, user)  # Faz login automaticamente após o registro
-            messages.success(request, 'Registro realizado com sucesso!')
-            return redirect('menu')  # Redireciona para a página do menu
+            login(request, user)  # Faz o login automático após o registro
+            messages.success(request, 'Registro bem-sucedido!')
+            return redirect('home')
 
         except ValidationError as e:
             messages.error(request, f"Erro: {e}")
-            return render(request, 'accounts/register.html')  # Corrigido para refletir a estrutura atual
+            return render(request, 'accounts/register.html')
 
-    return render(request, 'accounts/register.html')  # Corrigido para refletir a estrutura atual
+    return render(request, 'accounts/register.html')
 
 def user_login(request):
-    """View para realizar o login do usuário."""
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
 
-        # Autenticação do usuário
+        # Autenticar o usuário
         user = authenticate(request, username=email, password=password)
-        
+
         if user is not None:
             login(request, user)
             messages.success(request, 'Login realizado com sucesso!')
-            return redirect('menu')  # Redireciona para a página do menu
+            return redirect('home')  # Redireciona para a página home após login
         else:
-            messages.error(request, 'E-mail ou senha inválidos.')
-            return render(request, 'accounts/login.html')  # Corrigido para refletir a estrutura atual
+            messages.error(request, 'Email ou senha inválidos.')
+            return render(request, 'accounts/login.html')
 
-    return render(request, 'accounts/login.html')  # Corrigido para refletir a estrutura atual
+    return render(request, 'accounts/login.html')
+
+def imersao(request):
+    return render(request, 'accounts/imersao.html') # Inclua o caminho correto para o template

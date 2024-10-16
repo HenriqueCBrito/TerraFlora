@@ -1,24 +1,27 @@
 /* TerraFlora theme colors */
 :root {
-    --terraflora-green: #567d46; /* Cor exata extraída do fundo da imagem */
+    --terraflora-green: #3b5a41; /* Cor exata do fundo da imagem */
     --terraflora-light-green: #a1c04d;  /* Verde mais claro */
     --terraflora-sand: #d8d6a8;  /* Cor areia clara */
+    --terraflora-hover: #a1c04d;  /* Cor de hover */
 }
 
 /* Body background */
 body {
-    background-color: var(--terraflora-sand);  /* Cor de fundo areia clara */
+    background-color: #ffffff;  /* Fundo branco para o site inteiro */
     color: var(--terraflora-green);
-    font-family: 'Arial', sans-serif;
+    font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
+    line-height: 1.8; /* Aumenta o espaçamento entre as linhas em todo o corpo */
 }
 
 /* Header */
 header {
-    background-color: var(--terraflora-green); /* Fundo verde atualizado com a cor exata da imagem */
+    background-color: var(--terraflora-green); /* Cor exata do fundo da imagem */
     padding: 20px 0;  /* Aumenta o tamanho do header */
     font-size: 1.2em;  /* Aumenta o tamanho da fonte */
+    font-family: 'Roboto', sans-serif;
 }
 
 /* Navbar com flexbox */
@@ -35,15 +38,16 @@ header {
 }
 
 .navbar .logo img {
-    width: 100px; /* Ajuste o tamanho da logo conforme necessário */
+    width: 100px;
     margin-right: 10px;
 }
 
 .navbar .logo span {
-    font-size: 1.5em; /* Aumenta o tamanho da fonte do nome do site */
-    color: var(--terraflora-sand); /* Cor clara para o texto */
+    font-size: 1.5em;
+    color: var(--terraflora-sand);
 }
 
+/* Navigation Links */
 .nav-links {
     list-style-type: none;
     display: flex;
@@ -52,24 +56,38 @@ header {
 }
 
 .nav-links li {
-    margin-left: 20px;
+    margin-left: 30px;  /* Aumenta o espaço entre os links */
     position: relative;
 }
 
 .nav-links li a {
-    color: var(--terraflora-sand); /* Cor clara para os links */
+    color: var(--terraflora-sand);
     text-decoration: none;
     font-weight: bold;
     font-size: 1.1em;
+    padding: 10px 15px;  /* Aumenta o espaço interno nos links */
+    border-radius: 5px;  /* Bordas arredondadas */
+    transition: background-color 0.3s ease, color 0.3s ease;  /* Transição suave */
 }
 
+.nav-links li a:hover {
+    background-color: var(--terraflora-hover);  /* Cor de fundo no hover */
+    color: var(--terraflora-green);  /* Muda a cor do texto no hover */
+}
+
+/* Dropdown Menu */
 .nav-links li .dropdown {
     display: none;
     position: absolute;
-    background-color: var(--terraflora-green);
+    background-color: var(--terraflora-green);  /* Cor de fundo para o dropdown */
     top: 100%;
     left: 0;
-    padding: 10px;
+    padding: 0;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    min-width: 150px;
+    white-space: nowrap;
 }
 
 .nav-links li:hover .dropdown {
@@ -78,36 +96,91 @@ header {
 
 .dropdown li {
     display: block;
-    margin-top: 5px;
+    margin: 0;
 }
 
-/* Main banner with background */
-.main-banner {
-    background-color: var(--terraflora-sand); /* Fundo amarelado claro */
-    padding: 40px;
+.dropdown li a {
+    display: block;
+    padding: 10px 20px;
+    font-size: 1em;
     text-align: left;
-    max-width: 800px;
-    margin: 20px auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    width: 100%;
 }
 
-.main-banner h1 {
-    color: var(--terraflora-green);  /* Usando o verde principal do logo */
-    font-size: 2.5em;
+.dropdown li a:hover {
+    background-color: var(--terraflora-hover); 
+    color: var(--terraflora-green);
+}
+
+/* Primeira seção com fundo amarelado */
+.main-content-special {
+    background-color: var(--terraflora-sand);
+    border: 2px solid #8fbc8f;
+    padding: 20px;
+    max-width: 900px;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Restante do conteúdo com fundo branco */
+.main-content,
+.main-content-flex {
+    background-color: #ffffff;
+    color: var(--terraflora-green);
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* Flexbox para imagem à esquerda e texto à direita */
+.main-content-flex {
+    display: flex;
+    align-items: center;
+}
+
+.image-container {
+    flex: 1;
+    margin-right: 20px; /* Espaço entre a imagem e o texto */
+}
+
+.image-container img {
+    max-width: 100%; /* Garante que a imagem não ultrapasse o tamanho da coluna */
+    border-radius: 10px; /* Adiciona bordas arredondadas à imagem */
+}
+
+.text-container {
+    flex: 2; /* Faz o texto ocupar mais espaço */
+}
+
+.text-container h2 {
+    font-size: 2.5em; /* Aumenta o tamanho do título */
     margin-bottom: 10px;
 }
 
-.main-banner p {
+.text-container p {
     font-size: 1.2em;
-    line-height: 1.6;
+    line-height: 1.8;
+    text-align: justify;
 }
 
-/* Footer - caso precise adicionar */
-footer {
-    background-color: var(--terraflora-green); /* Verde do rodapé */
-    color: var(--terraflora-sand); /* Texto claro */
-    padding: 20px;
+.main-content h1, 
+.main-content-special h1 {
+    color: var(--terraflora-green); 
     text-align: center;
+    margin-bottom: 10px;
 }
-
+.h1-imersao {
+    color: var(--terraflora-sand); /* Cor definida */
+    font-size: 2.5em; /* Tamanho do texto */
+    text-align: center; /* Centralizar o texto */
+    margin-top: 20px; /* Espaçamento superior */
+    margin-bottom: 20px; /* Espaçamento inferior */
+}
+.csd-image img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%; /* Garantindo que a imagem não exceda o tamanho do container */
+    height: auto;
+}

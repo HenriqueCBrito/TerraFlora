@@ -1,10 +1,14 @@
+from django.contrib import admin
 from django.urls import path
-from .views import register, user_login, logoff, home, menu
+from apps.accounts import views  # Ajuste o caminho da importação se necessário
 
 urlpatterns = [
-    path('', home, name='home'),  # Rota para a página inicial (home)
-    path('menu/', menu, name='menu'),  # Rota para o menu
-    path('register/', register, name='register'),  # Rota para registro
-    path('login/', user_login, name='login'),  # Rota para login
-    path('logout/', logoff, name='logout'),  # Rota para logout
+    path("admin/", admin.site.urls),
+    path('', views.user_login, name='login'),  # A URL raiz redireciona para o login
+    path('home/', views.home, name='home'),  # Página home protegida por login
+    path('menu/', views.menu, name='menu'),  # Página de menu
+    path('register/', views.register, name='register'),  # Página de registro
+    path('login/', views.user_login, name='login'),  # Página de login
+    path('logout/', views.logoff, name='logout'),  # Página de logout
+    path('imersao/', views.imersao, name='imersao'),
 ]

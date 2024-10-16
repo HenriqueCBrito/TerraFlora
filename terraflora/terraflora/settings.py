@@ -4,21 +4,12 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-fl_l22%v!e9d$-g_u4)^b0+=(=9t2qnsdhv2*i6!mabi4pf(br"
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 ALLOWED_HOSTS = []
 
-
 # Application definition
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -49,7 +40,7 @@ ROOT_URLCONF = "terraflora.urls"
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # Apontando para a pasta 'templates' no nível do projeto
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # Certifique-se de que está apontando para a pasta correta
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -62,8 +53,9 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "terraflora.wsgi.application"
 
+
+WSGI_APPLICATION = "terraflora.wsgi.application"
 
 # Database configuration
 DATABASES = {
@@ -72,7 +64,6 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
-
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -90,13 +81,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
@@ -106,3 +95,9 @@ STATICFILES_DIRS = [
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Redirecionamento após login
+# Redirecionamento após login
+# Redirecionamento após login
+LOGIN_REDIRECT_URL = 'home'  # Redireciona para a home após login
+LOGIN_URL = 'login'  # Redireciona para a página de login caso o usuário não esteja autenticado

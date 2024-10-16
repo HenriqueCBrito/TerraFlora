@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TerraFlora - Início</title>
     {% load static %}  <!-- Carrega a tag static do Django -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- Certifique-se de que o arquivo CSS esteja correto -->
+    <link rel="stylesheet" href="{% static 'css/style2.css' %}"> <!-- Certifique-se de que o arquivo CSS esteja correto -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -45,9 +45,69 @@
         <br>
     </header>
     <br>
-    <center><h1> Matriz CSD - Design </h1></center>
-<span>Explicação sobre o que aprendemos ao fazer a Matriz CSD</span>
+    <section class="csd-matrix">
+        <h1>Matriz CSD - Design</h1>
+        <p>Explicação sobre o que aprendemos ao fazer a Matriz CSD</p>
+        <div>
+            <img src="{% static 'images/matriz_csd22.jpg' %}" alt="Matriz CSD Design">
+        </div>
+    </section>
+<!-- Seção de Análise de Similares -->
+<section class="csd-matrix analise-similares">
+    <h1>Análise de Similares</h1>
+    <p>Explicação sobre o que foi encontrado ao fazer a Análise de Similares</p>
+    <div class="benchmark-image">
+        <img src="{% static 'images/brenchmarking.jpg' %}" alt="Imagem do Benchmarking" class="img-fluid">
+    </div>
+</section>
 
-<div class="csd-image">
-    <img src="{% static 'images/.png' %}" alt="Matriz CSD Design" class="img-fluid" style="margin-top: 20px;">
-</div>
+    
+</section>
+
+<!-- Seção de Matriz CSD -->
+<section class="csd-matrix">
+    <h1>Matriz CSD - CC</h1>
+    <p>Explicação sobre o que aprendemos ao fazer a Matriz CSD</p>
+    <div>
+        <img src="{% static 'images/matriz_csd_cc.jpg' %}" alt="Matriz CSD Design">
+    </div>
+</section>
+<section class="stakeholder-map">
+    <h1>Mapa de Stakeholders</h1>
+    <p>Explicação sobre o que aprendemos ao fazer o Mapa de Stakeholders</p>
+    <div class="stakeholder-image">
+        <img src="{% static 'images/mapa_stakeholders.jpg' %}" alt="Mapa de Stakeholders" class="img-fluid">
+    </div>
+</section>
+
+<section class="empathy-map">
+    <h1>Mapa de Empatia</h1>
+    <p>Explicação sobre o que aprendemos ao fazer o Mapa de Empatia</p>
+    <div class="empathy-image">
+        <img src="{% static 'images/mapa_empatia.jpg' %}" alt="Mapa de Empatia" class="img-fluid">
+    </div>
+</section>
+
+<section class="persona-section">
+    <h1>Persona</h1>
+    <p>Explicação sobre a persona criada</p>
+    <div class="persona-card">
+        <img src="{% static 'images/persona.jpg' %}" alt="Imagem da Persona" class="persona-image">
+        <div class="persona-info">
+            <h2>Jorge da Silva</h2>
+            <ul>
+                <li><strong>Nome:</strong> Jorge da Silva</li>
+                <li><strong>Idade:</strong> 56 anos</li>
+                <li><strong>Ocupação:</strong> Agricultor familiar</li>
+                <li><strong>Local:</strong> Zona Rural de Pernambuco</li>
+            </ul>
+            <p>
+                Jorge é o proprietário de terras da sua família há mais de 30 anos, ele planta mandioca,
+                milho e feijão. Ele enfrenta dificuldades em acessar informações sobre as melhores práticas agrícolas
+                para melhorar sua produção e aumentar sua renda. Ele gostaria de ter um sistema simples e eficaz que o ajudasse
+                a tomar decisões rápidas no campo, especialmente para prever as condições climáticas e saber os melhores momentos para plantar.
+            </p>
+        </div>
+    </div>
+</section>
+

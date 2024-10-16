@@ -1,62 +1,63 @@
 /* TerraFlora theme colors */
 :root {
-    --terraflora-green: #3b5a41; /* Cor exata do fundo da imagem */
-    --terraflora-light-green: #a1c04d;  /* Verde mais claro */
-    --terraflora-sand: #d8d6a8;  /* Cor areia clara */
-    --terraflora-hover: #a1c04d;  /* Cor de hover */
+    --terraflora-green: #3b5a41;
+    --terraflora-light-green: #a1c04d;
+    --terraflora-sand: #d8d6a8;
+    --terraflora-hover: #a1c04d;
+    --terraflora-background: #f4efd7;
+    --terraflora-highlight: #f4d35e;
+    --terraflora-dark-text: #2a2a2a;
 }
 
-/* Body background */
+/* Estilo geral */
 body {
-    background-color: #ffffff;  /* Fundo branco para o site inteiro */
-    color: var(--terraflora-green);
+    background-color: var(--terraflora-background);
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    line-height: 1.8; /* Aumenta o espaçamento entre as linhas em todo o corpo */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* Header */
+/* Cabeçalho */
 header {
-    background-color: var(--terraflora-green); /* Cor exata do fundo da imagem */
-    padding: 20px 0;  /* Aumenta o tamanho do header */
-    font-size: 1.2em;  /* Aumenta o tamanho da fonte */
-    font-family: 'Roboto', sans-serif;
+    width: 100%;
+    padding: 20px 0;
+    background: rgba(59, 90, 65, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Navbar com flexbox */
+/* Navbar */
 .navbar {
+    max-width: 1200px;
+    width: 100%;
     display: flex;
-    justify-content: space-between;  /* Garante que a logo fique à esquerda e os links à direita */
+    justify-content: space-between;
     align-items: center;
-    padding: 0 50px;
+    padding: 0 40px;
 }
 
-.navbar .logo {
-    display: flex;
-    align-items: center;
-}
-
-.navbar .logo img {
-    width: 100px;
-    margin-right: 10px;
-}
-
-.navbar .logo span {
-    font-size: 1.5em;
-    color: var(--terraflora-sand);
+/* Logo */
+.logo img {
+    width: 80px;
+    margin-right: 20px;
 }
 
 /* Navigation Links */
 .nav-links {
-    list-style-type: none;
+    list-style: none;
     display: flex;
-    margin: 0;
-    padding: 0;
+    gap: 30px;
 }
 
 .nav-links li {
-    margin-left: 30px;  /* Aumenta o espaço entre os links */
     position: relative;
 }
 
@@ -65,122 +66,145 @@ header {
     text-decoration: none;
     font-weight: bold;
     font-size: 1.1em;
-    padding: 10px 15px;  /* Aumenta o espaço interno nos links */
-    border-radius: 5px;  /* Bordas arredondadas */
-    transition: background-color 0.3s ease, color 0.3s ease;  /* Transição suave */
+    transition: color 0.3s ease;
 }
 
 .nav-links li a:hover {
-    background-color: var(--terraflora-hover);  /* Cor de fundo no hover */
-    color: var(--terraflora-green);  /* Muda a cor do texto no hover */
+    color: var(--terraflora-hover);
 }
 
 /* Dropdown Menu */
-.nav-links li .dropdown {
+.dropdown {
     display: none;
     position: absolute;
-    background-color: var(--terraflora-green);  /* Cor de fundo para o dropdown */
     top: 100%;
     left: 0;
-    padding: 0;
+    background-color: var(--terraflora-green);
+    padding: 10px 0;
     border-radius: 5px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
     min-width: 150px;
-    white-space: nowrap;
-}
-
-.nav-links li:hover .dropdown {
-    display: block;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 100;
 }
 
 .dropdown li {
-    display: block;
     margin: 0;
 }
 
 .dropdown li a {
     display: block;
     padding: 10px 20px;
+    color: var(--terraflora-sand);
+    text-decoration: none;
     font-size: 1em;
-    text-align: left;
-    width: 100%;
+    font-weight: normal;
+    transition: background-color 0.3s ease;
 }
 
 .dropdown li a:hover {
-    background-color: var(--terraflora-hover); 
+    background-color: var(--terraflora-hover);
     color: var(--terraflora-green);
 }
 
-/* Primeira seção com fundo amarelado */
-.main-content-special {
-    background-color: var(--terraflora-sand);
-    border: 2px solid #8fbc8f;
-    padding: 20px;
-    max-width: 900px;
-    margin: 20px auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+/* Display dropdown on hover */
+.dropdown-parent:hover .dropdown {
+    display: block;
 }
 
-/* Restante do conteúdo com fundo branco */
-.main-content,
-.main-content-flex {
-    background-color: #ffffff;
-    color: var(--terraflora-green);
-    max-width: 900px;
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 8px;
-}
-
-/* Flexbox para imagem à esquerda e texto à direita */
-.main-content-flex {
+/* Seção principal */
+.hero {
+    width: 100%;
+    height: 100vh;
+    background-image: url('/static/images/background_terraflora.png');
+    background-size: cover;
+    background-position: center;
     display: flex;
     align-items: center;
-}
-
-.image-container {
-    flex: 1;
-    margin-right: 20px; /* Espaço entre a imagem e o texto */
-}
-
-.image-container img {
-    max-width: 100%; /* Garante que a imagem não ultrapasse o tamanho da coluna */
-    border-radius: 10px; /* Adiciona bordas arredondadas à imagem */
-}
-
-.text-container {
-    flex: 2; /* Faz o texto ocupar mais espaço */
-}
-
-.text-container h2 {
-    font-size: 2.5em; /* Aumenta o tamanho do título */
-    margin-bottom: 10px;
-}
-
-.text-container p {
-    font-size: 1.2em;
-    line-height: 1.8;
-    text-align: justify;
-}
-
-.main-content h1, 
-.main-content-special h1 {
-    color: var(--terraflora-green); 
+    justify-content: center;
     text-align: center;
+    color: var(--terraflora-sand);
+    padding: 20px;
+    box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.4);
+}
+
+.hero-content {
+    max-width: 800px;
+}
+
+.hero h1 {
+    font-size: 4em;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.5em;
+    margin-bottom: 30px;
+}
+
+.cta-button {
+    padding: 15px 30px;
+    background-color: var(--terraflora-highlight);
+    color: var(--terraflora-green);
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: var(--terraflora-hover);
+    color: var(--terraflora-sand);
+}
+
+/* Seção de caixas informativas */
+.info-boxes {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 40px;
+    max-width: 1200px;
+    margin: -100px auto 0;
+    z-index: 100;
+    position: relative;
+}
+
+.info-box {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.info-box:hover {
+    transform: translateY(-10px);
+}
+
+.info-box img {
+    max-width: 60px;
     margin-bottom: 10px;
 }
-.h1-imersao {
-    color: var(--terraflora-sand); /* Cor definida */
-    font-size: 2.5em; /* Tamanho do texto */
-    text-align: center; /* Centralizar o texto */
-    margin-top: 20px; /* Espaçamento superior */
-    margin-bottom: 20px; /* Espaçamento inferior */
+
+.info-box h2 {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+    color: var(--terraflora-green);
 }
-.csd-image img {
-    display: block;
-    margin: 0 auto;
-    max-width: 100%; /* Garantindo que a imagem não exceda o tamanho do container */
-    height: auto;
+
+.info-box p {
+    font-size: 0.9em;
+    color: var(--terraflora-dark-text);
+}
+
+/* Footer */
+.footer {
+    background-color: var(--terraflora-green);
+    color: var(--terraflora-sand);
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+    margin-top: 20px;
 }

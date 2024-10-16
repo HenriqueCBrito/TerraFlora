@@ -3,69 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TerraFlora - Início</title>
-    {% load static %}  <!-- Carrega a tag static do Django -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- Certifique-se de que o arquivo CSS esteja correto -->
+    <title>TerraFlora - Agricultura Sustentável</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <header class="bg-terraflora-green text-terraflora-sand">
-        <nav class="navbar">
+    <!-- Cabeçalho -->
+    <header>
+        <div class="navbar">
             <div class="logo">
-                <img src="{% static 'images/TREVO_LOGO.png' %}" alt="Logo TerraFlora"> <!-- Certifique-se de que a imagem esteja no caminho correto -->
-                <span>Em andamento...</span>
+                <img src="{% static 'images/TREVO_LOGO.png' %}" alt="Logo TerraFlora">
             </div>
             <ul class="nav-links">
                 <li><a href="#">INÍCIO</a></li>
-                <li><a href="#">QUEM SOMOS</a></li>
-                <li><a href="#">CLIENTE</a>
-                    <ul class="dropdown">
-                        <li><a href="#">Desafio Do Cliente</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">PROCESSO</a>
-                    <ul class="dropdown">
-                        <li><a href="{% url 'imersao' %}">Imersão</a></li>
-                        <li><a href="#">Ideação</a></li>
-                        <li><a href="#">Prototipação</a></li>
-                        <li><a href="#">Validação</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">MORE</a>
+                <li><a href="{% url 'farm_list' %}">HISTORIAS</a></li>
+                <li class="dropdown-parent">
+                    <a href="#">USUÁRIO</a>
                     <ul class="dropdown">
                         <li><a href="{% url 'login' %}">Login</a></li>
                         <li><a href="{% url 'register' %}">Cadastro</a></li>
                     </ul>
                 </li>
             </ul>
-        </nav>
+        </div>
     </header>
 
-    <!-- Primeiro bloco com fundo amarelado -->
-    <div class="main-content-special">
-        <h1>O "TERRAFLORA"</h1>
-        <p>
-            tem como principal objetivo desenvolver uma solução inovadora para ajudar nosso cliente, 
-            <strong>CAIS - Coletivo Agroecológico Inovando em Sustentabilidade</strong>. Apresentaremos nesse site 
-            o resultado e a documentação do processo de nossas habilidades profissionais, interpessoais e técnicas 
-            que resultaram o produto final seguindo os requisitos de Projetos 2 e necessidades do cliente.
-        </p>
-    </div>
+    <!-- Seção principal -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>TerraFlora</h1>
+            <p>Agricultura Sustentável</p>
+            <a href="#" class="cta-button">Explore Mais</a>
+        </div>
+    </section>
 
-    <!-- Bloco com imagem à esquerda e texto à direita -->
-    <div class="main-content-flex">
-        <div class="image-container">
-            <img src="{% static 'images/imagem_teste.jpg' %}" alt="Grupo Trevo"> <!-- Substitua 'sua_imagem.png' pelo nome correto da imagem -->
+    <!-- Seção de caixas informativas -->
+    <section class="info-boxes">
+        <div class="info-box">
+            <img src="{% static 'images/gestao.png' %}" alt="Ícone 1">
+            <h2>Gestão de Culturas</h2>
+            <p>Gestão eficiente das suas culturas para um melhor rendimento.</p>
         </div>
-        <div class="text-container">
-            <h2>Olá, somos o grupo TREVO!</h2>
-            <p>
-                Nossa equipe é composta por alunos do 2º período da Cesar School de Ciência de Computação e Design que se uniram para encontrar a melhor 
-                solução para o problema real do nosso cliente.
-            </p>
+        <div class="info-box">
+            <img src="{% static 'images/sustentabilidade1.png' %}" alt="Ícone 2">
+            <h2>Sustentabilidade</h2>
+            <p>Práticas sustentáveis para proteger o meio ambiente.</p>
         </div>
-    </div>
+        <div class="info-box">
+            <img src="{% static 'images/inovacao.png' %}" alt="Ícone 3">
+            <h2>Inovação</h2>
+            <p>Tecnologias avançadas para melhorar sua produção agrícola.</p>
+        </div>
+    </section>
 
 </body>
 </html>

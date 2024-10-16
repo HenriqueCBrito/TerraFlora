@@ -1,7 +1,8 @@
+# apps/farm/urls.py
 from django.urls import path
-from .views import register_farm, farm_detail
+from .views import farm_list, farm_detail
 
 urlpatterns = [
-    path('register/', register_farm, name='register_farm'),
-    path('<slug:slug>/', farm_detail, name='farm_detail'),  # Assuming you use slug for farm detail
+    path('', farm_list, name='farm_list'),  # Certifique-se de que o nome é 'farm_list'
+    path('<int:farm_id>/', farm_detail, name='farm_detail'),
 ]

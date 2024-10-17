@@ -64,3 +64,4 @@ def crop_list(request):
         messages.info(request, 'No crops found for your account.')
 
     return render(request, 'crop_list.html', {'crops': crops})
+

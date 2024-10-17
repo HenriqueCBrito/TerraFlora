@@ -1,0 +1,141 @@
+/* Cores e temas */
+:root {
+    --terraflora-green: #3b5a41;
+    --terraflora-light-green: #a1c04d;
+    --terraflora-sand: #d8d6a8;
+    --terraflora-hover: #a1c04d;
+    --terraflora-background: #f4efd7;
+    --terraflora-highlight: #f4d35e;
+    --terraflora-dark-text: #2a2a2a;
+}
+
+/* Estilo geral */
+body {
+    background-color: var(--terraflora-background);
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--terraflora-dark-text);
+}
+
+header {
+    width: 100%;
+    padding: 20px 0;
+    background-color: var(--terraflora-green);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-bottom: 3px solid var(--terraflora-light-green);
+}
+
+.navbar {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    width: 50px;
+    margin-right: 10px;
+}
+
+.logo span {
+    font-size: 1.5em;
+    color: var(--terraflora-sand);
+    font-weight: bold;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links li a {
+    color: var(--terraflora-sand);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.nav-links li a:hover {
+    color: var(--terraflora-hover);
+}
+
+main {
+    padding: 40px;
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: var(--terraflora-green);
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+p {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: var(--terraflora-dark-text);
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.btn {
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    display: inline-block;
+}
+
+.btn-edit {
+    background-color: var(--terraflora-highlight);
+    color: var(--terraflora-green);
+}
+
+.btn-edit:hover {
+    background-color: var(--terraflora-hover);
+    color: var(--terraflora-sand);
+}
+
+.btn-back {
+    background-color: var(--terraflora-green);
+    color: var(--terraflora-sand);
+}
+
+.btn-back:hover {
+    background-color: var(--terraflora-hover);
+    color: var(--terraflora-green);
+}
+
+footer {
+    background-color: var(--terraflora-green);
+    color: var(--terraflora-sand);
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+    margin-top: 20px;
+}

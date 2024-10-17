@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Detalhes da Cultura: {{ crop.name }}</h2>
+<p><strong>Tipo:</strong> {{ crop.get_crop_type_display }}</p>
+<p><strong>Estação de Plantio:</strong> {{ crop.planting_season }}</p>
+<p><strong>Estação de Colheita:</strong> {{ crop.harvest_season }}</p>
+<p><strong>Condições de Crescimento:</strong> {{ crop.growing_conditions }}</p>
+<p><strong>Plantas Compatíveis:</strong> {{ crop.compatible_plants }}</p>
+<p><strong>Pragas Comuns:</strong> {{ crop.common_pests }}</p>
+<p><strong>Necessidades de Irrigação:</strong> {{ crop.watering_needs }}</p>
+<p><strong>Exposição ao Sol:</strong> {{ crop.sun_exposure }}</p>
+<p><strong>Notas Adicionais:</strong> {{ crop.notes }}</p>
+
+<a href="{% url 'register_crop' %}">Registrar outra cultura</a>
+{% endblock %}

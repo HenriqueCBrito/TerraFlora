@@ -10,23 +10,44 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
-import os
 from pathlib import Path
+import os
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+load_dotenv(BASE_DIR / '.env')
 
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
+# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-fl_l22%v!e9d$-g_u4)^b0+=(=9t2qnsdhv2*i6!mabi4pf(br"
+TARGET_ENV = os.getenv('TARGET_ENV')
+NOT_PROD = not TARGET_ENV.lower().startswith('prod')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if NOT_PROD:
+    # SECURITY WARNING: don't run with debug turned on in production!
+    DEBUG = True
+    # SECURITY WARNING: keep the secret key used in production secret!
+    SECRET_KEY = "django-insecure-fl_l22%v!e9d$-g_u4)^b0+=(=9t2qnsdhv2*i6!mabi4pf(br"
+    ALLOWED_HOSTS = []
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+    SECRET_KEY = os.getenv('SECRET_KEY')
+    DEBUG = os.getenv('DEBUG', '0').lower() in ['true', 't', '1']
+    ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(' ')
+    CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS').split(' ')
 
-ALLOWED_HOSTS = []
+    SECURE_SSL_REDIRECT = \
+        os.getenv('SECURE_SSL_REDIRECT', '0').lower() in ['true', 't', '1']
+
+    if SECURE_SSL_REDIRECT:
+        SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 # Application definition
@@ -38,6 +59,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "whitenoise.runserver_nostatic",
     'apps.accounts',
     'apps.crops',
     'apps.farm',
@@ -47,6 +69,7 @@ AUTH_USER_MODEL = 'accounts.Customuser'
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -79,11 +102,15 @@ WSGI_APPLICATION = "terraflora.wsgi.application"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get('DBNAME'),
+            'HOST': os.environ.get('DBHOST'),
+            'USER': os.environ.get('DBUSER'),
+            'PASSWORD': os.environ.get('DBPASS'),
+            'OPTIONS': {'sslmode': 'require'},
+        }
     }
-}
 
 
 # Password validation
@@ -120,7 +147,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = '/static/'
+# STATIC_URL = "static/"
+STATIC_URL = os.environ.get('DJANGO_STATIC_URL', "/static/")
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_STORAGE = ('whitenoise.storage.CompressedManifestStaticFilesStorage')
 
 # Optionally add this if you have a static folder in your app
 STATICFILES_DIRS = [

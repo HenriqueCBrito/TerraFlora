@@ -1,9 +1,7 @@
-from django.contrib import admin
 from django.urls import path
-from apps.accounts import views  # Ajuste o caminho da importação se necessário
+from apps.accounts import views  # Adjust the import path if necessary
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
     path('', views.user_login, name='login'),  # A URL raiz redireciona para o login
     path('home/', views.home, name='home'),  # Página home protegida por login
     path('menu/', views.menu, name='menu'),  # Página de menu

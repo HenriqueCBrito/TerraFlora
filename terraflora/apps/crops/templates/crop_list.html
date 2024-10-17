@@ -1,20 +1,61 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Culturas - TerraFlora</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/farm_list.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
 
-{% block content %}
-<h2>Culturas Registradas para a Fazenda: {{ farm.farm_name }}</h2>
+    <!-- Cabeçalho -->
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <img src="{% static 'images/TREVO_LOGO.png' %}" alt="Logo TerraFlora" width="50">
+                <span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="{% url 'home' %}">Início</a></li>
+                <li><a href="{% url 'farm_list' %}">Fazendas</a></li>
+                <li><a href="{% url 'register_farm' %}">Registrar Fazenda</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+        </div>
+    </header>
 
-{% if crops %}
-    <ul>
-        {% for crop in crops %}
-            <li>
-                <a href="{% url 'crop_detail' crop.id %}">{{ crop.name }}</a> 
-                - Tipo: {{ crop.get_crop_type_display }}
-            </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>Não há culturas registradas para esta fazenda.</p>
-{% endif %}
+    <!-- Seção de lista de culturas -->
+    <main>
+        <h2>Culturas Registradas para a Fazenda: {{ farm.farm_name }}</h2>
 
-<a href="{% url 'register_crop' %}">Registrar nova cultura</a>
-{% endblock %}
+        <div class="crop-list">
+            {% if crops %}
+                {% for crop in crops %}
+                    <div class="crop-card">
+                        <h3><a href="{% url 'crop_detail' crop.id %}">{{ crop.name }}</a></h3>
+                        <p>Tipo: {{ crop.get_crop_type_display }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>Não há culturas registradas para esta fazenda.</p>
+            {% endif %}
+        </div>
+        
+        <div class="buttons">
+            <a href="{% url 'register_crop' %}" class="btn btn-register">Registrar Nova Cultura</a>
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>&copy; 2024 TerraFlora</p>
+        <a href="{% url 'home' %}" class="home-button">
+            <i class="fas fa-home"></i> Home
+        </a>
+    </footer>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>

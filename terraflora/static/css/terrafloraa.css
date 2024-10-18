@@ -1,0 +1,147 @@
+/* Cores e temas */
+:root {
+    --terraflora-green: #3b5a41;
+    --terraflora-light-green: #a1c04d;
+    --terraflora-sand: #d8d6a8;
+    --terraflora-hover: #a1c04d;
+    --terraflora-background: #f4efd7;
+    --terraflora-highlight: #f4d35e;
+}
+
+/* Estilo geral */
+body {
+    background-color: var(--terraflora-background);
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--terraflora-green);
+}
+
+/* Cabeçalho */
+header {
+    width: 100%;
+    background-color: var(--terraflora-green);
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar .logo {
+    display: flex;
+    align-items: center;
+}
+
+.navbar .logo img {
+    width: 50px;
+    margin-right: 10px;
+}
+
+.navbar .logo span {
+    font-size: 1.5em;
+    color: var(--terraflora-sand);
+    font-weight: bold;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links li a {
+    color: var(--terraflora-sand);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.nav-links li a:hover {
+    color: var(--terraflora-hover);
+}
+
+/* Seção de login */
+.login-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin-top: 60px; /* Ajuste para compensar o cabeçalho fixo */
+    width: 100%;
+}
+
+.login-container {
+    background-color: var(--terraflora-sand);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.login-container h2 {
+    color: var(--terraflora-green);
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--terraflora-green);
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--terraflora-green);
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.btn-primary {
+    background-color: var(--terraflora-green);
+    color: var(--terraflora-sand);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--terraflora-hover);
+}
+
+/* Rodapé */
+.footer {
+    width: 100%;
+    background-color: var(--terraflora-green);
+    color: var(--terraflora-sand);
+    padding: 10px;
+    text-align: center;
+    margin-top: auto;
+}

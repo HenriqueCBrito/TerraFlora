@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Culturas - TerraFlora</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/farm_list.css' %}">
+    <link rel="stylesheet" href="{% static 'css/farm_list2.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 <body>
 
@@ -14,8 +15,11 @@
     <header>
         <div class="navbar">
             <div class="logo">
-                <img src="{% static 'images/TREVO_LOGO.png' %}" alt="Logo TerraFlora" width="50">
-                <span></span>
+                <a href="{% url 'home' %}">
+                    <br><br>
+                    <img src="{% static 'images/TREVO_LOGO.png' %}" alt="Logo TerraFlora" width="50">
+                </a>
+            <br><br><br>
             </div>
             <ul class="nav-links">
                 <li><a href="{% url 'home' %}">Início</a></li>
@@ -27,27 +31,43 @@
     </header>
 
     <!-- Seção de lista de culturas -->
+    <br><br><br><br>
     <main>
-        <h2>Culturas Registradas para a Fazenda: {{ farm.farm_name }}</h2>
+        <h2 class="centered-title">Culturas Registradas para a Fazenda: {{ farm.farm_name }}</h2>
 
         <div class="crop-list">
             {% if crops %}
                 {% for crop in crops %}
                     <div class="crop-card">
-                        <h3><a href="{% url 'crop_detail' crop.id %}">{{ crop.name }}</a></h3>
-                        <p>Tipo: {{ crop.get_crop_type_display }}</p>
+                        <div class="crop-box">
+                            <!-- Ícones Font Awesome de acordo com o tipo da cultura -->
+                            {% if crop.get_crop_type_display == "Vegetal" %}
+                                <i class="fas fa-carrot crop-icon"></i> <!-- Vegetal -->
+                            {% elif crop.get_crop_type_display == "Fruta" %}
+                                <i class="fas fa-apple-alt crop-icon"></i> <!-- Fruta -->
+                            {% elif crop.get_crop_type_display == "Grão" %}
+                                <i class="fas fa-seedling crop-icon"></i> <!-- Grão -->
+                            {% elif crop.get_crop_type_display == "Erva" %}
+                                <i class="fas fa-leaf crop-icon"></i> <!-- Erva -->
+                            {% elif crop.get_crop_type_display == "Flor" %}
+                            <i class="fab fa-pagelines crop-icon"></i> <!-- Flor -->
+                            {% endif %}
+                            
+                            <h3><a href="{% url 'crop_detail' crop.id %}">{{ crop.name }}</a></h3>
+                            <p>{{ crop.get_crop_type_display }}</p> <!-- Mostra o tipo de cultura -->
+                        </div>
                     </div>
                 {% endfor %}
             {% else %}
-                <p>Não há culturas registradas para esta fazenda.</p>
+                <p class="no-crops-message">Não há culturas registradas para esta fazenda.</p>
             {% endif %}
         </div>
-        
+    <br><br><br><br><br><br><br>
         <div class="buttons">
             <a href="{% url 'register_crop' %}" class="btn btn-register">Registrar Nova Cultura</a>
         </div>
     </main>
-
+    <br><br><br><br><br>
     <!-- Rodapé -->
     <footer>
         <p>&copy; 2024 TerraFlora</p>
@@ -56,6 +76,6 @@
         </a>
     </footer>
 
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
 </body>
 </html>

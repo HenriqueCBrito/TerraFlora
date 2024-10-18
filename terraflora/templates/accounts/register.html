@@ -3,104 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro - TerraFlora</title>
+    <title>Registrar Cultura - TerraFlora</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/terraflora_register.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/register_crop.css' %}">
 </head>
 <body>
+    <!-- Conteúdo Principal -->
+    <main class="container form-container">
+        <div class="title-section">
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <img src="{% static 'images/TREVO_LOGO.png' %}" alt="Logo" class="form-logo">
+            </a>
+            <h2>Registrar Cultura</h2>
+        </div>
 
-    <!-- Cabeçalho -->
-    <header>
-        <div class="navbar">
-            <div class="logo">
-                <a href="{% url 'home' %}">
-                    <img src="{% static 'images/TREVO_LOGO.png' %}" alt="Logo TerraFlora" width="80">
-                    <span>TerraFlora</span>
-                </a>
+        {% if messages %}
+            <div class="alert alert-info" role="alert">
+                {% for message in messages %}
+                    {{ message }}<br>
+                {% endfor %}
             </div>
-            <ul class="nav-links">
-                <li><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="{% url 'register' %}">Registrar</a></li>
-            </ul>
-        </div>
-    </header>
+        {% endif %}
 
-    <!-- Seção de registro -->
-    <main class="register-section">
-        <div class="register-container">
-            <h2>Registro</h2>
+        <form method="POST" action="{% url 'register_crop' %}" class="form mt-4">
+            {% csrf_token %}
+            <div class="input-group">
+                <label for="name" class="form-label">Nome da Cultura:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
 
-            {% if messages %}
-                <div class="alert alert-info">
-                    {% for message in messages %}
-                        {{ message }}<br>
-                    {% endfor %}
-                </div>
-            {% endif %}
+            <div class="input-group">
+                <label for="crop_type" class="form-label">Tipo de Cultura:</label>
+                <select class="form-control" id="crop_type" name="crop_type" required>
+                    <option value="vegetable">Vegetal</option>
+                    <option value="fruit">Fruta</option>
+                    <option value="grain">Grão</option>
+                    <option value="herb">Erva</option>
+                    <option value="flower">Flor</option>
+                </select>
+            </div>
 
-            <form method="POST" action="{% url 'register' %}">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label for="email">Endereço de Email</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="username">Nome de Usuário</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div class="form-group">
-                    <label for="full_Name">Nome Completo</label>
-                    <input type="text" id="full_Name" name="full_Name" required>
-                </div>
-                <div class="form-group">
-                    <label for="cpf">CPF</label>
-                    <input type="text" id="cpf" name="cpf">
-                </div>
-                <div class="form-group">
-                    <label for="phone_number">Número de Telefone</label>
-                    <input type="text" id="phone_number" name="phone_number" placeholder="+5581912345678" maxlength="15" title="Insira no formato internacional, com no máximo 15 caracteres.">
-                </div>
-                <div class="form-group">
-                    <label for="street">Rua</label>
-                    <input type="text" id="street" name="street">
-                </div>
-                <div class="form-group">
-                    <label for="home_number">Número da Casa</label>
-                    <input type="text" id="home_number" name="home_number">
-                </div>
-                <div class="form-group">
-                    <label for="city">Cidade</label>
-                    <input type="text" id="city" name="city">
-                </div>
-                <div class="form-group">
-                    <label for="state">Estado</label>
-                    <input type="text" id="state" name="state">
-                </div>
-                <div class="form-group">
-                    <label for="country">País</label>
-                    <input type="text" id="country" name="country">
-                </div>
-                <div class="form-group">
-                    <label for="password">Senha</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                <div class="form-group">
-                    <label for="confirm_password">Confirmar Senha</label>
-                    <input type="password" id="confirm_password" name="confirm_password" required>
-                </div>
-                <button type="submit" class="btn-primary">Registrar</button>
-            </form>
-        </div>
+            <div class="input-group">
+                <label for="planting_season" class="form-label">Estação de Plantio:</label>
+                <input type="text" class="form-control" id="planting_season" name="planting_season" required>
+            </div>
+
+            <div class="input-group">
+                <label for="harvest_season" class="form-label">Estação de Colheita:</label>
+                <input type="text" class="form-control" id="harvest_season" name="harvest_season" required>
+            </div>
+
+            <div class="input-group">
+                <label for="growing_conditions" class="form-label">Condições de Crescimento:</label>
+                <textarea class="form-control" id="growing_conditions" name="growing_conditions" required></textarea>
+            </div>
+
+            <div class="input-group">
+                <label for="compatible_plants" class="form-label">Plantas Compatíveis:</label>
+                <textarea class="form-control" id="compatible_plants" name="compatible_plants"></textarea>
+            </div>
+
+            <div class="input-group">
+                <label for="common_pests" class="form-label">Pragas Comuns:</label>
+                <textarea class="form-control" id="common_pests" name="common_pests"></textarea>
+            </div>
+
+            <div class="input-group">
+                <label for="watering_needs" class="form-label">Necessidades de Irrigação:</label>
+                <input type="text" class="form-control" id="watering_needs" name="watering_needs" required>
+            </div>
+
+            <div class="input-group">
+                <label for="sun_exposure" class="form-label">Exposição ao Sol:</label>
+                <input type="text" class="form-control" id="sun_exposure" name="sun_exposure" required>
+            </div>
+
+            <div class="input-group">
+                <label for="notes" class="form-label">Notas Adicionais:</label>
+                <textarea class="form-control" id="notes" name="notes"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-terraflora">Registrar Cultura</button>
+        </form>
     </main>
-
-    <!-- Rodapé -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2024 TerraFlora</p>
-            <a href="{% url 'home' %}" class="home-button">Home</a>
-        </div>
-    </footer>
-
 </body>
 </html>

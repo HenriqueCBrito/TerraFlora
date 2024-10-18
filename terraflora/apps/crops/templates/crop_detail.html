@@ -5,50 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes da Cultura - TerraFlora</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/farm_detail.css' %}">
+    <link rel="stylesheet" href="{% static 'css/farm_detail2.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <!-- Cabeçalho -->
-    <header>
-        <div class="navbar">
-            <div class="logo">
-                <a href="{% url 'home' %}">
-                    <img src="{% static 'images/TREVO_LOGO.png' %}" alt="Logo TerraFlora">
-                </a>
-            </div>
+    <header class="navbar">
+        <div class="logo">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'images/TREVO_LOGO.png' %}" alt="Logo TerraFlora" class="logo-img">
+            </a>
+        </div>
+        <nav>
             <ul class="nav-links">
                 <li><a href="{% url 'home' %}">Home</a></li>
                 <li><a href="{% url 'crop_list' %}">Minhas Culturas</a></li>
                 <li><a href="{% url 'register_crop' %}">Registrar Cultura</a></li>
             </ul>
-        </div>
+        </nav>
     </header>
 
     <!-- Seção de detalhes da cultura -->
-    <main>
+    <main class="details-section">
         <div class="container">
-            <h2>Detalhes da Cultura: {{ crop.name }}</h2>
-            <p><strong>Tipo:</strong> {{ crop.get_crop_type_display }}</p>
-            <p><strong>Estação de Plantio:</strong> {{ crop.planting_season }}</p>
-            <p><strong>Estação de Colheita:</strong> {{ crop.harvest_season }}</p>
-            <p><strong>Condições de Crescimento:</strong> {{ crop.growing_conditions }}</p>
-            <p><strong>Plantas Compatíveis:</strong> {{ crop.compatible_plants }}</p>
-            <p><strong>Pragas Comuns:</strong> {{ crop.common_pests }}</p>
-            <p><strong>Necessidades de Irrigação:</strong> {{ crop.watering_needs }}</p>
-            <p><strong>Exposição ao Sol:</strong> {{ crop.sun_exposure }}</p>
-            <p><strong>Notas Adicionais:</strong> {{ crop.notes }}</p>
-
+            <h2 class="details-title">Detalhes da Cultura: {{ crop.name }}</h2>
+            <div class="details-info">
+                <p><strong>Tipo:</strong> {{ crop.get_crop_type_display }}</p>
+                <p><strong>Estação de Plantio:</strong> {{ crop.planting_season }}</p>
+                <p><strong>Estação de Colheita:</strong> {{ crop.harvest_season }}</p>
+                <p><strong>Condições de Crescimento:</strong> {{ crop.growing_conditions }}</p>
+                <p><strong>Plantas Compatíveis:</strong> {{ crop.compatible_plants }}</p>
+                <p><strong>Pragas Comuns:</strong> {{ crop.common_pests }}</p>
+                <p><strong>Necessidades de Irrigação:</strong> {{ crop.watering_needs }}</p>
+                <p><strong>Exposição ao Sol:</strong> {{ crop.sun_exposure }}</p>
+                <p><strong>Notas Adicionais:</strong> {{ crop.notes }}</p>
+            </div>
             <div class="buttons">
-                <a href="{% url 'register_crop' %}" class="btn btn-register">Registrar Outra Cultura</a>
-                <a href="{% url 'crop_list' %}" class="btn btn-back">Voltar à Lista de Culturas</a>
+                <a href="{% url 'register_crop' %}" class="btn btn-primary">Registrar Outra Cultura</a>
+                <a href="{% url 'crop_list' %}" class="btn btn-secondary">Voltar à Lista de Culturas</a>
             </div>
         </div>
     </main>
-
+     <br><br>
     <!-- Rodapé -->
-    <footer>
+    <footer class="footer">
         <p>&copy; 2024 TerraFlora</p>
     </footer>
 

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Cultura - TerraFlora</title>
+    {% load static %}
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/register_farm.css' %}">
+</head>
+<body>
+    <!-- Conteúdo Principal -->
+    <main class="container form-container">
+        <div class="title-section">
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <img src="{% static 'images/TREVO_LOGO.png' %}" alt="Logo" class="form-logo">
+            </a>
+            <h2>Registrar Cultura</h2>
+        </div>
+
+        {% if messages %}
+            <div class="alert alert-info" role="alert">
+                {% for message in messages %}
+                    {{ message }}<br>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="POST" action="{% url 'register_crop' %}" class="mt-4">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="name" class="form-label">Nome da Cultura:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="mb-3">
+                <label for="crop_type" class="form-label">Tipo de Cultura:</label>
+                <select class="form-control" id="crop_type" name="crop_type" required>
+                    <option value="vegetable">Vegetal</option>
+                    <option value="fruit">Fruta</option>
+                    <option value="grain">Grão</option>
+                    <option value="herb">Erva</option>
+                    <option value="flower">Flor</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="planting_season" class="form-label">Estação de Plantio:</label>
+                <input type="text" class="form-control" id="planting_season" name="planting_season" required>
+            </div>
+            <div class="mb-3">
+                <label for="harvest_season" class="form-label">Estação de Colheita:</label>
+                <input type="text" class="form-control" id="harvest_season" name="harvest_season" required>
+            </div>
+            <div class="mb-3">
+                <label for="growing_conditions" class="form-label">Condições de Crescimento:</label>
+                <textarea class="form-control" id="growing_conditions" name="growing_conditions" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="compatible_plants" class="form-label">Plantas Compatíveis:</label>
+                <textarea class="form-control" id="compatible_plants" name="compatible_plants"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="common_pests" class="form-label">Pragas Comuns:</label>
+                <textarea class="form-control" id="common_pests" name="common_pests"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="watering_needs" class="form-label">Necessidades de Irrigação:</label>
+                <input type="text" class="form-control" id="watering_needs" name="watering_needs" required>
+            </div>
+            <div class="mb-3">
+                <label for="sun_exposure" class="form-label">Exposição ao Sol:</label>
+                <input type="text" class="form-control" id="sun_exposure" name="sun_exposure" required>
+            </div>
+            <div class="mb-3">
+                <label for="notes" class="form-label">Notas Adicionais:</label>
+                <textarea class="form-control" id="notes" name="notes"></textarea>
+            </div>
+            <button type="submit" class="btn btn-terraflora">Registrar Cultura</button>
+        </form>
+    </main>
+</body>
+</html>

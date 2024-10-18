@@ -1,0 +1,389 @@
+/* TerraFlora theme colors */
+:root {
+    --terraflora-green: #3b5a41; /* Cor do fundo */
+    --terraflora-light-green: #a1c04d;  /* Verde mais claro */
+    --terraflora-sand: #d8d6a8;  /* Cor areia clara */
+    --terraflora-hover: #a1c04d;  /* Cor de hover */
+    --terraflora-background: #f4efd7; /* Background mais claro */
+}
+
+/* Body background */
+body {
+    background-color: var(--terraflora-background);  /* Fundo claro */
+    color: var(--terraflora-green);
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Header */
+header {
+    background-color: var(--terraflora-green); 
+    padding: 20px 0;
+    font-size: 1.2em;
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    border-bottom: 3px solid var(--terraflora-light-green); /* Adiciona borda para separação */
+}
+
+/* Navbar com flexbox */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.navbar .logo {
+    display: flex;
+    align-items: center;
+}
+
+.navbar .logo img {
+    width: 80px; /* Tamanho ajustado */
+    margin-right: 10px;
+}
+
+.navbar .logo span {
+    font-size: 1.5em;
+    color: var(--terraflora-sand);
+    font-weight: bold;
+}
+
+/* Navigation Links */
+.nav-links {
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    margin-left: 20px;
+    position: relative;
+}
+
+.nav-links li a {
+    color: var(--terraflora-sand);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1em;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-links li a:hover {
+    background-color: var(--terraflora-hover); 
+    color: var(--terraflora-green); 
+}
+
+/* Dropdown Menu */
+.nav-links li .dropdown {
+    display: none;
+    position: absolute;
+    background-color: var(--terraflora-green); 
+    top: 100%;
+    left: 0;
+    padding: 0;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    min-width: 150px;
+    white-space: nowrap;
+}
+
+.nav-links li:hover .dropdown {
+    display: block;
+}
+
+.dropdown li {
+    display: block;
+    margin: 0;
+}
+
+.dropdown li a {
+    display: block;
+    padding: 10px 20px;
+    font-size: 0.9em;
+    text-align: left;
+    width: 100%;
+}
+
+.dropdown li a:hover {
+    background-color: var(--terraflora-hover); 
+    color: var(--terraflora-green);
+}
+
+/* Estilo do H1 específico */
+.h1-imersao {
+    color: var(--terraflora-sand); 
+    font-size: 2.5em; 
+    text-align: center; 
+    margin: 20px 0; 
+    font-weight: bold;
+    letter-spacing: 2px; /* Aumenta o espaçamento entre as letras */
+}
+
+/* Estilo geral dos h1 */
+h1 {
+    color: var(--terraflora-green); 
+    font-size: 2.5em; 
+    margin: 20px 0; 
+    text-align: center; 
+}
+
+/* Imagem centralizada com responsividade */
+.csd-image img {
+    display: block;
+    margin: 20px auto;
+    max-width: 80%; /* Ajusta o tamanho da imagem */
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/* Texto explicativo */
+span {
+    font-size: 1.2em;
+    color: var(--terraflora-green);
+    margin-bottom: 20px;
+    display: block;
+    text-align: center;
+}
+/* Adiciona estilos para a seção de "Análise de Similares" */
+.analise-similares {
+    background-color: var(--terraflora-sand);
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 8px;
+    max-width: 1100px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.analise-similares h1 {
+    font-size: 2.5em;
+    color: var(--terraflora-green);
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.analise-similares p {
+    font-size: 1.2em;
+    color: var(--terraflora-green);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Estilo para a tabela de Benchmarking */
+.benchmark-table-container {
+    background-color: var(--terraflora-background);
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 8px;
+    max-width: 1100px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.benchmark-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.benchmark-table th,
+.benchmark-table td {
+    border: 2px solid var(--terraflora-green);
+    padding: 10px;
+    text-align: center;
+}
+
+.benchmark-table th {
+    background-color: var(--terraflora-light-green);
+    color: var(--terraflora-sand);
+    font-weight: bold;
+}
+
+.benchmark-table td {
+    background-color: var(--terraflora-background);
+    color: var(--terraflora-green);
+}
+
+/* Estilo para a "Matriz CSD" */
+.csd-matrix {
+    background-color: var(--terraflora-background);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 1100px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.csd-matrix h1 {
+    font-size: 2.5em;
+    color: var(--terraflora-green);
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.csd-matrix p {
+    font-size: 1.2em;
+    color: var(--terraflora-green);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.csd-matrix img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.benchmark-image {
+    display: block;
+    margin: 20px auto;
+    max-width: 100%; /* Garante que a imagem não ultrapasse o tamanho do container */
+    height: auto;
+    border-radius: 10px; /* Adiciona bordas arredondadas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona sombra para dar destaque */
+}
+/* Estilo para a seção de "Mapa de Stakeholders" */
+.stakeholder-map {
+    background-color: var(--terraflora-background);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 1100px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.stakeholder-map h1 {
+    font-size: 2.5em;
+    color: var(--terraflora-green);
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.stakeholder-map p {
+    font-size: 1.2em;
+    color: var(--terraflora-green);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.stakeholder-image img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para a seção de "Mapa de Empatia" */
+.empathy-map {
+    background-color: var(--terraflora-background);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 1100px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.empathy-map h1 {
+    font-size: 2.5em;
+    color: var(--terraflora-green);
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.empathy-map p {
+    font-size: 1.2em;
+    color: var(--terraflora-green);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.empathy-image img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para a seção de "Persona" */
+.persona-section {
+    background-color: var(--terraflora-background);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 1100px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.persona-section h1 {
+    font-size: 2.5em;
+    color: var(--terraflora-green);
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.persona-section p {
+    font-size: 1.2em;
+    color: var(--terraflora-green);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.persona-card {
+    display: flex;
+    background-color: var(--terraflora-sand);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    margin-top: 20px;
+}
+
+.persona-image {
+    max-width: 200px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.persona-info {
+    flex: 1;
+}
+
+.persona-info h2 {
+    font-size: 1.8em;
+    color: var(--terraflora-green);
+    margin-bottom: 10px;
+}
+
+.persona-info ul {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 15px;
+}
+
+.persona-info ul li {
+    font-size: 1.1em;
+    color: var(--terraflora-green);
+    margin-bottom: 5px;
+}
+
+.persona-info p {
+    font-size: 1em;
+    line-height: 1.6;
+    color: var(--terraflora-green);
+    text-align: justify;
+}

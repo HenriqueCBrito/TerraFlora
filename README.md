@@ -21,7 +21,9 @@ Com o Terraflora, agricultores podem otimizar o cultivo, aumentar a produtividad
 
 ## 🖇️Links 
 -  [Projeto - Jira](https://cesar-team-omws9jcc.atlassian.net/jira/software/projects/TRF/boards/68/backlog)
-- [Site]()
+- [Site](https://terra-flora.azurewebsites.net/accounts/login/?next=/)
+- [Relatório da Programação em Par](https://docs.google.com/document/d/1HrIp963lEQDZbCUSWTN_ieBdo4_9d0Spqt6ZveHgzGc/edit?usp=sharing)
+- [Instruções de Uso](https://docs.google.com/document/d/1c1OgO7LOwW2Inl0H0sZEEPRcILvZiO6kl6c-bOLQv3Y/edit?usp=sharing)
 
 ## 📦 Entregas
 
@@ -29,8 +31,9 @@ Com o Terraflora, agricultores podem otimizar o cultivo, aumentar a produtividad
 <summary>Status Report 1 (SR1)</summary>
 <ul>
     <li><a href="img/backlog.png">Print do Backlog das histórias</a></li>
-    <li><a href="img/sprint1.png">Quadro da Sprint 1 Inicializada</a></li>
+    <li><a href="img/sprint1.png">Quadro da Sprint 1 com as Histórias Finalizadas</a></li>
     <li><a href="img/diagrama.png">Diagrama de Atividades</a></li>
+    <li><a href="https://www.youtube.com/watch?v=F00l2z5Ead4">Screencast</a></li>
 </ul>
 </details>
 

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Culturas - TerraFlora</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/terrafloraa.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <a href="{% url 'home' %}">
+                    <img src="{% static 'images/TREVO_LOGO.png' %}" alt="Logo TerraFlora" width="80">
+                    <span>TerraFlora</span>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'register' %}">Cadastro</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Seção de lista de culturas -->
+    <main class="cultures-section">
+        <div class="container">
+            <h2>Lista de Culturas</h2>
+            <div class="cultures-list">
+                {% for cultura in culturas %}
+                <div class="culture-card">
+                    <h3>{{ cultura.name }}</h3>
+                    <p><strong>Tipo:</strong> {{ cultura.get_crop_type_display }}</p>
+                    <p><strong>Estação de Plantio:</strong> {{ cultura.planting_season }}</p>
+                    <p><strong>Estação de Colheita:</strong> {{ cultura.harvest_season }}</p>
+                    <p><strong>Condições de Cultivo:</strong> {{ cultura.growing_conditions }}</p>
+                    <p><strong>Plantas Compatíveis:</strong> {{ cultura.compatible_plants }}</p>
+                    <p><strong>Pragas Comuns:</strong> {{ cultura.common_pests }}</p>
+                    <p><strong>Necessidades de Irrigação:</strong> {{ cultura.watering_needs }}</p>
+                    <p><strong>Exposição ao Sol:</strong> {{ cultura.sun_exposure }}</p>
+                    {% if cultura.notes %}
+                    <p><strong>Notas:</strong> {{ cultura.notes }}</p>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 TerraFlora</p>
+            <a href="{% url 'home' %}" class="home-button">Home</a>
+        </div>
+    </footer>
+
+</body>
+</html>

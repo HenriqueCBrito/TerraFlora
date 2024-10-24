@@ -1,0 +1,144 @@
+/* TerraFlora theme colors */
+:root {
+    --terraflora-green: #3b5a41;
+    --terraflora-light-green: #8bc34a;
+    --terraflora-sand: #f9f9f9;
+    --terraflora-hover: #6fa14d;
+    --terraflora-background: #f3f2ef;
+    --terraflora-dark-text: #2a2a2a;
+    --terraflora-highlight: #ffb703;
+}
+
+/* General styles */
+body {
+    background-color: var(--terraflora-background);
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Header */
+.header {
+    background-color: var(--terraflora-green);
+    padding: 15px 0;
+}
+
+.logo {
+    width: 60px;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+/* Form Container */
+.form-container {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    max-width: 700px;
+    width: 90%;
+    margin-top: 40px;
+    transition: box-shadow 0.3s;
+}
+
+.form-container:hover {
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Title Section */
+.title-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.title-section h2 {
+    color: var(--terraflora-green);
+    margin-left: 15px;
+    font-size: 2.5em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.form-logo {
+    width: 50px;
+    height: auto;
+}
+
+/* Form labels and inputs */
+.form-label {
+    color: var(--terraflora-green);
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+    font-size: 1.1em;
+}
+
+.form-control {
+    border: 1px solid var(--terraflora-light-green);
+    border-radius: 6px;
+    padding: 12px;
+    font-size: 1em;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--terraflora-hover);
+    box-shadow: 0 0 8px rgba(111, 161, 77, 0.3);
+    outline: none;
+}
+
+/* Submit Button */
+.btn-terraflora {
+    background-color: var(--terraflora-green);
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.btn-terraflora:hover {
+    background-color: var(--terraflora-hover);
+    transform: translateY(-2px);
+}
+
+/* Alerts */
+.alert {
+    padding: 12px;
+    background-color: var(--terraflora-highlight);
+    color: var(--terraflora-dark-text);
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .form-container {
+        padding: 20px;
+    }
+
+    .title-section h2 {
+        font-size: 1.8em;
+    }
+
+    .btn-terraflora {
+        font-size: 1em;
+        padding: 10px 15px;
+    }
+}

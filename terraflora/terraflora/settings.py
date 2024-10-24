@@ -38,17 +38,28 @@ if NOT_PROD:
         }
     }
 else:
+    # Production settings
     SECRET_KEY = os.getenv('SECRET_KEY')
     DEBUG = os.getenv('DEBUG', '0').lower() in ['true', 't', '1']
-    ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(' ')
-    CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS').split(' ')
+    ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split()  # Handle empty case
+    CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', '').split()  # Handle empty case
 
-    SECURE_SSL_REDIRECT = \
-        os.getenv('SECURE_SSL_REDIRECT', '0').lower() in ['true', 't', '1']
 
+    SECURE_SSL_REDIRECT = os.getenv('SECURE_SSL_REDIRECT', '0').lower() in ['true', 't', '1']
     if SECURE_SSL_REDIRECT:
         SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('DBNAME'),  # Use the correct environment variable
+            'USER': os.getenv('DBUSER'),  # Use the correct environment variable
+            'PASSWORD': os.getenv('DBPASS'),  # Use the correct environment variable
+            'HOST': os.getenv('DBHOST'),  # Use the correct environment variable
+            'PORT': '5432',  # Default PostgreSQL port
+            'OPTIONS': {'sslmode': 'require'},  # Ensure SSL mode is set for Azure
+        }
+    }
 
 # Application definition
 
@@ -96,17 +107,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "terraflora.wsgi.application"
-
-
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
 
 
 # Password validation

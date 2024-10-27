@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TerraFlora - Agricultura Sustentável</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/calendario.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<header>
+    <div class="navbar">
+        <div class="logo">
+            <img src="{% static 'images/TREVO_LOGO.png' %}" alt="Logo TerraFlora">
+        </div>
+        <ul class="nav-links">
+            <li><a href="{% url 'home' %}">INÍCIO</a></li>
+            <li><a href="{% url 'farm_list' %}">FAZENDAS</a></li>
+            <li><a href="{% url 'crop_list' %}">CULTURAS</a></li>
+            <li><a href="{% url 'calendar' %}">CALENDÁRIO</a></li> <!-- Nova opção "Calendário" -->
+            <li class="dropdown-parent">
+                <a href="#">USUÁRIO</a>
+                <ul class="dropdown">
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'register' %}">Cadastro</a></li>
+                    <li><a href="{% url 'user_data' %}">Meus Dados</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</header>

@@ -101,3 +101,11 @@ def delete_farm(request, farm_id):
         return redirect('farm_list')
 
     return render(request, 'farm/delete_farm.html', {'farm': farm})
+
+@login_required
+def shopping_suggestions(request):
+    return render(request, 'accounts/shopping_suggestions.html')
+
+@login_required
+def calendario(request):
+    return render(request, 'accounts/farm_timetable.html')

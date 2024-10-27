@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
 from .models import CustomUser
+from apps.crops.utils import add_example_crops
 
 # Exige que o usuário esteja autenticado para acessar a página home
 @login_required(login_url='login')
@@ -54,7 +55,9 @@ def register(request):
             user.set_password(password)  # Define a senha criptografada
             user.full_clean()  # Valida os campos do modelo
             user.save()
-
+            
+            add_example_crops(user)
+            
             login(request, user)  # Faz o login automático após o registro
             messages.success(request, 'Registro bem-sucedido!')
             return redirect('home')

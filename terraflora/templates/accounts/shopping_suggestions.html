@@ -19,7 +19,7 @@
                 <li><a href="{% url 'home' %}">INÍCIO</a></li>
                 <li><a href="{% url 'farm_list' %}">FAZENDAS</a></li>
                 <li><a href="{% url 'crop_list' %}">CULTURAS</a></li>
-                <li><a href="{% url 'calendar' %}">CALENDÁRIO</a></li> <!-- Nova opção "Calendário" -->
+                <li><a href="{% url 'calendar' %}">CALENDÁRIO</a></li>
                 <li class="dropdown-parent">
                     <a href="#">USUÁRIO</a>
                     <ul class="dropdown">
@@ -31,3 +31,37 @@
             </ul>
         </div>
     </header>
+
+    <div class="info-bar">
+        Informações Pessoais
+    </div>
+
+    <aside class="renda-section">
+        <div class="renda-box">
+            <label for="renda" class="renda-label">Renda (R$):</label>
+            <select id="renda" class="renda-dropdown">
+                <option value="0">ㅤㅤㅤㅤR$ / Mêsㅤㅤㅤ</option>
+                <option value="500">ㅤMenos de 1 mil R$ /Mês</option>
+                <option value="1500">ㅤEntre 1-2 mil R$ / Mêsㅤ</option>
+                <option value="1500">ㅤEntre 2-3 mil R$ / Mêsㅤ</option>
+                <option value="1500">ㅤEntre 3-4 mil R$ / Mêsㅤ</option>
+                <option value="1500">ㅤEntre 4-5 mil R$ / Mêsㅤ</option>
+                <option value="5500">ㅤMais de 5.000 R$ / Mêsㅤ</option>
+            </select>
+        </div>
+    </aside>
+
+    <aside class="recommendation-section"> 
+        <div class="recommendation-header">
+            <h3>Recomendações de Compra:</h3>
+        </div>
+        <div class="recommendation-top">
+            <p>Insira sua renda primeiro</p>
+        </div>
+    </aside>
+    
+    
+    
+    
+</body>
+</html>

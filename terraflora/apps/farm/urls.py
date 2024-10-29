@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import farm_list, farm_detail, register_farm, edit_farm, delete_farm, shopping_suggestions, calendario
+from .views import farm_list, farm_detail, register_farm, edit_farm, delete_farm, shopping_suggestions, calendario,get_events
 
 urlpatterns = [
     path('', farm_list, name='farm_list'),
@@ -9,4 +9,6 @@ urlpatterns = [
     path('register/', register_farm, name='register_farm'),  # URL para 'register_farm'
     path('meus_dados/', shopping_suggestions, name='user_data'),
     path('calendario/', calendario, name='calendar'),
+    path('api/get_events/', get_events, name='get_events'),
+
 ]

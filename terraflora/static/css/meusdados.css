@@ -17,7 +17,7 @@ body {
     padding: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
 }
 
 /* Cabeçalho */
@@ -111,104 +111,7 @@ header {
     display: block;
 }
 
-/* Seção principal */
-.hero {
-    width: 100%;
-    height: 100vh;
-    background-image: url('/static/images/background_terraflora.png');
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: var(--terraflora-sand);
-    padding: 20px;
-    box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.4);
-}
-
-.hero-content {
-    max-width: 800px;
-}
-
-.hero h1 {
-    font-size: 4em;
-    margin-bottom: 20px;
-}
-
-.hero p {
-    font-size: 1.5em;
-    margin-bottom: 30px;
-}
-
-.cta-button {
-    padding: 15px 30px;
-    background-color: var(--terraflora-highlight);
-    color: var(--terraflora-green);
-    border-radius: 25px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-}
-
-.cta-button:hover {
-    background-color: var(--terraflora-hover);
-    color: var(--terraflora-sand);
-}
-
-/* Seção de caixas informativas */
-.info-boxes {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding: 40px;
-    max-width: 1200px;
-    margin: -100px auto 0;
-    z-index: 100;
-    position: relative;
-}
-
-.info-box {
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 20px;
-    border-radius: 10px;
-    width: 250px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-}
-
-.info-box:hover {
-    transform: translateY(-10px);
-}
-
-.info-box img {
-    max-width: 60px;
-    margin-bottom: 10px;
-}
-
-.info-box h2 {
-    font-size: 1.4em;
-    margin-bottom: 10px;
-    color: var(--terraflora-green);
-}
-
-.info-box p {
-    font-size: 0.9em;
-    color: var(--terraflora-dark-text);
-}
-
-/* Footer */
-.footer {
-    background-color: var(--terraflora-green);
-    color: var(--terraflora-sand);
-    padding: 10px;
-    text-align: center;
-    width: 100%;
-    margin-top: 20px;
-}
-
+/* Informações pessoais */
 .info-bar {
     background-color: var(--terraflora-green);
     color: var(--terraflora-sand);
@@ -219,86 +122,74 @@ header {
     margin: 6em auto 0;
     width: calc(100% - 100px);
 }
+
+/* Seção principal (mantendo alinhamento original) */
+.main-content {
+    display: flex;
+    justify-content: space-between;
+    width: calc(100% - 100px);
+    margin: 20px auto;
+    padding-left: 40px;
+}
+
+/* Renda */
 .renda-section {
     text-align: left;
-    margin-top: 10px;
-    width: calc(100% - 100px);
-    padding-left: 0px; 
 }
-
-.renda-section {
-    text-align: left; 
-    margin-top: 10px; 
-    margin-left: -4em; 
-    width: calc(100% - 100px); 
-}
-
 
 .renda-box {
-    background-color: rgba(1, 73, 14, 0.8); 
-    border: 2px solid var(--terraflora-green); 
-    border-radius: 10px; 
-    padding: 10px; 
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-    margin-top: 10px; 
-    max-width: 300px; 
-    display: flex; 
-    align-items: center; 
+    background-color: rgba(1, 73, 14, 0.8);
+    border: 2px solid var(--terraflora-green);
+    border-radius: 10px;
+    padding: 10px;
+    width: 250px;
+    display: flex;
+    align-items: center;
 }
 
 .renda-label {
-    color: rgb(255, 255, 255); 
-    font-weight: bold; 
-    margin-right: 10px; 
+    color: white;
+    font-weight: bold;
+    margin-right: 10px;
 }
 
 .renda-dropdown {
-    color: black; 
-    background-color: white; 
-    border: 1px solid var(--terraflora-green); 
-    border-radius: 5px; 
-    padding: 10px; 
-    width: 200px; 
-    cursor: pointer; 
+    color: black;
+    background-color: white;
+    border: 1px solid var(--terraflora-green);
+    border-radius: 5px;
+    padding: 10px;
+    width: 200px;
+    cursor: pointer;
 }
 
+/* Recomendações */
 .recommendation-section {
     background-color: #f0f0f0;
-    border-radius: 10px; 
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-    max-width: 300px; 
-    margin-right: 4rem;
-    margin-left: auto; 
-    height: 500px; 
-    margin-top: -50px; 
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    margin-left: auto;
+    min-height: 250px;
 }
 
 .recommendation-header {
-    background-color: rgba(255, 165, 0, 0.6); 
-    padding: 10px; 
-    border-top-left-radius: 10px; 
-    border-top-right-radius: 10px; 
-    color: black; 
-    font-weight: normal; 
+    background-color: rgba(255, 165, 0, 0.6);
+    padding: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    color: black;
 }
 
 .recommendation-top {
-    background-color: white; 
+    background-color: white;
     padding: 15px;
-    border-bottom-left-radius: 10px; 
-    border-bottom-right-radius: 10px; 
-    height: calc(500px - 40px);
-    display: flex; 
-    justify-content: center;
-    align-items: center; 
-    text-align: center;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: flex-start;
+    text-align: left;
 }
-
-.recommendation-top p {
-    margin: 0; 
-    color: black;
-    font-weight: bold; 
-}
-
-
-

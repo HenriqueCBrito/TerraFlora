@@ -37,3 +37,14 @@ class Farm(models.Model):
     class Meta:
         verbose_name = 'Farm'
         verbose_name_plural = 'Farms'
+
+
+class Event(models.Model):
+    title = models.CharField(max_length=255)
+    culture_type = models.CharField(max_length=100)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    details = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.title

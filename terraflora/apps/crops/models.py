@@ -53,3 +53,4 @@ class Culturas(models.Model):
     class Meta:
         verbose_name = 'Cultura'  # Singular name
         verbose_name_plural = 'Culturas'  # Plural name
+

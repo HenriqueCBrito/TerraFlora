@@ -3,6 +3,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
 from .models import Farm
+from django.http import JsonResponse
+from .models import Event  # Certifique-se de que o modelo correto esteja sendo importado
+from django.views.decorators.csrf import csrf_exempt
 
 # View to register a new farm
 @login_required
@@ -109,3 +112,11 @@ def shopping_suggestions(request):
 @login_required
 def calendario(request):
     return render(request, 'accounts/farm_timetable.html')
+
+@csrf_exempt
+def get_events(request):
+    # Filtra eventos, por exemplo, associados ao usuário logado ou fazenda específica
+    events = Event.objects.all().values('title', 'culture_type', 'start_date', 'end_date', 'details')
+    events_list = list(events)  # Converte para uma lista de dicionários
+    return JsonResponse(events_list, safe=False)
+

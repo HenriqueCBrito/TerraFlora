@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TerraFlora - Agricultura Sustentável</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <img src="{% static 'images/TREVO_LOGO.png' %}" alt="Logo TerraFlora">
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">INÍCIO</a></li>
+                <li><a href="{% url 'farm_list' %}">FAZENDAS</a></li>
+                <li><a href="{% url 'crop_list' %}">CULTURAS</a></li>
+                <li><a href="{% url 'calendar' %}">CALENDÁRIO</a></li> <!-- Nova opção "Calendário" -->
+                <li class="dropdown-parent">
+                    <a href="#">USUÁRIO</a>
+                    <ul class="dropdown">
+                        <li><a href="{% url 'login' %}">Login</a></li>
+                        <li><a href="{% url 'register' %}">Cadastro</a></li>
+                        <li><a href="{% url 'user_data' %}">Meus Dados</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Seção principal -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>TerraFlora</h1>
+            <p>Agricultura Sustentável</p>
+            <a href="#" class="cta-button">Explore Mais</a>
+        </div>
+    </section>
+
+    <!-- Seção de caixas informativas -->
+    <section class="info-boxes">
+        <div class="info-box">
+            <img src="{% static 'images/gestao.png' %}" alt="Ícone 1">
+            <h2>Gestão de Culturas</h2>
+            <p>Gestão eficiente das suas culturas para um melhor rendimento.</p>
+        </div>
+        <div class="info-box">
+            <img src="{% static 'images/sustentabilidade1.png' %}" alt="Ícone 2">
+            <h2>Sustentabilidade</h2>
+            <p>Práticas sustentáveis para proteger o meio ambiente.</p>
+        </div>
+        <div class="info-box">
+            <img src="{% static 'images/inovacao.png' %}" alt="Ícone 3">
+            <h2>Inovação</h2>
+            <p>Tecnologias avançadas para melhorar sua produção agrícola.</p>
+        </div>
+    </section>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes da Fazenda - TerraFlora</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/farm_detail.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <img src="{% static 'images/TREVO_LOGO.png' %}" alt="Logo TerraFlora">
+                <span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'farm_list' %}">Minhas Fazendas</a></li>
+                <li><a href="{% url 'register_farm' %}">Registrar Fazenda</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h2>{{ farm.farm_name }}</h2>
+            <p><strong>Endereço:</strong> {{ farm.street }} {{ farm.home_number }}, {{ farm.city }}, {{ farm.state }}, {{ farm.country }}</p>
+            <p><strong>Tamanho:</strong> {{ farm.size }} {{ farm.get_size_unit_display }}</p>
+
+            <div class="buttons">
+                <a href="{% url 'edit_farm' farm.id %}" class="btn btn-edit">Editar Fazenda</a>
+                <a href="{% url 'farm_list' %}" class="btn btn-back">Voltar à Lista de Fazendas</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 TerraFlora</p>
+    </footer>
+</body>
+</html>

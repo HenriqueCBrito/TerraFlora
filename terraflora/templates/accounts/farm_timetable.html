@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendário de Plantio - TerraFlora</title>
+    {% load static %}
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js'></script>
+    <link rel="stylesheet" href="{% static 'css/calendario.css' %}">
+</head>
+<body>
+<header>
+    <div class="navbar">
+        <div class="logo">
+            <img src="{% static 'images/TREVO_LOGO.png' %}" alt="Logo TerraFlora">
+        </div>
+        <ul class="nav-links">
+            <li><a href="{% url 'home' %}">INÍCIO</a></li>
+            <li><a href="{% url 'farm_list' %}">FAZENDAS</a></li>
+            <li><a href="{% url 'crop_list' %}">CULTURAS</a></li>
+            <li><a href="{% url 'calendar' %}">CALENDÁRIO</a></li> 
+            <li class="dropdown-parent">
+                <a href="#">USUÁRIO</a>
+                <ul class="dropdown">
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'register' %}">Cadastro</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+<br>
+</header>
+
+<main class="main-container">
+    <section class="tasks-section">
+        <h2>Afazeres do Dia <span class="date" id="selected-date">Selecionar uma data</span></h2>
+        <ul class="task-list" id="task-list">
+        </ul>
+        <button class="add-task-btn" id="add-task"><i class="fas fa-plus"></i></button>
+
+        <!-- AJEITAR ISSO...-->
+        <div class="weather-widget">
+            <p><i class="fas fa-map-marker-alt"></i> Carpina, Pernambuco</p>
+            <p class="temperature">30°C <i class="fas fa-sun"></i></p>
+            <p>Parcialmente ensolarado</p>
+            <p>Vento: 19 km/h | Umidade: 54%</p>
+        </div>
+    </section>
+
+    <section class="calendar-section">
+        <div id="calendar"></div>
+    </section>
+
+    <section class="add-event-section">
+        <h3>Adicionar Planejamento</h3>
+        <form id="event-form">
+            <div class="form-group">
+                <label for="care">Cuidado:</label>
+                <select id="care" required>
+                    <option value="Plantar">Plantar</option>
+                    <option value="Colher">Colher</option>
+                    <option value="Regar">Regar</option>
+                    <option value="Podar">Podar</option>
+                    <option value="Podar">Remanejar o solo</option>
+               
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="crop">Cultura:</label>
+                <select type="text" id="crop"required>
+                    <option value="Plantar">Alface</option>
+                    <option value="Colher">Batata</option>
+                    <option value="Regar">Maçã</option>
+                    <option value="Podar">Tomate</option>
+                    <option value="Podar">Mais...</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="terrain">Terreno:</label>
+                <select id="terrain" required>
+                    <option value="Terreno 1">C.A.I.S</option>
+                    <option value="Terreno 2">Terreno 1</option>
+                    <option value="Terreno 1">Terreno 2</option>
+                </select>
+            </div>
+            <button type="submit" class="confirm-btn">Confirmar</button>
+        </form>
+    </section>
+</main>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let selectedDate = null;
+
+
+        let calendarEl = document.getElementById('calendar');
+        let calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            locale: 'pt-br',
+            events: '/api/get_events/', 
+            eventDisplay: 'block',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            dateClick: function(info) {
+                selectedDate = info.dateStr;
+                document.getElementById('selected-date').textContent = selectedDate;
+                loadTasks(selectedDate);
+            }
+        });
+        calendar.render();
+
+        function loadTasks(date) {
+            const taskList = document.getElementById('task-list');
+            taskList.innerHTML = ''; 
+
+           
+            const exampleTasks = [
+                { text: `Cultivo | Área 1 - Terreno 1`, completed: false },
+                { text: `Cultivo | Área 2 - Terreno 2`, completed: false }
+            ];
+
+            exampleTasks.forEach(task => {
+                const li = document.createElement('li');
+                li.innerHTML = `<span class="task-text">${task.text}</span><input type="checkbox" ${task.completed ? 'checked' : ''}>`;
+                taskList.appendChild(li);
+            });
+        }
+
+        document.getElementById('event-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (!selectedDate) {
+                alert("Selecione uma data no calendário antes de adicionar um planejamento.");
+                return;
+            }
+
+            const care = document.getElementById('care').value;
+            const crop = document.getElementById('crop').value;
+            const terrain = document.getElementById('terrain').value;
+
+            const taskList = document.getElementById('task-list');
+            const li = document.createElement('li');
+            li.innerHTML = `<span class="task-text">${care} - ${crop} | ${terrain}</span><input type="checkbox">`;
+            taskList.appendChild(li);
+
+            document.getElementById('event-form').reset();
+        });
+    });
+</script>
+
+</body>
+</html>

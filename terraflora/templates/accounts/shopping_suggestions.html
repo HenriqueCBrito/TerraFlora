@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil - TerraFlora</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/meusdados.css' %}">
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <img src="{% static 'images/TREVO_LOGO.png' %}" alt="Logo TerraFlora">
+            </div>
+            <ul class="nav-links">
+                <li><a href="{% url 'home' %}">INÍCIO</a></li>
+                <li><a href="{% url 'farm_list' %}">FAZENDAS</a></li>
+                <li><a href="{% url 'crop_list' %}">CULTURAS</a></li>
+                <li><a href="{% url 'calendar' %}">CALENDÁRIO</a></li>
+                <li class="dropdown-parent">
+                    <a href="#">USUÁRIO</a>
+                    <ul class="dropdown">
+                        <li><a href="{% url 'login' %}">Login</a></li>
+                        <li><a href="{% url 'register' %}">Cadastro</a></li>
+                        <li><a href="{% url 'user_data' %}">Meus Dados</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Informações pessoais -->
+    <div class="info-bar">
+        Informações Pessoais
+    </div>
+
+    <!-- Seção principal (renda e recomendações) -->
+    <div class="main-content">
+        <aside class="renda-section">
+            <div class="renda-box">
+                <label for="renda" class="renda-label">Renda (R$):</label>
+                <select id="renda" class="renda-dropdown" onchange="updateRecommendations()">
+                    <option value="0">- R$ / mês -</option>
+                    <option value="500">Menos de 1 mil R$ / mês</option>
+                    <option value="1500">Entre 1-2 mil R$ / mês</option>
+                    <option value="2500">Entre 2-3 mil R$ / mês</option>
+                    <option value="3500">Entre 3-4 mil R$ / mês</option>
+                    <option value="4500">Entre 4-5 mil R$ / mês</option>
+                    <option value="5500">Mais de 5 mil R$ / mês</option>
+                </select>
+            </div>
+        </aside>
+
+        <aside class="recommendation-section"> 
+            <div class="recommendation-header">
+                <h3>Recomendações de Compra:</h3>
+            </div>
+            <div class="recommendation-top" id="recommendations">
+                <p>Insira sua renda primeiro</p>
+            </div>
+        </aside>
+    </div>
+
+    <!-- JavaScript para atualização dinâmica -->
+    <script>
+        function updateRecommendations() {
+            const renda = document.getElementById('renda').value;
+            const recommendations = document.getElementById('recommendations');
+            recommendations.innerHTML = "";  // Limpar recomendações anteriores
+
+            let items;
+            switch (renda) {
+                case '500':
+                    items = [
+                        "Sementes de Alface - R$ 2,50",
+                        "Sementes de Beterraba - R$ 3,00",
+                        "Adubo Orgânico - R$ 4,00"
+                    ];
+                    break;
+                case '1500':
+                    items = [
+                        "Sementes de Cenoura - R$ 5,00",
+                        "Sementes de Rabanete - R$ 5,50",
+                        "Fertilizante Orgânico - R$ 6,00"
+                    ];
+                    break;
+                case '2500':
+                    items = [
+                        "Sementes de Tomate - R$ 6,50",
+                        "Sementes de Pepino - R$ 7,00",
+                        "Fertilizante para Tomates - R$ 8,00"
+                    ];
+                    break;
+                case '3500':
+                    items = [
+                        "Sementes de Milho - R$ 8,50",
+                        "Sementes de Abobrinha - R$ 9,00",
+                        "Fertilizante Avançado - R$ 10,00"
+                    ];
+                    break;
+                case '4500':
+                    items = [
+                        "Sementes de Pimentão - R$ 10,50",
+                        "Sementes de Espinafre - R$ 11,00",
+                        "Fertilizante Premium - R$ 12,00"
+                    ];
+                    break;
+                case '5500':
+                    items = [
+                        "Sementes de Couve - R$ 12,50",
+                        "Sementes de Ervilha - R$ 13,00",
+                        "Fertilizante Especial - R$ 14,00"
+                    ];
+                    break;
+                default:
+                    items = ["Insira sua renda primeiro"];
+            }
+
+            items.forEach(item => {
+                const p = document.createElement('p');
+                p.textContent = item;
+                recommendations.appendChild(p);
+            });
+        }
+    </script>
+</body>
+</html>

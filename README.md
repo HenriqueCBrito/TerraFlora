@@ -1,99 +1,47 @@
-# Farm Management System
+<h1 align="center"> <img src="img/terraflora.jpeg" width="200"/></h1>
 
-## Descrição
-O **Farm Management System** é uma aplicação web desenvolvida com **Python** e **Django**, projetada para ajudar pequenos agricultores no gerenciamento de suas atividades agrícolas. A plataforma oferece uma variedade de ferramentas, como planejamento de safra, recomendações de pareamento de plantas, gestão de estoque, previsão do tempo, entre outros. Seu objetivo é tornar o gerenciamento agrícola mais eficiente e produtivo.
+O Terraflora é uma plataforma web inovadora, desenvolvida com tecnologias modernas para auxiliar pequenos e médios agricultores no gerenciamento eficiente de suas atividades agrícolas. A aplicação oferece uma gama de ferramentas que facilitam desde o planejamento de safra até a gestão de recursos e monitoramento de condições climáticas.
+Com o Terraflora, agricultores podem otimizar o cultivo, aumentar a produtividade e tomar decisões informadas. O sistema oferece controle de inventário, recomendações de plantas, previsões climáticas e acompanhamento completo do ciclo de produção, tudo de forma intuitiva e acessível.
 
----
+## Funcionalidades Implementadas
 
-## Funcionalidades Principais
+- **Descrição de Plantio e Compatibilidade:** Registra os cultivos que o agricultor planeja, com detalhes sobre requisitos de solo e clima, além de sugerir compatibilidades entre as plantas para um plantio mais eficiente.
 
-### 1. Calendário de Plantio, Manejo e Colheita
-- Planeje e organize todas as fases do cultivo de forma visual.
-- Receba alertas automáticos para atividades de manejo e colheita.
+- **Adição da Lavoura:** Permite adicionar informações sobre a lavoura, como área total e tipos de cultivo, facilitando o planejamento e organização das atividades agrícolas.
 
-### 2. Auxílio para Compra de Plantio com Base na Renda Familiar
-- Ferramenta que sugere o melhor tipo de cultivo com base na renda disponível.
+- **Divisão da Lavoura:** Divide a lavoura em seções menores para melhor controle e acompanhamento das operações, otimizando recursos e produtividade.
 
-### 3. Dicas de Fertilização e Irrigação
-- Receba sugestões sobre como otimizar a fertilização e irrigação conforme o tipo de plantio e estação.
+## 💻 Tecnologias Usadas
 
-### 4. Descrição de Plantios e Compatibilidade (Consórcios e Plantas Inimigas)
-- Visualize descrições detalhadas de culturas e saiba quais podem ser plantadas juntas ou devem ser evitadas.
+- **Linguagem de Programação**:<br>![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+- **Banco de Dados**:<br>![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
+- **Framework de Desenvolvimento Web**:<br>![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)
+- **Frontend**:<br>![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+- **Organização**:<br>![Jira](https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=jira&logoColor=white)![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
 
-### 5. Previsão do Tempo e Auxílio para o Melhor Momento de Plantio
-- Acesse previsões do tempo diretamente no painel e veja o melhor momento para plantar de acordo com as condições climáticas.
+## 🖇️Links 
+-  [Projeto - Jira](https://cesar-team-omws9jcc.atlassian.net/jira/software/projects/TRF/boards/68/backlog)
+- [Site](https://terra-flora.azurewebsites.net/accounts/login/?next=/)
+- [Relatório da Programação em Par](https://docs.google.com/document/d/1HrIp963lEQDZbCUSWTN_ieBdo4_9d0Spqt6ZveHgzGc/edit?usp=sharing)
+- [Instruções de Uso](https://docs.google.com/document/d/1c1OgO7LOwW2Inl0H0sZEEPRcILvZiO6kl6c-bOLQv3Y/edit?usp=sharing)
 
-### 6. Banco de Dados de Culturas
-- Um banco de dados que inclui informações sobre uma ampla variedade de culturas e plantas.
+## 📦 Entregas
 
-### 7. Calculadora de Plantio
-- Estime a quantidade de sementes necessárias para atingir uma produção específica.
+<details>
+<summary>Status Report 1 (SR1)</summary>
+<ul>
+    <li><a href="img/backlog.png">Print do Backlog das histórias</a></li>
+    <li><a href="img/sprint1.png">Quadro da Sprint 1 com as Histórias Finalizadas</a></li>
+    <li><a href="img/diagrama.png">Diagrama de Atividades</a></li>
+    <li><a href="https://www.youtube.com/watch?v=F00l2z5Ead4">Screencast</a></li>
+</ul>
+</details>
 
-### 8. Tabela de Pragas e Ervas Daninhas
-- Consulte uma tabela de pragas e ervas daninhas, com dicas sobre como preveni-las ou controlá-las.
-
-### 9. Controle de Estoque
-- Gerencie o estoque de insumos e produtos de maneira eficaz com alertas automáticos de reposição.
-
-### 10. Checklist Diário de Atividades
-- Organize as tarefas diárias de manejo com um checklist interativo.
-
-### 11. Divisão de Lavoura em Partes
-- Gerencie diferentes seções da sua fazenda e distribua as atividades de acordo com cada área.
-
-### 12. Recomendações Baseadas em Atividades do Agricultor
-- Receba recomendações personalizadas de ferramentas e técnicas com base nas suas atividades.
-
-### 13. Processo Agrícola e Financeiro
-- Acompanhe todas as etapas do processo agrícola e financeiro em tempo real.
-
----
-
-## Requisitos
-
-Para rodar este projeto, você precisará ter instalado:
-- **Python 3.8+**
-- **Django 3.2+**
-- **SQLite** ou **PostgreSQL** (para produção)
-- **pip** (para instalar dependências)
-
----
-
-## Instalação
-
-```bash
-# 1. Clone o repositório:
-git clone https://github.com/seu-usuario/farm-management-system.git
-   
-# 2. Acesse o diretório do projeto:
-cd farm-management-system
-
-# 3. Crie e ative um ambiente virtual (opcional, mas recomendado):
-python -m venv env
-source env/bin/activate  # ou "env\Scripts\activate" no Windows
-
-# 4. Instale as dependências:
-pip install -r requirements.txt
-
-# 5. Realize as migrações do banco de dados:
-python manage.py migrate
-
-# 6. Execute o servidor de desenvolvimento:
-python manage.py runserver
-```
-
----
-
-## Como Usar
-
-1. Acesse o navegador e entre na aplicação pelo endereço: http://127.0.0.1:8000/
-
-2. Registre-se como um novo usuário ou faça login.
-
-3. Explore as funcionalidades no painel de controle para:
-- Planejar suas safras
-- Consultar o banco de dados de culturas
-- Controlar o estoque de produtos
-- Gerar relatórios de produtividade
-
----
+## 🙋‍♂️ Criado por:
+[Antônio Augusto de Arruda Laprovitera](https://github.com/antoniolaprov)
+[Davi Fernando Matias](https://github.com/DaviFernandoMatias)
+[Guilherme Vinícius Rangel Silva](https://github.com/GuilhermeRangelSilva)
+[Henrique Sérgio Carneiro de Brito](https://github.com/HenriqueCBrito)
+[Israel Madureira Duclerc Neto](https://github.com/iduclerc)
+[João Rafael Andrade Filgueira](https://github.com/JoaoRafael04)
+[Victor Paes Lobo Pereira da Costa](https://github.com/VictorPaes28)

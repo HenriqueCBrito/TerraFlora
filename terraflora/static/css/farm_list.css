@@ -1,0 +1,152 @@
+/* TerraFlora theme colors */
+:root {
+    --terraflora-green: #3b5a41;
+    --terraflora-light-green: #a1c04d;
+    --terraflora-sand: #d8d6a8;
+    --terraflora-hover: #a1c04d;
+    --terraflora-background: #f4efd7;
+    --terraflora-highlight: #f4d35e;
+    --terraflora-dark-text: #2a2a2a;
+}
+
+/* Body */
+body {
+    background-color: var(--terraflora-background);
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Header */
+header {
+    width: 100%;
+    padding: 20px 0;
+    background: rgba(59, 90, 65, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar .logo {
+    display: flex;
+    align-items: center;
+}
+
+.navbar .logo img {
+    margin-right: 10px;
+}
+
+.navbar .logo span {
+    font-size: 1.5em;
+    color: var(--terraflora-sand);
+    font-weight: bold;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links li a {
+    color: var(--terraflora-sand);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: color 0.3s ease;
+}
+
+.nav-links li a:hover {
+    color: var(--terraflora-hover);
+}
+
+/* Main Content */
+main {
+    width: 100%;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+h2 {
+    color: var(--terraflora-green);
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+/* Farm List */
+.farm-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.farm-card {
+    background-color: var(--terraflora-sand);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.farm-card:hover {
+    transform: translateY(-10px);
+}
+
+.farm-card h3 {
+    color: var(--terraflora-green);
+    margin-bottom: 10px;
+}
+
+.farm-card p {
+    font-size: 1em;
+    margin-bottom: 20px;
+    color: var(--terraflora-dark-text);
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--terraflora-highlight);
+    color: var(--terraflora-green);
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: var(--terraflora-hover);
+    color: var(--terraflora-sand);
+}
+
+/* Footer */
+footer {
+    width: 100%;
+    background-color: var(--terraflora-green);
+    color: var(--terraflora-sand);
+    padding: 10px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+footer a {
+    color: var(--terraflora-sand);
+    text-decoration: none;
+    font-weight: bold;
+}

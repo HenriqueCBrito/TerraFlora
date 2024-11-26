@@ -1,1 +1,45 @@
+# Diretório de ambiente virtual
 venv/
+
+# Arquivos de configuração sensíveis
+terraflora/.env/
+
+# Arquivos compilados do Python
+*.pyc
+__pycache__/
+
+# Configurações do editor
+.vscode/
+.idea/
+*.swp
+
+# Logs e arquivos temporários
+*.log
+*.tmp
+*.bak
+*.pid
+*.seed
+*.manifest
+*.cover
+*.orig
+
+# Banco de dados SQLite (apenas em desenvolvimento)
+db.sqlite3
+
+# Arquivos de cache do Django
+*.pyc
+*.pyo
+__pycache__/
+staticfiles/
+
+# Configurações específicas do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Diretório de migrações (se for necessário ignorar)
+migrations/
+
+# Arquivos de build
+build/
+dist/
+*.egg-info/

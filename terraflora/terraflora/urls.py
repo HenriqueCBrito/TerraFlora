@@ -9,4 +9,5 @@ urlpatterns = [
     path('farms/', include('apps.farm.urls')),  # Include URLs from the 'farms' app
     path('menu/', views.menu, name='menu'),  # Página personalizada de menu
     path('crops/', include('apps.crops.urls')),
+    path('calendar/', include('apps.management.urls')),
 ]

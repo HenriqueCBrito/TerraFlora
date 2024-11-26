@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendário de Plantio - TerraFlora</title>
+    {% load static %}
+    
+    <!-- FullCalendar CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css" rel="stylesheet" />
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{% static 'management/css/calendar.css' %}">
+</head>
+<body>
+
+<header>
+    <div class="navbar">
+        <div class="logo">
+            <img src="{% static 'management/images/TREVO_LOGO.png' %}" alt="Logo TerraFlora">
+        </div>
+        <ul class="nav-links">
+            <li><a href="{% url 'home' %}">INÍCIO</a></li>
+            <li><a href="{% url 'farm_list' %}">FAZENDAS</a></li>
+            <li><a href="{% url 'crop_list' %}">CULTURAS</a></li>
+            <li><a href="{% url 'calendar' %}">CALENDÁRIO</a></li>
+        </ul>
+    </div>
+</header>
+
+<main class="main-container">
+    <section class="calendar-section">
+        <div id="calendar"></div>
+    </section>
+
+    <section class="event-form-section">
+        <h3>Adicionar/Editar Planejamento</h3>
+        <form id="event-form">
+            <input type="hidden" id="event-id" />
+            <label for="title">Título:</label>
+            <input type="text" id="title" required>
+            
+            <label for="task_type">Tipo de Tarefa:</label>
+            <select id="task_type" required>
+                <option value="Planting">Plantar</option>
+                <option value="Harvesting">Colher</option>
+                <option value="Watering">Regar</option>
+                <option value="Pruning">Podar</option>
+                <option value="Soil Management">Remanejo do Solo</option>
+            </select>
+            
+            <label for="crop">Cultura:</label>
+            <select id="crop" required>
+                <!-- Dynamically populate crops here -->
+            </select>
+            
+            <label for="start_date">Data e Hora de Início:</label>
+            <input type="datetime-local" id="start_date" required>
+            
+            <label for="end_date">Data e Hora de Término:</label>
+            <input type="datetime-local" id="end_date" required>
+            
+            <button type="button" onclick="saveEvent()">Salvar Evento</button>
+            <button type="button" onclick="clearForm()">Cancelar</button>
+        </form>
+    </section>
+
+    <section class="weather-section">
+        <h3>Clima Atual</h3>
+        <div id="weather-widget">Carregando dados meteorológicos...</div>
+    </section>
+
+    <section class="recommendation-section">
+        <h3>Recomendação de Atividade</h3>
+        <div id="recommendation">Carregando recomendação...</div>
+    </section>
+</main>
+
+<!-- FullCalendar JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
+
+<!-- Main JavaScript -->
+<script src="{% static 'management/js/calendar.js' %}"></script>
+</body>
+</html>

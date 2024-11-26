@@ -65,3 +65,77 @@ def crop_list(request):
 
     return render(request, 'crop_list.html', {'crops': crops})
 
+@login_required
+def edit_crop(request, crop_id):
+    crop = get_object_or_404(Culturas, id=crop_id, user=request.user)  # Ensure the crop belongs to the logged-in user
+
+    if request.method == 'POST':
+        crop.name = request.POST.get('name')
+        crop.crop_type = request.POST.get('crop_type')
+        crop.planting_season = request.POST.get('planting_season')
+        crop.harvest_season = request.POST.get('harvest_season')
+        crop.growing_conditions = request.POST.get('growing_conditions')
+        crop.compatible_plants = request.POST.get('compatible_plants')
+        crop.common_pests = request.POST.get('common_pests')
+        crop.watering_needs = request.POST.get('watering_needs')
+        crop.sun_exposure = request.POST.get('sun_exposure')
+        crop.notes = request.POST.get('notes', '')
+
+        # Basic validation for required fields
+        if not all([crop.name, crop.crop_type, crop.planting_season, crop.harvest_season, crop.growing_conditions, crop.watering_needs, crop.sun_exposure]):
+            messages.error(request, 'Please fill in all required fields.')
+            return render(request, 'edit_crop.html', {'crop': crop})
+
+        # Save updated crop
+        crop.save()
+        messages.success(request, 'Crop updated successfully!')
+        return redirect('crop_detail', crop_id=crop.id)  # Redirect to the crop detail view
+
+    return render(request, 'edit_crop.html', {'crop': crop})
+
+@login_required
+def delete_crop(request, crop_id):
+    crop = get_object_or_404(Culturas, id=crop_id, user=request.user)  # Ensure the crop belongs to the logged-in user
+
+    if request.method == 'POST':
+        crop.delete()
+        messages.success(request, 'Crop deleted successfully!')
+        return redirect('crop_list')  # Redirect to the crop list view
+
+    return render(request, 'confirm_delete.html', {'crop': crop})
+
+@login_required
+def planting_calculator(request, crop_id):
+    crop = get_object_or_404(Culturas, id=crop_id, user=request.user)
+
+    # Validação para garantir que os valores de rendimento e perda estão configurados
+    if crop.yield_per_unit <= 0 or crop.loss_percentage <= 0:
+        error_message = (
+            f"A cultura '{crop.name}' não possui dados suficientes para o cálculo. "
+            f"Por favor, verifique os campos de rendimento e percentual de perda."
+        )
+        return render(request, 'crops/planting_calculator.html', {'crop': crop, 'error_message': error_message})
+
+    if request.method == 'POST':
+        try:
+            desired_harvest = float(request.POST.get('desired_harvest'))
+        except ValueError:
+            desired_harvest = None
+
+        if desired_harvest is None or desired_harvest <= 0:
+            error_message = 'Por favor, insira uma quantidade válida para a colheita desejada.'
+            return render(request, 'crops/planting_calculator.html', {'crop': crop, 'error_message': error_message})
+
+        # Cálculos
+        adjusted_harvest = desired_harvest / ((100 - crop.loss_percentage) / 100)  # Ajusta para perdas
+        planting_area = adjusted_harvest / crop.yield_per_unit  # Calcula área necessária
+
+        return render(request, 'crops/planting_calculator_result.html', {
+            'crop': crop,
+            'desired_harvest': desired_harvest,
+            'adjusted_harvest': round(adjusted_harvest, 2),
+            'planting_area': round(planting_area, 2),
+            'yield_unit': crop.yield_unit,  # Unidade de rendimento (kg, maços, flores)
+        })
+
+    return render(request, 'crops/planting_calculator.html', {'crop': crop})

@@ -51,7 +51,9 @@
             
             <label for="crop">Cultura:</label>
             <select id="crop" required>
-                <!-- Dynamically populate crops here -->
+                {% for cultura in culturas %}
+                    <option value="{{ cultura.id }}">{{ cultura.name }}</option>
+                {% endfor %}
             </select>
             
             <label for="start_date">Data e Hora de Início:</label>
@@ -59,6 +61,16 @@
             
             <label for="end_date">Data e Hora de Término:</label>
             <input type="datetime-local" id="end_date" required>
+            
+            <label for="description">Descrição:</label>
+            <textarea id="description"></textarea>
+
+            <label for="priority">Prioridade:</label>
+            <select id="priority" required>
+                <option value="Low">Baixa</option>
+                <option value="Medium" selected>Média</option>
+                <option value="High">Alta</option>
+            </select>
             
             <button type="button" onclick="saveEvent()">Salvar Evento</button>
             <button type="button" onclick="clearForm()">Cancelar</button>
@@ -68,11 +80,6 @@
     <section class="weather-section">
         <h3>Clima Atual</h3>
         <div id="weather-widget">Carregando dados meteorológicos...</div>
-    </section>
-
-    <section class="recommendation-section">
-        <h3>Recomendação de Atividade</h3>
-        <div id="recommendation">Carregando recomendação...</div>
     </section>
 </main>
 

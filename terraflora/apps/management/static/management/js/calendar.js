@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     let calendarEl = document.getElementById('calendar');
     let calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
@@ -7,14 +7,14 @@ document.addEventListener('DOMContentLoaded', function() {
         headerToolbar: {
             left: 'prev,next today',
             center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            right: 'dayGridMonth,timeGridWeek,timeGridDay',
         },
-        dateClick: function(info) {
+        dateClick: function (info) {
             document.getElementById('start_date').value = info.dateStr;
             document.getElementById('end_date').value = info.dateStr;
             clearForm();
         },
-        eventClick: function(info) {
+        eventClick: function (info) {
             const event = info.event;
             document.getElementById('event-id').value = event.id;
             document.getElementById('title').value = event.title;
@@ -22,11 +22,21 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('crop').value = event.extendedProps.crop_id;
             document.getElementById('start_date').value = event.startStr;
             document.getElementById('end_date').value = event.endStr;
-        }
+            document.getElementById('description').value = event.extendedProps.description || '';
+            document.getElementById('priority').value = event.extendedProps.priority || 'Medium';
+        },
+        eventRender: function (info) {
+            if (info.event.extendedProps.priority === 'High') {
+                info.el.style.backgroundColor = 'red';
+            } else if (info.event.extendedProps.priority === 'Medium') {
+                info.el.style.backgroundColor = 'orange';
+            } else {
+                info.el.style.backgroundColor = 'green';
+            }
+        },
     });
     calendar.render();
 });
-
 
 function fetchUserLocationAndWeather() {
     if (navigator.geolocation) {
@@ -35,10 +45,9 @@ function fetchUserLocationAndWeather() {
                 const latitude = position.coords.latitude;
                 const longitude = position.coords.longitude;
 
-                // Adjust fetch URL
                 fetch(`/calendar/api/get_weather/?lat=${latitude}&lon=${longitude}`)
-                    .then(response => response.json())
-                    .then(data => {
+                    .then((response) => response.json())
+                    .then((data) => {
                         if (data.error) {
                             document.getElementById('weather-widget').innerHTML = "Erro ao obter dados meteorológicos.";
                         } else {
@@ -49,7 +58,7 @@ function fetchUserLocationAndWeather() {
                             `;
                         }
                     })
-                    .catch(error => console.error('Erro ao obter clima:', error));
+                    .catch((error) => console.error('Erro ao obter clima:', error));
             },
             (error) => {
                 console.error('Erro ao obter localização:', error);
@@ -62,52 +71,66 @@ function fetchUserLocationAndWeather() {
     }
 }
 
+function validateForm(eventData) {
+    if (
+        !eventData.title ||
+        !eventData.task_type ||
+        !eventData.crop_id ||
+        !eventData.start_date ||
+        !eventData.end_date
+    ) {
+        alert("Todos os campos obrigatórios devem ser preenchidos.");
+        return false;
+    }
+    return true;
+}
 
 function saveEvent() {
-    // Determine if adding or editing an event based on presence of event ID
     const eventId = document.getElementById('event-id').value;
     const url = eventId ? `/api/edit_event/${eventId}/` : '/api/add_event/';
-    
-    // Collect event data from form fields
+
     const eventData = {
         title: document.getElementById('title').value,
         task_type: document.getElementById('task_type').value,
         crop_id: document.getElementById('crop').value,
         start_date: document.getElementById('start_date').value,
         end_date: document.getElementById('end_date').value,
+        description: document.getElementById('description').value,
+        priority: document.getElementById('priority').value,
     };
 
-    // Get CSRF token
+    if (!validateForm(eventData)) {
+        return;
+    }
+
     const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value;
     if (!csrfToken) {
         console.error("CSRF token not found.");
         return;
     }
 
-    // Perform the save (add/edit) action
     fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRFToken': csrfToken
+            'X-CSRFToken': csrfToken,
         },
-        body: JSON.stringify(eventData)
+        body: JSON.stringify(eventData),
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === 'success') {
-            alert(eventId ? 'Evento atualizado com sucesso!' : 'Evento adicionado com sucesso!');
-            clearForm();
-            location.reload();  // Reload the page to see updated events
-        } else {
-            alert('Erro ao salvar o evento.');
-        }
-    })
-    .catch(error => console.error('Erro ao salvar evento:', error));
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.status === 'success') {
+                alert(eventId ? 'Evento atualizado com sucesso!' : 'Evento adicionado com sucesso!');
+                clearForm();
+                location.reload();
+            } else {
+                alert('Erro ao salvar o evento.');
+            }
+        })
+        .catch((error) => console.error('Erro ao salvar evento:', error));
 }
 
 function clearForm() {
-    // Clear the event form fields
     document.getElementById('event-form').reset();
     document.getElementById('event-id').value = '';
 }

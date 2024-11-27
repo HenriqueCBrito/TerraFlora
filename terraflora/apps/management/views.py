@@ -75,7 +75,31 @@ def add_event(request):
     )
     return JsonResponse({'status': 'success'})
 
+@login_required
+def get_events(request):
+    start = request.GET.get('start')  # Data inicial fornecida pelo FullCalendar
+    end = request.GET.get('end')  # Data final fornecida pelo FullCalendar
 
+    # Filtro de eventos com base no intervalo de datas
+    events = Event.objects.filter(
+        user=request.user,
+        start_date__gte=start,
+        end_date__lte=end
+    )
+
+    # Converte os eventos em formato que o FullCalendar entende
+    event_list = [{
+        'id': event.id,
+        'title': event.title,
+        'start': event.start_date.isoformat(),
+        'end': event.end_date.isoformat(),
+        'description': event.description,
+        'priority': event.priority,
+        'task_type': event.task_type,
+        'completed': event.completed,
+    } for event in events]
+
+    return JsonResponse(event_list, safe=False)
 
 @login_required
 @require_POST

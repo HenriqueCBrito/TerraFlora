@@ -174,3 +174,13 @@ def assign_crop_to_area(request, area_id):
         return redirect('manage_field_areas', farm_id=area.farm.id)
 
     return render(request, 'farm/assign_crop_to_area.html', {'area': area, 'crops': crops})
+# apps/farm/views.py
+@login_required
+def manage_field_areas(request, farm_id):
+    farm = get_object_or_404(Farm, id=farm_id, user=request.user)
+    areas = farm.field_areas.all()
+
+    return render(request, 'farm/manage_field_areas.html', {
+        'farm': farm,
+        'areas': areas,
+    })

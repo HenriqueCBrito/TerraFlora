@@ -1,7 +1,9 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Culturas
+import json
 
 # View to register a new crop
 @login_required
@@ -108,34 +110,26 @@ def delete_crop(request, crop_id):
 def planting_calculator(request, crop_id):
     crop = get_object_or_404(Culturas, id=crop_id, user=request.user)
 
-    # Validação para garantir que os valores de rendimento e perda estão configurados
-    if crop.yield_per_unit <= 0 or crop.loss_percentage <= 0:
-        error_message = (
-            f"A cultura '{crop.name}' não possui dados suficientes para o cálculo. "
-            f"Por favor, verifique os campos de rendimento e percentual de perda."
-        )
-        return render(request, 'crops/planting_calculator.html', {'crop': crop, 'error_message': error_message})
-
     if request.method == 'POST':
         try:
-            desired_harvest = float(request.POST.get('desired_harvest'))
-        except ValueError:
-            desired_harvest = None
+            # Recebe os dados do corpo da requisição
+            data = json.loads(request.body)
+            desired_harvest = float(data.get('desired_harvest', 0))
 
-        if desired_harvest is None or desired_harvest <= 0:
-            error_message = 'Por favor, insira uma quantidade válida para a colheita desejada.'
-            return render(request, 'crops/planting_calculator.html', {'crop': crop, 'error_message': error_message})
+            if desired_harvest <= 0:
+                return JsonResponse({"error": "Por favor, insira um valor válido para a colheita desejada."}, status=400)
 
-        # Cálculos
-        adjusted_harvest = desired_harvest / ((100 - crop.loss_percentage) / 100)  # Ajusta para perdas
-        planting_area = adjusted_harvest / crop.yield_per_unit  # Calcula área necessária
+            # Realiza os cálculos
+            adjusted_harvest = desired_harvest / ((100 - crop.loss_percentage) / 100)
+            planting_area = adjusted_harvest / crop.yield_per_unit
 
-        return render(request, 'crops/planting_calculator_result.html', {
-            'crop': crop,
-            'desired_harvest': desired_harvest,
-            'adjusted_harvest': round(adjusted_harvest, 2),
-            'planting_area': round(planting_area, 2),
-            'yield_unit': crop.yield_unit,  # Unidade de rendimento (kg, maços, flores)
-        })
+            # Retorna o resultado no formato JSON
+            return JsonResponse({
+                "adjusted_harvest": round(adjusted_harvest, 2),
+                "planting_area": round(planting_area, 2),
+                "yield_unit": crop.yield_unit
+            })
+        except (ValueError, KeyError) as e:
+            return JsonResponse({"error": f"Erro nos dados fornecidos: {str(e)}"}, status=400)
 
-    return render(request, 'crops/planting_calculator.html', {'crop': crop})
+    return JsonResponse({"error": "Método não permitido."}, status=405)

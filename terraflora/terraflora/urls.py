@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
 from apps.accounts import views  # Correct import based on folder structure
-
 urlpatterns = [
     path('admin/', admin.site.urls),  # Keep admin URL here
     path('', views.home, name='home'),  # Página inicial protegida por login

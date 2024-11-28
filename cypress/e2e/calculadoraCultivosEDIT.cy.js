@@ -1,5 +1,7 @@
-describe('Calculadora de compras, baseada em salário', () => {
-  
+const peso = Math.floor(Math.random() * (1000 - 100 + 1)) + 100;
+
+describe('Calculador de Plantio ', () => {
+
   before(() => {
     cy.exec('python ./create_superuser.py');
     cy.visit('/');
@@ -32,12 +34,28 @@ describe('Calculadora de compras, baseada em salário', () => {
   });
 
   it('Selecionando fazenda e gerando lista de compras', () => {
-    cy.contains('ARMAZENAMENTO').click({ force: true });
-    cy.contains("Lista de Compras").click({ force: true });
-    cy.get('#farm_id').select('Fazenda TerraFlora', { force: true });
-    const budget = Math.floor(Math.random() * 701); 
-    cy.get('#budget').type(budget.toString(), { force: true });
-    cy.get('button[type="submit"]').click({ force: true });
+    cy.contains('CULTURAS').click({ force: true });
+    cy.contains("Registrar Nova Cultura").click({ force: true });
+    cy.get('#name').type('Tomate');
+    cy.get('#crop_type').select('vegetable');
+    cy.get('#planting_season').type('Primavera');
+    cy.get('#harvest_season').type('Verão');
+    cy.get('#growing_conditions').type('Solo bem drenado, clima quente');
+    cy.get('#compatible_plants').type('Alface, Manjericão');
+    cy.get('#common_pests').type('Pulgões, ácaros');
+    cy.get('#watering_needs').type('Moderada');
+    cy.get('#sun_exposure').type('Pleno sol');
+    cy.get('#notes').type('Prefere solos férteis e bem irrigados');
+    cy.get('button[type="submit"]').click();
+
+    const valores = [peso, Math.floor(Math.random() * (1000 - 100 + 1)) + 100, Math.floor(Math.random() * (1000 - 100 + 1)) + 100];
+    valores.forEach((kg, index) => {
+      cy.get('#desired_harvest').clear().type(kg);
+      cy.get('button[type="button"]').click(); 
+      cy.get('#planting_area').should('exist');
+
+      cy.wait(1000);
+    });
   });
 
   after(() => {

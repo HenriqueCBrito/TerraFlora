@@ -1,4 +1,4 @@
-describe('Gerenciar Estoque de Insumos e Produtos (ADD e EDIT)', () => {
+describe('Gerenciar Estoque de Insumos e Produtos (', () => {
   
   before(() => {
     cy.exec('python ./create_superuser.py');
@@ -39,18 +39,19 @@ describe('Gerenciar Estoque de Insumos e Produtos (ADD e EDIT)', () => {
     cy.get('.btn-submit').click({ force: true });
 });
 
-  after(() => {
-    cy.visit('/admin/');
-    cy.get('#id_username').type('admin@admin.com');
-    cy.get('#id_password').type('admin123');
-    cy.get('.submit-row > input').click();
-    cy.contains('Users').click();
-    cy.get('#searchbar').type('teste@teste.com');
-    cy.get('#changelist-search > div > [type="submit"]').click();
-    cy.contains('teste@teste.com').should('be.visible');
-    cy.get('.action-select').click();
-    cy.get('select').select('Delete selected users');
-    cy.get('.button').click();
-    cy.get('div > [type="submit"]').click();
-  });
+after(() => {
+  cy.visit('/admin/', { force: true });
+  cy.get('#id_username').type('admin@admin.com', { force: true });
+  cy.get('#id_password').type('admin123', { force: true });
+  cy.get('.submit-row > input').click({ force: true });
+  cy.contains('Users').click({ force: true });
+  cy.get('#searchbar').type('teste@teste.com', { force: true });
+  cy.get('#changelist-search > div > [type="submit"]').click({ force: true });
+  cy.contains('teste@teste.com').should('be.visible', { force: true });
+  cy.get('.action-select').click({ force: true });
+  cy.get('select').select('Delete selected users', { force: true });
+  cy.get('.button').click({ force: true });
+  cy.get('div > [type="submit"]').click({ force: true });
+});
+
 });

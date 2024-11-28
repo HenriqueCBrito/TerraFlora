@@ -14,31 +14,42 @@
     <header>
         <div class="navbar">
             <div class="logo">
-                <img src="{% static 'images/TREVO_LOGO.png' %}" alt="Logo TerraFlora">
+                <img src="{% static 'images/TREVO_LOGO.png' %}" alt="Logo TerraFlora" width="50">
             </div>
             <ul class="nav-links">
-                <li><a href="#">INÍCIO</a></li>
-                <li><a href="{% url 'farm_list' %}">FAZENDAS</a></li>
-                <li><a href="{% url 'crop_list' %}">CULTURAS</a></li>
-                <li><a href="{% url 'calendar' %}">CALENDÁRIO</a></li> <!-- Nova opção "Calendário" -->
-                <li><a href="{% url 'manage_field_areas' %}">GERENCIAR ÁREAS</a></li>
+                <li><a href="{% url 'home' %}">Início</a></li>
+                <li><a href="{% url 'farm_list' %}">Fazendas</a></li>
+                <li><a href="{% url 'crop_list' %}">Culturas</a></li>
+                <li><a href="{% url 'calendar' %}">Calendário</a></li>
                 <li class="dropdown-parent">
-                    <a href="#">USUÁRIO</a>
+                    <a href="#">Usuário</a>
                     <ul class="dropdown">
                         <li><a href="{% url 'login' %}">Login</a></li>
                         <li><a href="{% url 'register' %}">Cadastro</a></li>
                     </ul>
                 </li>
             </ul>
+            <!-- Seletor de Fazenda -->
+            <div class="farm-selector">
+                <form id="farm-form" method="GET" action="#">
+                    <select id="farm-select" name="farm_id" required onchange="updateFormAction()">
+                        <option value="">-- Escolha uma fazenda --</option>
+                        {% for farm in farms %}
+                        <option value="{{ farm.id }}">{{ farm.farm_name }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="cta-button">Visualizar Campo</button>
+                </form>
+            </div>
         </div>
     </header>
 
     <!-- Seção principal -->
     <section class="hero">
         <div class="hero-content">
-            <h1>TerraFlora</h1>
-            <p>Agricultura Sustentável</p>
-            <a href="#" class="cta-button">Explore Mais</a>
+            <h1>Bem-vindo ao TerraFlora</h1>
+            <p>Seu aliado na Agricultura Sustentável</p>
+            <a href="{% url 'farm_list' %}" class="cta-button">Explore Fazendas</a>
         </div>
     </section>
 
@@ -61,5 +72,177 @@
         </div>
     </section>
 
+    <!-- Rodapé -->
+    <footer>
+        <p>&copy; 2024 TerraFlora. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // Update the form action dynamically based on selected farm
+        function updateFormAction() {
+            const farmSelect = document.getElementById('farm-select');
+            const form = document.getElementById('farm-form');
+            const selectedFarmId = farmSelect.value;
+
+            if (selectedFarmId) {
+                form.action = `/farms/field-areas/${selectedFarmId}/`;
+            } else {
+                form.action = '#'; // Reset to default if no farm is selected
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #4CAF50;
+            padding: 10px 20px;
+        }
+
+        .navbar .logo img {
+            height: 50px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            margin-left: 20px;
+            position: relative;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #FFC107;
+        }
+
+        .dropdown-parent:hover .dropdown {
+            display: block;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #4CAF50;
+            list-style: none;
+            padding: 10px 0;
+            min-width: 150px;
+            border-radius: 4px;
+        }
+
+        .dropdown li {
+            text-align: left;
+        }
+
+        .dropdown li a {
+            color: white;
+            padding: 10px 20px;
+            display: block;
+            text-decoration: none;
+        }
+
+        .dropdown li a:hover {
+            background-color: #FFC107;
+            color: black;
+        }
+
+        .farm-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .farm-selector select {
+            padding: 8px;
+            font-size: 16px;
+        }
+
+        .farm-selector .cta-button {
+            background-color: #FFC107;
+            color: black;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 4px;
+        }
+
+        .farm-selector .cta-button:hover {
+            background-color: #E0A800;
+        }
+
+        .hero {
+            background-color: #e9f7ef;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: 2.5rem;
+            color: #333;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin: 20px 0;
+        }
+
+        .cta-button {
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .cta-button:hover {
+            background-color: #45a049;
+        }
+
+        .info-boxes {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px;
+        }
+
+        .info-box {
+            text-align: center;
+            max-width: 300px;
+        }
+
+        .info-box img {
+            width: 100px;
+            height: 100px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
 </body>
 </html>

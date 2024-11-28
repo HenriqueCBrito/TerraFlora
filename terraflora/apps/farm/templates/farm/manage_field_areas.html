@@ -28,11 +28,21 @@
 
     <!-- Conteúdo Principal -->
     <main class="main-container">
+        <!-- Detalhes da Fazenda -->
+        <section class="farm-details">
+            <h1>Detalhes da Fazenda</h1>
+            <p><strong>Nome:</strong> {{ farm.farm_name }}</p>
+            <p><strong>Tamanho:</strong> {{ farm.size }} {{ farm.get_size_unit_display }}</p>
+            <p><strong>Endereço:</strong> {{ farm.street }}, {{ farm.city }} - {{ farm.state }}</p>
+        </section>
+
         <!-- Navegação por Botões -->
         <div class="tabs">
             <button class="tab-button" onclick="showTab('divide-field')">Dividir Campo</button>
+            {% if is_divided %}
             <button class="tab-button" onclick="showTab('adjust-areas')">Ajustar Áreas</button>
             <button class="tab-button" onclick="showTab('assign-crop')">Atribuir Cultivo</button>
+            {% endif %}
         </div>
 
         <!-- Dividir Campo -->
@@ -46,12 +56,13 @@
             </form>
         </section>
 
+        {% if is_divided %}
         <!-- Ajustar Áreas -->
         <section id="adjust-areas" class="tab-content">
             <h2>Ajustar Áreas</h2>
             <form method="POST" action="{% url 'adjust_field_areas' farm.id %}">
                 {% csrf_token %}
-                {% for area in areas %}
+                {% for area in field_areas %}
                 <div class="area-row">
                     <label for="size_{{ area.id }}">{{ area.name }}:</label>
                     <input type="text" id="size_{{ area.id }}" name="size_{{ area.id }}" value="{{ area.size }}" required>
@@ -76,6 +87,7 @@
                 <button type="submit" class="btn">Atribuir</button>
             </form>
         </section>
+        {% endif %}
     </main>
 
     <!-- Rodapé -->

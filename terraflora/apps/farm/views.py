@@ -105,82 +105,65 @@ def delete_farm(request, farm_id):
     return render(request, 'farm/delete_farm.html', {'farm': farm})
 
 @login_required
-def divide_field(request, farm_id):
+def view_field(request, farm_id):
     farm = get_object_or_404(Farm, id=farm_id, user=request.user)
-
-    if request.method == 'POST':
-        num_areas = int(request.POST.get('num_areas'))
-
-        # Validar número de áreas
-        if num_areas <= 0 or num_areas > 100:
-            messages.error(request, 'Insira um número válido de áreas (1-100).')
-            return redirect('divide_field', farm_id=farm_id)
-
-        # Calcula o tamanho de cada área
-        total_size = farm.size
-        area_size = total_size / num_areas
-
-        # Remove áreas anteriores e cria novas
-        farm.field_areas.all().delete()
-        for i in range(1, num_areas + 1):
-            FieldArea.objects.create(
-                farm=farm,
-                name=f"Área {i}",
-                size=area_size
-            )
-
-        messages.success(request, f"Fazenda dividida em {num_areas} partes iguais!")
-        return redirect('manage_field_areas', farm_id=farm_id)
-
-    return render(request, 'farm/divide_field.html', {'farm': farm})
-
-@login_required
-def adjust_field_areas(request, farm_id):
-    farm = get_object_or_404(Farm, id=farm_id, user=request.user)
-    areas = farm.field_areas.all()
-
-    if request.method == 'POST':
-        for area in areas:
-            new_size = request.POST.get(f'size_{area.id}')
-            if new_size:
-                area.size = float(new_size)
-                area.save()
-
-        messages.success(request, 'Tamanhos das áreas ajustados com sucesso!')
-        return redirect('manage_field_areas', farm_id=farm_id)
-
-    return render(request, 'farm/adjust_field_areas.html', {'farm': farm, 'areas': areas})
-
-@login_required
-def assign_crop_to_area(request, area_id):
-    area = get_object_or_404(FieldArea, id=area_id, farm__user=request.user)
+    field_areas = farm.field_areas.all()
     crops = Storage.objects.filter(user=request.user, category='Seed')
 
-    if request.method == 'POST':
-        crop_id = request.POST.get('crop')
-        crop = get_object_or_404(Storage, id=crop_id, user=request.user)
+    # Handle Divide Field
+    if request.method == 'POST' and 'num_areas' in request.POST:
+        num_areas = int(request.POST.get('num_areas'))
+        if num_areas <= 0 or num_areas > 100:
+            messages.error(request, 'Insira um número válido de áreas (1-100).')
+        else:
+            total_size = farm.size
+            area_size = total_size / num_areas
+            farm.field_areas.all().delete()
+            for i in range(1, num_areas + 1):
+                FieldArea.objects.create(farm=farm, name=f"Área {i}", size=area_size)
+            messages.success(request, f"Fazenda dividida em {num_areas} partes iguais!")
+        return redirect('view_field', farm_id=farm_id)
 
-        # Validação: Cultivo suficiente para a área
+    # Handle Adjust Field Areas
+    if request.method == 'POST' and 'adjust_areas' in request.POST:
+        adjustments = {}
+        for area in field_areas:
+            new_size = request.POST.get(f'size_{area.id}')
+            if new_size:
+                new_size = float(new_size)
+                if new_size != area.size:
+                    adjustments[area.id] = new_size
+
+        if adjustments:
+            total_adjustment = sum(adjustments.values()) - sum(area.size for area in field_areas)
+            if total_adjustment > 0:  # Increasing total size
+                messages.error(request, "A soma das áreas excede o tamanho total da fazenda.")
+            else:
+                for area_id, new_size in adjustments.items():
+                    area = field_areas.get(id=area_id)
+                    area.size = new_size
+                    area.save()
+                messages.success(request, 'Tamanhos das áreas ajustados com sucesso!')
+
+        return redirect('view_field', farm_id=farm_id)
+
+    # Handle Assign Crop to Area
+    if request.method == 'POST' and 'assign_crop' in request.POST:
+        area_id = request.POST.get('area_id')
+        crop_id = request.POST.get('crop')
+        area = get_object_or_404(FieldArea, id=area_id, farm=farm)
+        crop = get_object_or_404(Storage, id=crop_id, user=request.user)
         required_quantity = area.size / crop.recommended_area
         if crop.quantity < required_quantity:
             messages.error(request, f"Quantidade insuficiente de {crop.product_name} no armazenamento.")
-            return redirect('assign_crop_to_area', area_id=area.id)
+        else:
+            area.crop = crop
+            area.save()
+            messages.success(request, f"{crop.product_name} atribuído à {area.name}!")
+        return redirect('view_field', farm_id=farm_id)
 
-        # Atribuir o cultivo à área
-        area.crop = crop
-        area.save()
-
-        messages.success(request, f"{crop.product_name} atribuído à {area.name}!")
-        return redirect('manage_field_areas', farm_id=area.farm.id)
-
-    return render(request, 'farm/assign_crop_to_area.html', {'area': area, 'crops': crops})
-# apps/farm/views.py
-@login_required
-def manage_field_areas(request, farm_id):
-    farm = get_object_or_404(Farm, id=farm_id, user=request.user)
-    areas = farm.field_areas.all()
-
-    return render(request, 'farm/manage_field_areas.html', {
+    return render(request, 'farm/view_field.html', {
         'farm': farm,
-        'areas': areas,
+        'field_areas': field_areas,
+        'crops': crops,
     })

@@ -5,11 +5,12 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
 from .models import CustomUser
 from apps.crops.utils import add_example_crops
+from apps.farm.models import Farm
 
-# Exige que o usuário esteja autenticado para acessar a página home
-@login_required(login_url='login')
+@login_required
 def home(request):
-    return render(request, 'accounts/home.html')
+    farms = Farm.objects.filter(user=request.user)
+    return render(request, 'accounts/home.html', {'farms': farms})
 
 def menu(request):
     return render(request, 'menu.html')

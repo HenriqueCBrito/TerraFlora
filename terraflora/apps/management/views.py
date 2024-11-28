@@ -269,3 +269,6 @@ def list_storage(request):
         messages.info(request, 'Nenhum produto encontrado no seu armazenamento.')
 
     return render(request, 'management/list_storage.html', {'storages': storages})
+@login_required
+def manage_storage(request):
+    return render(request, 'management/manage_storage.html')

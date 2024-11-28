@@ -150,3 +150,6 @@ def delete_account(request):
         return redirect('login')  # Redirect to login page after deletion
 
     return render(request, 'accounts/delete_account.html')
+@login_required
+def user_account(request):
+    return render(request, 'accounts/user_account.html')

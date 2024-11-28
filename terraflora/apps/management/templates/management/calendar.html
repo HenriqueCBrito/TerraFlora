@@ -17,7 +17,7 @@
 <header>
     <div class="navbar">
         <div class="logo">
-            <img src="{% static 'management/images/TREVO_LOGO.png' %}" alt="Logo TerraFlora">
+            <img src="{% static 'images/TREVO_LOGO.png' %}" alt="Logo TerraFlora">
         </div>
         <ul class="nav-links">
             <li><a href="{% url 'home' %}">INÍCIO</a></li>
@@ -29,10 +29,12 @@
 </header>
 
 <main class="main-container">
+    <!-- Seção do Calendário -->
     <section class="calendar-section">
         <div id="calendar"></div>
     </section>
 
+    <!-- Formulário de Planejamento -->
     <section class="event-form-section">
         <h3>Adicionar/Editar Planejamento</h3>
         <form id="event-form">
@@ -65,19 +67,48 @@
         </form>
     </section>
 
-    <section class="weather-section">
-        <h3>Clima Atual</h3>
-        <div id="weather-widget">Carregando dados meteorológicos...</div>
-    </section>
-
-    <section class="recommendation-section">
-        <h3>Recomendação de Atividade</h3>
-        <div id="recommendation">Carregando recomendação...</div>
+    <!-- Seção de Clima -->
+    <section class="weather-box">
+        <h3> Clima ☁️</h3>
+        <div id="weather-background">
+            <div id="weather-info">
+                <p id="weather-condition">Carregando...</p>
+                <p id="weather-temp">Temperatura: --</p>
+                <p id="weather-wind">Vento: --</p>
+                <p id="weather-humidity">Umidade: --</p>
+            </div>
+        </div>
     </section>
 </main>
 
 <!-- FullCalendar JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
+
+<!-- Clima Simulado JavaScript -->
+<script>
+    function simulateWeather() {
+        const weatherConditions = [
+            { condition: 'Ensolarado', temp: '30°C', wind: '10 km/h', humidity: '40%', icon: '☀️', bg: '#f4d35e' },
+            { condition: 'Chuvoso', temp: '20°C', wind: '20 km/h', humidity: '80%', icon: '🌧️', bg: '#9ecae1' },
+            { condition: 'Nublado', temp: '25°C', wind: '15 km/h', humidity: '60%', icon: '☁️', bg: '#d8d6a8' },
+            { condition: 'Tempestade', temp: '18°C', wind: '30 km/h', humidity: '90%', icon: '⛈️', bg: '#6b8e23' },
+        ];
+
+        const randomIndex = Math.floor(Math.random() * weatherConditions.length);
+        const selectedWeather = weatherConditions[randomIndex];
+
+        document.getElementById('weather-condition').innerText = selectedWeather.condition + ' ' + selectedWeather.icon;
+        document.getElementById('weather-temp').innerText = 'Temperatura: ' + selectedWeather.temp;
+        document.getElementById('weather-wind').innerText = 'Vento: ' + selectedWeather.wind;
+        document.getElementById('weather-humidity').innerText = 'Umidade: ' + selectedWeather.humidity;
+
+        // Atualizar cor de fundo
+        document.getElementById('weather-background').style.backgroundColor = selectedWeather.bg;
+    }
+
+    // Simular clima ao carregar a página
+    document.addEventListener('DOMContentLoaded', simulateWeather);
+</script>
 
 <!-- Main JavaScript -->
 <script src="{% static 'management/js/calendar.js' %}"></script>

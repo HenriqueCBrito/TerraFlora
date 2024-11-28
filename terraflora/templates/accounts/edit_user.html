@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Conta - TerraFlora</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/edit_user.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <img src="{% static 'images/TREVO_LOGO.png' %}" alt="Logo TerraFlora">
+            </div>
+            <ul class="nav-links">
+                <li><a href="{% url 'home' %}">INÍCIO</a></li>
+                <li><a href="{% url 'farm_list' %}">FAZENDAS</a></li>
+                <li><a href="{% url 'crop_list' %}">CULTURAS</a></li>
+                <li><a href="{% url 'calendar' %}">CALENDÁRIO</a></li>
+                <li><a href="{% url 'user_account' %}">MINHA CONTA</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Formulário de Edição -->
+    <main class="form-container">
+        <h1>Editar Conta</h1>
+        <form method="POST" action="{% url 'edit_user' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="{{ user.email }}" required>
+            </div>
+            <div class="form-group">
+                <label for="full_name">Nome Completo:</label>
+                <input type="text" id="full_name" name="full_name" value="{{ user.full_name }}" required>
+            </div>
+            <div class="form-group">
+                <label for="phone_number">Telefone:</label>
+                <input type="text" id="phone_number" name="phone_number" value="{{ user.phone_number }}" required>
+            </div>
+            <div class="form-group">
+                <label for="street">Rua:</label>
+                <input type="text" id="street" name="street" value="{{ user.street }}">
+            </div>
+            <div class="form-group">
+                <label for="home_number">Número da Casa:</label>
+                <input type="text" id="home_number" name="home_number" value="{{ user.home_number }}">
+            </div>
+            <div class="form-group">
+                <label for="city">Cidade:</label>
+                <input type="text" id="city" name="city" value="{{ user.city }}">
+            </div>
+            <div class="form-group">
+                <label for="state">Estado:</label>
+                <input type="text" id="state" name="state" value="{{ user.state }}">
+            </div>
+            <div class="form-group">
+                <label for="country">País:</label>
+                <input type="text" id="country" name="country" value="{{ user.country }}">
+            </div>
+            <div class="form-group">
+                <label for="current_password">Senha Atual:</label>
+                <input type="password" id="current_password" name="current_password" required>
+            </div>
+            <div class="button-group">
+                <button type="submit" class="btn-save">Salvar Alterações</button>
+                <a href="{% url 'user_account' %}" class="btn-cancel">Cancelar</a>
+            </div>
+        </form>
+    </main>
+</body>
+</html>

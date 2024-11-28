@@ -9,4 +9,7 @@ urlpatterns = [
     path('login/', views.user_login, name='login'),  # Página de login
     path('logout/', views.logoff, name='logout'),  # Página de logout
     path('imersao/', views.imersao, name='imersao'),
+    path('editar-conta/', views.edit_user, name='edit_user'),  # URL para "Minha Conta"
+    path('deletar-conta/', views.delete_account, name='delete_account'),
+    path('minha-conta/', views.user_account, name='user_account'),
 ]

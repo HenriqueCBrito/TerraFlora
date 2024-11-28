@@ -1,0 +1,143 @@
+/* Variáveis de cores */
+:root {
+    --terraflora-green: #3b5a41;
+    --terraflora-light-green: #a1c04d;
+    --terraflora-sand: #d8d6a8;
+    --terraflora-background: #f4efd7;
+    --terraflora-danger: #e63946;
+    --terraflora-dark-text: #2a2a2a;
+}
+
+/* Estilo Geral */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--terraflora-background);
+    margin: 0;
+    padding: 0;
+    color: var(--terraflora-dark-text);
+}
+
+/* Cabeçalho */
+header {
+    background-color: var(--terraflora-green);
+    padding: 10px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.navbar .logo img {
+    height: 50px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--terraflora-sand);
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.nav-links a:hover {
+    color: var(--terraflora-light-green);
+}
+
+/* Layout Principal */
+.main-container {
+    max-width: 800px;
+    margin: 100px auto 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Informações do Usuário */
+.user-info {
+    margin-bottom: 30px;
+}
+
+.user-info h2 {
+    font-size: 1.8em;
+    color: var(--terraflora-green);
+    margin-bottom: 15px;
+}
+
+.user-details p {
+    margin: 5px 0;
+    font-size: 1.1em;
+    line-height: 1.5;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--terraflora-green);
+    color: #ffffff;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: var(--terraflora-light-green);
+}
+
+/* Excluir Conta */
+.delete-account {
+    margin-top: 20px;
+}
+
+.delete-account h2 {
+    font-size: 1.8em;
+    color: var(--terraflora-danger);
+    margin-bottom: 15px;
+}
+
+.warning {
+    font-size: 1em;
+    color: var(--terraflora-danger);
+    margin-bottom: 15px;
+}
+
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.btn-danger {
+    background-color: var(--terraflora-danger);
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #c62828;
+}
+
+/* Rodapé */
+.footer {
+    background-color: var(--terraflora-green);
+    color: var(--terraflora-sand);
+    text-align: center;
+    padding: 10px;
+    margin-top: 40px;
+}

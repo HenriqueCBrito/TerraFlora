@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Armazenamento - TerraFlora</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/list_storage.css' %}">
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <img src="{% static 'images/TREVO_LOGO.png' %}" alt="Logo TerraFlora">
+            </div>
+            <ul class="nav-links">
+                <li><a href="{% url 'home' %}">Início</a></li>
+                <li><a href="{% url 'farm_list' %}">Fazendas</a></li>
+                <li><a href="{% url 'crop_list' %}">Culturas</a></li>
+                <li><a href="{% url 'calendar' %}">Calendário</a></li>
+                <li><a href="{% url 'manage_storage' %}">Armazenamento</a></li>
+                <li class="dropdown-parent">
+                        <li><a href="{% url 'edit_user' %}">Minha Conta</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main>
+        <section class="storage-header">
+            <h1>Armazenamento</h1>
+            <a href="{% url 'add_storage' %}" class="btn btn-primary">Adicionar Produto</a>
+        </section>
+
+        <!-- Tabela de Produtos -->
+        <section class="storage-list">
+            {% if storages %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Produto</th>
+                            <th>Categoria</th>
+                            <th>Cultura Associada</th>
+                            <th>Quantidade</th>
+                            <th>Custo Médio</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for storage in storages %}
+                            <tr>
+                                <td>{{ storage.product_name }}</td>
+                                <td>{{ storage.category }}</td>
+                                <td>{% if storage.culture %}{{ storage.culture.name }}{% else %}N/A{% endif %}</td>
+                                <td>{{ storage.quantity }} {{ storage.unit }}</td>
+                                <td>R$ {{ storage.average_cost }}</td>
+                                <td class="actions">
+                                    <a href="{% url 'update_storage' storage.id %}" class="btn btn-secondary">Editar</a>
+                                    <form method="POST" action="{% url 'delete_storage' storage.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger">Excluir</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>Não há produtos cadastrados no armazenamento.</p>
+            {% endif %}
+        </section>
+    </main>
+<br><br><br><br><br><br><br>
+    <!-- Rodapé -->
+    <footer>
+        <p>&copy; 2024 TerraFlora. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

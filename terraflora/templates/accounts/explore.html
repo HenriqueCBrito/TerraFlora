@@ -24,7 +24,20 @@
                 <li><a href="{% url 'farm_list' %}">Fazendas</a></li>
                 <li><a href="{% url 'crop_list' %}">Culturas</a></li>
                 <li><a href="{% url 'calendar' %}">Calendário</a></li>
-                <li><a href="{% url 'manage_field_areas' %}">Gerenciar Áreas</a></li>
+                <!-- Farm Selector placed next to the dropdown -->
+                <li style="display: flex; align-items: center; gap: 10px;">
+                    <form id="farm-form" method="GET" action="#" style="display: flex; align-items: center;">
+                        <select id="farm-select" name="farm_id" required onchange="updateFormAction()" style="padding: 5px; font-size: 16px;">
+                            <option value="">-- Escolha uma fazenda --</option>
+                            {% for farm in farms %}
+                            <option value="{{ farm.id }}">{{ farm.farm_name }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="cta-button" style="background-color: #FFC107; color: black; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: bold; margin-left: 10px;">
+                            Visualizar Campo
+                        </button>
+                    </form>
+                </li>
             </ul>
         </div>
     </header>
@@ -104,6 +117,20 @@
             <p>&copy; 2024 TerraFlora. Todos os direitos reservados.</p>
         </div>
     </footer>
+    <script>
+        // Update the form action dynamically based on selected farm
+        function updateFormAction() {
+            const farmSelect = document.getElementById('farm-select');
+            const form = document.getElementById('farm-form');
+            const selectedFarmId = farmSelect.value;
+
+            if (selectedFarmId) {
+                form.action = `/farms/field-areas/${selectedFarmId}/`;
+            } else {
+                form.action = '#'; // Reset to default if no farm is selected
+            }
+        }
+    </script>
 
 </body>
 </html>

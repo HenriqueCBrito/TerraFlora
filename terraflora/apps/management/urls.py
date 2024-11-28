@@ -17,4 +17,7 @@ urlpatterns = [
     path('storage/update/<int:storage_id>/', views.update_storage, name='update_storage'),  # Editar produto
     path('storage/delete/<int:storage_id>/', views.delete_storage, name='delete_storage'),  # Excluir produto
     path('storage/manage/', views.manage_storage, name='manage_storage'),
+    path('shopping/', views.shopping_list, name='shopping_list'), 
+    path('explore/', views.explore, name='explore'),  
 ]
+

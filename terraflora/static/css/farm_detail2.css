@@ -10,14 +10,14 @@ body {
 /* Cabeçalho Ajustado */
 .navbar {
     background-color: #3b5a41;
-    padding: 15px 30px;
+    padding: 30px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .navbar .logo img {
-    width: 60px;
+    width: 250px;
 }
 
 .nav-links {

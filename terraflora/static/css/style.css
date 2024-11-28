@@ -46,8 +46,9 @@ header {
 
 /* Logo */
 .logo img {
-    width: 80px;
-    margin-right: 20px;
+    width: 250px;
+    margin-right:100px;
+    margin-left:20px;
 }
 
 /* Navigation Links */

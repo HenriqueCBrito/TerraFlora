@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Compras - TerraFlora</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'management/css/shopping_list.css' %}">
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <img src="{% static 'images/terraflora_combined.png' %}" alt="Logo TerraFlora">
+            </div>
+            <ul class="nav-links">
+                <li><a href="{% url 'home' %}">INÍCIO</a></li>
+                <li><a href="{% url 'farm_list' %}">FAZENDAS</a></li>
+                <li><a href="{% url 'crop_list' %}">CULTURAS</a></li>
+                <li><a href="{% url 'list_storage' %}">ARMAZENAMENTO</a></li>
+                <li><a href="{% url 'user_account' %}">MINHA CONTA</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Lista de Compras -->
+    <main class="main-container">
+        <section class="shopping-list-section">
+            <h2>Lista de Compras Gerada</h2>
+
+            <p><strong>Orçamento Disponível:</strong> R$ {{ budget }}</p>
+            <p><strong>Custo Total:</strong> R$ {{ total_cost }}</p>
+
+            <table class="shopping-list-table">
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Categoria</th>
+                        <th>Quantidade</th>
+                        <th>Unidade</th>
+                        <th>Custo Total (R$)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in shopping_list %}
+                        <tr>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.category }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>{{ item.unit }}</td>
+                            <td>{{ item.cost }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+</html>

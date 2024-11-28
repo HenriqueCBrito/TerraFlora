@@ -10,7 +10,7 @@ from apps.crops.models import Culturas
 from .models import Event, CropSuggestion, Storage
 from apps.farm.models import Farm
 from django.contrib import messages
-
+from decimal import Decimal  # Import necessário para trabalhar com Decimal
 
 def calendar_view(request):
     """Renders the calendar page."""
@@ -140,28 +140,46 @@ def daily_checklist(request):
 
 @login_required
 def shopping_list(request):
+    from decimal import Decimal
+
     if request.method == 'POST':
-        budget = float(request.POST.get('budget'))
+        budget = Decimal(request.POST.get('budget'))  # Orçamento como Decimal
         farm_id = request.POST.get('farm_id')
         farm = Farm.objects.get(id=farm_id)
 
-        # Convert farm size to m²
-        farm_size_m2 = farm.size
+        # Converter tamanho da fazenda para m²
+        farm_size_m2 = Decimal(farm.size)
         if farm.size_unit == 'ac':
-            farm_size_m2 *= 4046.86
+            farm_size_m2 *= Decimal(4046.86)
         elif farm.size_unit == 'ha':
-            farm_size_m2 *= 10000
+            farm_size_m2 *= Decimal(10000)
 
         shopping_list = []
-        total_cost = 0
+        total_cost = Decimal(0)
+
         for suggestion in CropSuggestion.objects.all():
+            # Calcular quantidade necessária
             if suggestion.recommended_area > 0:
-                quantity = farm_size_m2 / suggestion.recommended_area
+                quantity = farm_size_m2 / Decimal(suggestion.recommended_area)
             else:
-                quantity = 1  # Default quantity for items without area recommendation
+                quantity = Decimal(1)  # Padrão para itens sem área recomendada
 
             cost = suggestion.average_cost * quantity
-            if total_cost + cost <= budget:
+
+            # Ajustar para usar o orçamento restante
+            if total_cost + cost > budget:
+                remaining_budget = budget - total_cost
+                max_quantity = remaining_budget / suggestion.average_cost
+                if max_quantity > 0:
+                    shopping_list.append({
+                        'name': suggestion.name,
+                        'category': suggestion.category,
+                        'quantity': round(max_quantity, 2),
+                        'unit': suggestion.unit,
+                        'cost': round(max_quantity * suggestion.average_cost, 2),
+                    })
+                    total_cost += max_quantity * suggestion.average_cost
+            else:
                 shopping_list.append({
                     'name': suggestion.name,
                     'category': suggestion.category,
@@ -174,11 +192,12 @@ def shopping_list(request):
         return render(request, 'management/shopping_list.html', {
             'shopping_list': shopping_list,
             'total_cost': round(total_cost, 2),
-            'budget': budget,
+            'budget': round(budget, 2),
         })
 
     farms = request.user.farms.all()
     return render(request, 'management/shopping_form.html', {'farms': farms})
+    
 
 @login_required
 def add_storage(request):
@@ -272,3 +291,5 @@ def list_storage(request):
 @login_required
 def manage_storage(request):
     return render(request, 'management/manage_storage.html')
+def explore(request):
+    return render(request, 'accounts/explore.html')  # Certifique-se de salvar o HTML em 'templates/accounts/explore.html'

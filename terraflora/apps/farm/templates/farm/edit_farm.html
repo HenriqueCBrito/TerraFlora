@@ -5,94 +5,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Fazenda - TerraFlora</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/terraflora.css' %}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/terrafloraa.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Cabeçalho -->
-    <header class="bg-terraflora-green text-terraflora-sand py-3">
-        <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light">
-                <a class="navbar-brand" href="{% url 'home' %}">
-                    <img src="{% static 'images/TREVO_LOGO.png' %}" alt="Logo" width="50" height="50">
-                
+    <header class="header">
+        <div class="navbar">
+            <div class="logo">
+                <a href="{% url 'home' %}">
+                    <img src="{% static 'images/terraflora_combined.png' %}" alt="Logo TerraFlora">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'farm_list' %}">Lista de Fazendas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'logout' %}">Sair</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+            </div>
+            <ul class="nav-links">
+                <li><a href="{% url 'farm_list' %}">Lista de Fazendas</a></li>
+                <li><a href="{% url 'logout' %}">Sair</a></li>
+            </ul>
         </div>
     </header>
 
     <!-- Formulário de Edição -->
-    <main class="py-5">
-        <div class="container">
-            <h2 style="color: var(--terraflora-green);">Editar Fazenda</h2>
+    <main class="main-container">
+        <div class="form-container">
+            <h2>Editar Fazenda</h2>
             <form method="POST">
                 {% csrf_token %}
-                <div class="mb-3">
-                    <label for="farm_name" class="form-label" style="color: var(--terraflora-green);">Nome da Fazenda</label>
-                    <input type="text" class="form-control" id="farm_name" name="farm_name" value="{{ farm.farm_name }}" required>
+                <div class="form-group">
+                    <label for="farm_name">Nome da Fazenda</label>
+                    <input type="text" id="farm_name" name="farm_name" value="{{ farm.farm_name }}" required>
                 </div>
-                <div class="mb-3">
-                    <label for="street" class="form-label" style="color: var(--terraflora-green);">Rua</label>
-                    <input type="text" class="form-control" id="street" name="street" value="{{ farm.street }}">
+                <div class="form-group">
+                    <label for="street">Rua</label>
+                    <input type="text" id="street" name="street" value="{{ farm.street }}">
                 </div>
-                <div class="mb-3">
-                    <label for="home_number" class="form-label" style="color: var(--terraflora-green);">Número da Casa</label>
-                    <input type="text" class="form-control" id="home_number" name="home_number" value="{{ farm.home_number }}">
+                <div class="form-group">
+                    <label for="home_number">Número</label>
+                    <input type="text" id="home_number" name="home_number" value="{{ farm.home_number }}">
                 </div>
-                <div class="mb-3">
-                    <label for="city" class="form-label" style="color: var(--terraflora-green);">Cidade</label>
-                    <input type="text" class="form-control" id="city" name="city" value="{{ farm.city }}">
+                <div class="form-group">
+                    <label for="city">Cidade</label>
+                    <input type="text" id="city" name="city" value="{{ farm.city }}">
                 </div>
-                <div class="mb-3">
-                    <label for="state" class="form-label" style="color: var(--terraflora-green);">Estado</label>
-                    <input type="text" class="form-control" id="state" name="state" value="{{ farm.state }}">
+                <div class="form-group">
+                    <label for="state">Estado</label>
+                    <input type="text" id="state" name="state" value="{{ farm.state }}">
                 </div>
-                <div class="mb-3">
-                    <label for="country" class="form-label" style="color: var(--terraflora-green);">País</label>
-                    <input type="text" class="form-control" id="country" name="country" value="{{ farm.country }}">
+                <div class="form-group">
+                    <label for="country">País</label>
+                    <input type="text" id="country" name="country" value="{{ farm.country }}">
                 </div>
-                <div class="mb-3">
-                    <label for="size" class="form-label" style="color: var(--terraflora-green);">Tamanho</label>
-                    <input type="text" class="form-control" id="size" name="size" value="{{ farm.size }}">
+                <div class="form-group">
+                    <label for="size">Tamanho</label>
+                    <input type="text" id="size" name="size" value="{{ farm.size }}">
                 </div>
-                <div class="mb-3">
-                    <label for="size_unit" class="form-label" style="color: var(--terraflora-green);">Unidade de Tamanho</label>
-                    <select class="form-control" id="size_unit" name="size_unit" required>
+                <div class="form-group">
+                    <label for="size_unit">Unidade de Tamanho</label>
+                    <select id="size_unit" name="size_unit" required>
                         <option value="Hectares" {% if farm.size_unit == 'Hectares' %}selected{% endif %}>Hectares</option>
                         <option value="Acres" {% if farm.size_unit == 'Acres' %}selected{% endif %}>Acres</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-success">Salvar Alterações</button>
-                <a href="{% url 'farm_list' %}" class="btn btn-secondary">Cancelar</a>
+                <div class="form-buttons">
+                    <button type="submit" class="btn btn-save">Salvar Alterações</button>
+                    <a href="{% url 'farm_list' %}" class="btn btn-cancel">Cancelar</a>
+                </div>
             </form>
 
-            <!-- Formulário de Exclusão -->
-            <form method="POST" action="{% url 'delete_farm' farm.id %}" style="margin-top: 20px;">
+            <form method="POST" action="{% url 'delete_farm' farm.id %}" class="delete-form">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-danger">Excluir Fazenda</button>
+                <button type="submit" class="btn btn-delete">Excluir Fazenda</button>
             </form>
         </div>
     </main>
 
-    <footer class="bg-terraflora-green text-terraflora-sand text-center py-3">
-        <div class="container">
-            <p>&copy; 2024 TerraFlora</p>
-        </div>
+    <!-- Rodapé -->
+    <footer class="footer">
+        <p>&copy; 2024 TerraFlora. Todos os direitos reservados.</p>
     </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

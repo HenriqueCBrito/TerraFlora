@@ -1,4 +1,4 @@
-describe('Teste da checklist', () => {
+describe('Gerenciar Estoque de Insumos e Produtos', () => {
    
     after(() => {
         cy.exec('python ./create_superuser.py');
@@ -18,27 +18,21 @@ describe('Teste da checklist', () => {
         cy.get('input[name="confirm_password"]').type('senha123');
         cy.get('button[type="submit"]').click();
     });
-
+    it('Adicionando produtos', () => {
+        cy.contains('ARMAZENAMENTO').click();
+    })
     after(() => {
         cy.visit('/admin/');
-    
         cy.get('#id_username').type('admin@admin.com');  
         cy.get('#id_password').type('admin123'); 
         cy.get('.submit-row > input').click();
-    
         cy.contains('Site administration').should('be.visible');
-    
         cy.contains('Users').click();
-    
         cy.get('#searchbar').type('teste@teste.com');
         cy.get('#changelist-search > div > [type="submit"]').click();
-    
         cy.get('.action-select').click();  
-    
         cy.get('select').select('Delete selected users');
-    
         cy.get('.button').click();
-    
         cy.get('div > [type="submit"]').click();
     });
     

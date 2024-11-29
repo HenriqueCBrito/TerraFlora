@@ -18,7 +18,7 @@ describe('Calculadora de compras, baseada em salário', () => {
     cy.get('input[name="confirm_password"]').type('senha123');
     cy.get('button[type="submit"]').click();
     cy.contains('FAZENDAS').click({ force: true });
-    cy.contains("REGISTRAR FAZENDA").click({ force: true });
+    cy.contains("Registrar").click({ force: true });
     cy.get('#farm_name').type('Fazenda TerraFlora', { force: true });
     cy.get('#street').type('Rua das Palmeiras', { force: true });
     cy.get('#home_number').type('123', { force: true });

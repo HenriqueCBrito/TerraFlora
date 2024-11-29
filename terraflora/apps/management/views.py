@@ -10,6 +10,7 @@ from apps.crops.models import Culturas
 from .models import Event, CropSuggestion, Storage
 from apps.farm.models import Farm
 from django.contrib import messages
+from decimal import Decimal
 
 
 def calendar_view(request):
@@ -138,30 +139,38 @@ def daily_checklist(request):
 
     return render(request, 'management/daily_checklist.html', {'events': todays_events})
 
+from decimal import Decimal
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+
 @login_required
 def shopping_list(request):
     if request.method == 'POST':
-        budget = float(request.POST.get('budget'))
+        budget = Decimal(request.POST.get('budget'))
         farm_id = request.POST.get('farm_id')
-        farm = Farm.objects.get(id=farm_id)
+        farm = get_object_or_404(Farm, id=farm_id, user=request.user)
 
         # Convert farm size to m²
-        farm_size_m2 = farm.size
+        farm_size_m2 = Decimal(farm.size)  # Ensure farm size is a Decimal
         if farm.size_unit == 'ac':
-            farm_size_m2 *= 4046.86
+            farm_size_m2 *= Decimal(4046.86)
         elif farm.size_unit == 'ha':
-            farm_size_m2 *= 10000
+            farm_size_m2 *= Decimal(10000)
 
         shopping_list = []
-        total_cost = 0
-        for suggestion in CropSuggestion.objects.all():
-            if suggestion.recommended_area > 0:
-                quantity = farm_size_m2 / suggestion.recommended_area
-            else:
-                quantity = 1  # Default quantity for items without area recommendation
+        total_cost = Decimal(0)
 
-            cost = suggestion.average_cost * quantity
-            if total_cost + cost <= budget:
+        # Separate categories
+        seeds = CropSuggestion.objects.filter(category='Seed')
+        fertilizers = CropSuggestion.objects.filter(category='Fertilizer')
+        pesticides = CropSuggestion.objects.filter(category='Pesticide')
+
+        # Helper function to add an item to the shopping list
+        def add_to_list(suggestion, quantity):
+            nonlocal total_cost
+            cost = Decimal(suggestion.average_cost) * Decimal(quantity)  # Ensure both are Decimal
+            if total_cost + cost <= budget or len(shopping_list) < 3:  # Add essentials even if over budget
                 shopping_list.append({
                     'name': suggestion.name,
                     'category': suggestion.category,
@@ -170,6 +179,44 @@ def shopping_list(request):
                     'cost': round(cost, 2),
                 })
                 total_cost += cost
+                return True
+            return False
+
+        # Add at least one of each category
+        essentials = [
+            (
+                seeds.first(),
+                farm_size_m2 / Decimal(seeds.first().recommended_area)
+                if seeds.exists() and seeds.first().recommended_area
+                else Decimal(1),
+            ),
+            (
+                fertilizers.first(),
+                farm_size_m2 / Decimal(fertilizers.first().recommended_area)
+                if fertilizers.exists() and fertilizers.first().recommended_area
+                else Decimal(1),
+            ),
+            (
+                pesticides.first(),
+                farm_size_m2 / Decimal(pesticides.first().recommended_area)
+                if pesticides.exists() and pesticides.first().recommended_area
+                else Decimal(1),
+            ),
+        ]
+
+        for suggestion, quantity in essentials:
+            if suggestion:
+                quantity = max(Decimal(1), quantity)  # Ensure at least a minimum quantity
+                add_to_list(suggestion, quantity)
+
+        # Add other items if budget allows
+        for suggestion in CropSuggestion.objects.exclude(id__in=[item['name'] for item in shopping_list]):
+            if suggestion.recommended_area:
+                quantity = farm_size_m2 / Decimal(suggestion.recommended_area)
+            else:
+                quantity = Decimal(1)
+            if not add_to_list(suggestion, quantity):
+                break
 
         return render(request, 'management/shopping_list.html', {
             'shopping_list': shopping_list,
@@ -269,3 +316,9 @@ def list_storage(request):
         messages.info(request, 'Nenhum produto encontrado no seu armazenamento.')
 
     return render(request, 'management/list_storage.html', {'storages': storages})
+
+@login_required
+def manage_storage(request):
+    return render(request, 'management/manage_storage.html')
+def explore(request):
+    return render(request, 'accounts/explore.html')  # Certifique-se de salvar o HTML em 'templates/accounts/explore.html'

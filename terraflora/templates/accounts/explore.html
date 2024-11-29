@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Mais - TerraFlora</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/explore.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <a href="{% url 'home' %}">
+                    <img src="{% static 'images/TREVO_LOGO.png' %}" alt="Logo TerraFlora" width="80">
+                    <span>TerraFlora</span>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="{% url 'home' %}">Início</a></li>
+                <li><a href="{% url 'farm_list' %}">Fazendas</a></li>
+                <li><a href="{% url 'crop_list' %}">Culturas</a></li>
+                <li><a href="{% url 'calendar' %}">Calendário</a></li>
+                <!-- Farm Selector placed next to the dropdown -->
+                <li style="display: flex; align-items: center; gap: 10px;">
+                    <form id="farm-form" method="GET" action="#" style="display: flex; align-items: center;">
+                        <select id="farm-select" name="farm_id" required onchange="updateFormAction()" style="padding: 5px; font-size: 16px;">
+                            <option value="">-- Escolha uma fazenda --</option>
+                            {% for farm in farms %}
+                            <option value="{{ farm.id }}">{{ farm.farm_name }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="cta-button" style="background-color: #FFC107; color: black; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: bold; margin-left: 10px;">
+                            Visualizar Campo
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Explore Mais sobre TerraFlora</h1>
+            <p>Descubra como a tecnologia, sustentabilidade e inovação podem transformar sua experiência agrícola.</p>
+        </div>
+    </section>
+
+    <!-- Sobre TerraFlora -->
+    <section class="about-section">
+        <div class="container">
+            <h2>O que é TerraFlora?</h2>
+            <p>
+                TerraFlora é uma plataforma inovadora voltada para agricultores e entusiastas da sustentabilidade. 
+                Nosso objetivo é fornecer ferramentas que ajudam a otimizar a produção, gerenciar recursos 
+                e promover práticas agrícolas sustentáveis.
+            </p>
+            <p>
+                Criamos um ambiente digital onde você pode gerenciar suas fazendas, planejar cultivos, acompanhar 
+                o clima e receber recomendações personalizadas para melhorar sua produtividade. 
+            </p>
+        </div>
+    </section>
+
+    <!-- Principais Funcionalidades -->
+    <section class="features-section">
+        <div class="container">
+            <h2>Principais Funcionalidades</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <img src="{% static 'images/gestao.png' %}" alt="Gestão de Culturas">
+                    <h3>Gestão de Culturas</h3>
+                    <p>Organize e acompanhe suas plantações em tempo real.</p>
+                </div>
+                <div class="feature-item">
+                    <img src="{% static 'images/sustentabilidade1.png' %}" alt="Sustentabilidade">
+                    <h3>Sustentabilidade</h3>
+                    <p>Adote práticas que respeitam o meio ambiente.</p>
+                </div>
+                <div class="feature-item">
+                    <img src="{% static 'images/inovacao.png' %}" alt="Inovação">
+                    <h3>Inovação</h3>
+                    <p>Utilize ferramentas tecnológicas para maximizar resultados.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefícios -->
+    <section class="benefits-section">
+        <div class="container">
+            <h2>Por que escolher TerraFlora?</h2>
+            <ul class="benefits-list">
+                <li><strong>Planejamento Simplificado:</strong> Utilize nosso calendário para planejar todas as etapas do plantio e colheita.</li>
+                <li><strong>Gestão Completa:</strong> Gerencie fazendas, áreas de plantio e cultivos de forma centralizada.</li>
+                <li><strong>Clima Atualizado:</strong> Acompanhe condições climáticas para decisões mais assertivas.</li>
+                <li><strong>Suporte à Sustentabilidade:</strong> Receba dicas para práticas agrícolas mais sustentáveis.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Pronto para transformar sua experiência agrícola?</h2>
+            <a href="{% url 'register' %}" class="cta-button">Comece Agora</a>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 TerraFlora. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+    <script>
+        // Update the form action dynamically based on selected farm
+        function updateFormAction() {
+            const farmSelect = document.getElementById('farm-select');
+            const form = document.getElementById('farm-form');
+            const selectedFarmId = farmSelect.value;
+
+            if (selectedFarmId) {
+                form.action = `/farms/field-areas/${selectedFarmId}/`;
+            } else {
+                form.action = '#'; // Reset to default if no farm is selected
+            }
+        }
+    </script>
+
+</body>
+</html>

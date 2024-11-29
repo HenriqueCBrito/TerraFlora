@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Conta - TerraFlora</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/user_account.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <img src="{% static 'images/terraflora_combined.png' %}" alt="Logo TerraFlora">
+            </div>
+            <ul class="nav-links">
+                <li><a href="{% url 'home' %}">INÍCIO</a></li>
+                <li><a href="{% url 'farm_list' %}">FAZENDAS</a></li>
+                
+            </ul>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-container">
+        <!-- Informações do Usuário -->
+        <section class="user-info">
+            <h2>Minha Conta</h2>
+            <div class="user-details">
+                <p><strong>Nome Completo:</strong> {{ user.full_name }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Telefone:</strong> {{ user.phone_number }}</p>
+                <p><strong>Endereço:</strong> {{ user.street }}, {{ user.home_number }}, {{ user.city }}, {{ user.state }}, {{ user.country }}</p>
+            </div>
+            <a href="{% url 'edit_user' %}" class="btn">Editar Informações</a>
+        </section>
+
+        <!-- Excluir Conta -->
+        <section class="delete-account">
+            <h2>Excluir Conta</h2>
+            <p class="warning">A exclusão da sua conta é irreversível. Todos os dados associados serão permanentemente removidos.</p>
+            <form method="POST" action="{% url 'delete_account' %}">
+                {% csrf_token %}
+                <label for="current_password">Digite sua senha atual para confirmar:</label>
+                <input type="password" id="current_password" name="current_password" placeholder="Senha Atual" required>
+                <button type="submit" class="btn btn-danger">Excluir Conta</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <p>&copy; 2024 TerraFlora. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import datetime, timedelta
 from django.utils.timezone import now
 import requests
 from django.conf import settings
@@ -10,8 +10,6 @@ from apps.crops.models import Culturas
 from .models import Event, CropSuggestion, Storage
 from apps.farm.models import Farm
 from django.contrib import messages
-from decimal import Decimal
-
 
 def calendar_view(request):
     """Renders the calendar page."""
@@ -139,93 +137,111 @@ def daily_checklist(request):
 
     return render(request, 'management/daily_checklist.html', {'events': todays_events})
 
-from decimal import Decimal
-from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-
 @login_required
 def shopping_list(request):
     if request.method == 'POST':
+        from decimal import Decimal
+
         budget = Decimal(request.POST.get('budget'))
         farm_id = request.POST.get('farm_id')
-        farm = get_object_or_404(Farm, id=farm_id, user=request.user)
+        farm = Farm.objects.get(id=farm_id)
 
         # Convert farm size to m²
-        farm_size_m2 = Decimal(farm.size)  # Ensure farm size is a Decimal
+        farm_size_m2 = Decimal(farm.size)
         if farm.size_unit == 'ac':
             farm_size_m2 *= Decimal(4046.86)
         elif farm.size_unit == 'ha':
             farm_size_m2 *= Decimal(10000)
 
         shopping_list = []
-        total_cost = Decimal(0)
+        total_cost_budget = Decimal(0)
+        total_cost_recommended = Decimal(0)
 
-        # Separate categories
+        # Fetch crop suggestions by category
         seeds = CropSuggestion.objects.filter(category='Seed')
         fertilizers = CropSuggestion.objects.filter(category='Fertilizer')
         pesticides = CropSuggestion.objects.filter(category='Pesticide')
 
-        # Helper function to add an item to the shopping list
-        def add_to_list(suggestion, quantity):
-            nonlocal total_cost
-            cost = Decimal(suggestion.average_cost) * Decimal(quantity)  # Ensure both are Decimal
-            if total_cost + cost <= budget or len(shopping_list) < 3:  # Add essentials even if over budget
-                shopping_list.append({
-                    'name': suggestion.name,
-                    'category': suggestion.category,
-                    'quantity': round(quantity, 2),
-                    'unit': suggestion.unit,
-                    'cost': round(cost, 2),
-                })
-                total_cost += cost
-                return True
-            return False
-
-        # Add at least one of each category
+        # Essentials: ensure at least one item from each category
         essentials = [
             (
                 seeds.first(),
-                farm_size_m2 / Decimal(seeds.first().recommended_area)
-                if seeds.exists() and seeds.first().recommended_area
-                else Decimal(1),
+                farm_size_m2 / Decimal(seeds.first().recommended_area) if seeds.exists() else Decimal(1),
             ),
             (
                 fertilizers.first(),
-                farm_size_m2 / Decimal(fertilizers.first().recommended_area)
-                if fertilizers.exists() and fertilizers.first().recommended_area
-                else Decimal(1),
+                farm_size_m2 / Decimal(fertilizers.first().recommended_area) if fertilizers.exists() else Decimal(1),
             ),
             (
                 pesticides.first(),
-                farm_size_m2 / Decimal(pesticides.first().recommended_area)
-                if pesticides.exists() and pesticides.first().recommended_area
-                else Decimal(1),
+                farm_size_m2 / Decimal(pesticides.first().recommended_area) if pesticides.exists() else Decimal(1),
             ),
         ]
 
-        for suggestion, quantity in essentials:
+        # Add essentials to the shopping list
+        for suggestion, quantity_recommended in essentials:
             if suggestion:
-                quantity = max(Decimal(1), quantity)  # Ensure at least a minimum quantity
-                add_to_list(suggestion, quantity)
+                cost_recommended = suggestion.average_cost * quantity_recommended
 
-        # Add other items if budget allows
-        for suggestion in CropSuggestion.objects.exclude(id__in=[item['name'] for item in shopping_list]):
-            if suggestion.recommended_area:
-                quantity = farm_size_m2 / Decimal(suggestion.recommended_area)
+                # Adjust quantity to fit within remaining budget
+                if total_cost_budget + cost_recommended > budget:
+                    quantity_budget = (budget - total_cost_budget) / suggestion.average_cost
+                    cost_budget = quantity_budget * suggestion.average_cost
+                else:
+                    quantity_budget = quantity_recommended
+                    cost_budget = cost_recommended
+
+                shopping_list.append({
+                    'id': suggestion.id,  # Use ID for filtering in exclude()
+                    'name': suggestion.name,
+                    'category': suggestion.category,
+                    'quantity_recommended': round(quantity_recommended, 2),
+                    'quantity_budget': max(round(quantity_budget, 2), 0),  # Ensure non-negative
+                    'unit': suggestion.unit,
+                    'cost_recommended': round(cost_recommended, 2),
+                    'cost_budget': round(cost_budget, 2),
+                })
+                total_cost_budget += cost_budget
+                total_cost_recommended += cost_recommended
+
+        # Add remaining suggestions while staying within the budget
+        for suggestion in CropSuggestion.objects.exclude(id__in=[item['id'] for item in shopping_list]):
+            quantity_recommended = farm_size_m2 / Decimal(suggestion.recommended_area) if suggestion.recommended_area else Decimal(1)
+            cost_recommended = suggestion.average_cost * quantity_recommended
+
+            # Adjust quantity to fit within the remaining budget
+            if total_cost_budget + cost_recommended > budget:
+                quantity_budget = (budget - total_cost_budget) / suggestion.average_cost
+                cost_budget = quantity_budget * suggestion.average_cost
             else:
-                quantity = Decimal(1)
-            if not add_to_list(suggestion, quantity):
-                break
+                quantity_budget = quantity_recommended
+                cost_budget = cost_recommended
+
+            if quantity_budget > 0:  # Only add if the item can fit within the budget
+                shopping_list.append({
+                    'id': suggestion.id,  # Use ID for filtering in exclude()
+                    'name': suggestion.name,
+                    'category': suggestion.category,
+                    'quantity_recommended': round(quantity_recommended, 2),
+                    'quantity_budget': max(round(quantity_budget, 2), 0),  # Ensure non-negative
+                    'unit': suggestion.unit,
+                    'cost_recommended': round(cost_recommended, 2),
+                    'cost_budget': round(cost_budget, 2),
+                })
+                total_cost_budget += cost_budget
+                total_cost_recommended += cost_recommended
 
         return render(request, 'management/shopping_list.html', {
             'shopping_list': shopping_list,
-            'total_cost': round(total_cost, 2),
-            'budget': budget,
+            'total_cost_budget': round(total_cost_budget, 2),
+            'total_cost_recommended': round(total_cost_recommended, 2),
+            'budget': round(budget, 2),
         })
 
     farms = request.user.farms.all()
     return render(request, 'management/shopping_form.html', {'farms': farms})
+
+
 
 @login_required
 def add_storage(request):

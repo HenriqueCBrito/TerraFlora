@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="{% static 'management/css/shopping_list.css' %}">
 </head>
 <body>
-    <!-- Cabeçalho -->
     <header>
         <div class="navbar">
             <div class="logo">
@@ -24,33 +23,37 @@
         </div>
     </header>
 
-    <!-- Lista de Compras -->
     <main class="main-container">
         <section class="shopping-list-section">
             <h2>Lista de Compras Gerada</h2>
-
+    
             <p><strong>Orçamento Disponível:</strong> R$ {{ budget }}</p>
-            <p><strong>Custo Total:</strong> R$ {{ total_cost }}</p>
-
+            <p><strong>Custo Total Recomendado:</strong> R$ {{ total_cost_recommended }}</p>
+            <p><strong>Custo Total para o Orçamento:</strong> R$ {{ total_cost_budget }}</p>
+    
             <table class="shopping-list-table">
                 <thead>
                     <tr>
                         <th>Produto</th>
                         <th>Categoria</th>
-                        <th>Quantidade</th>
+                        <th>Quantidade Recomendada</th>
+                        <th>Quantidade no Orçamento</th>
                         <th>Unidade</th>
-                        <th>Custo Total (R$)</th>
+                        <th>Custo Recomendado (R$)</th>
+                        <th>Custo no Orçamento (R$)</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for item in shopping_list %}
-                        <tr>
-                            <td>{{ item.name }}</td>
-                            <td>{{ item.category }}</td>
-                            <td>{{ item.quantity }}</td>
-                            <td>{{ item.unit }}</td>
-                            <td>{{ item.cost }}</td>
-                        </tr>
+                    <tr>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.category }}</td>
+                        <td>{{ item.quantity_recommended }}</td>
+                        <td>{{ item.quantity_budget }}</td>
+                        <td>{{ item.unit }}</td>
+                        <td>{{ item.cost_recommended }}</td>
+                        <td>{{ item.cost_budget }}</td>
+                    </tr>
                     {% endfor %}
                 </tbody>
             </table>

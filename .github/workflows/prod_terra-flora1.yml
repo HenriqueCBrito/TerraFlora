@@ -2,12 +2,12 @@
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 # More info on Python, GitHub Actions, and Azure App Service: https://aka.ms/python-webapps-actions
 
-name: Build and deploy Python app to Azure Web App - Terra-Flora
+name: Build and deploy Python app to Azure Web App - Terra-Flora1
 
 on:
   push:
     branches:
-      - prod1
+      - prod
   workflow_dispatch:
 
 jobs:
@@ -37,7 +37,6 @@ jobs:
           rm .env
           cd ..
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
-
       - name: Zip artifact for deployment
         run: |
           cd terraflora
@@ -75,14 +74,14 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_DD7ED88EF07B4F9591F89F56F0E1D1E3 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_F26FED6E2FEA4D328383C5AA687D54FB }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_040703C2F80148F594C252C4B5428184 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_3CE8AB07B0224105844A08746E67C453 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_90A86202083146E49155D321B7F4E2C2 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_DC29E20C95F240BABF2E140E86F5B461 }}
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
-          app-name: 'Terra-Flora'
+          app-name: 'Terra-Flora1'
           slot-name: 'Production'
           

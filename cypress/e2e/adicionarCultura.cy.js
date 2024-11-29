@@ -1,6 +1,4 @@
-const peso = Math.floor(Math.random() * (1000 - 100 + 1)) + 100;
-describe('Calculador de Plantio ', () => {
-  
+describe('Adicionando Cultivo ao banco', () => {
   before(() => {
     cy.exec('python ./create_superuser.py');
     cy.visit('/');
@@ -19,7 +17,7 @@ describe('Calculador de Plantio ', () => {
     cy.get('input[name="confirm_password"]').type('senha123');
     cy.get('button[type="submit"]').click();
     cy.contains('FAZENDAS').click({ force: true });
-    cy.contains("Registrar Fazenda").click({ force: true });
+    cy.contains('Registrar Fazenda').click({ force: true });
     cy.get('#farm_name').type('Fazenda TerraFlora', { force: true });
     cy.get('#street').type('Rua das Palmeiras', { force: true });
     cy.get('#home_number').type('123', { force: true });
@@ -29,12 +27,12 @@ describe('Calculador de Plantio ', () => {
     cy.get('#size').type('100', { force: true });
     cy.get('#size_unit').select('ha', { force: true });
     cy.get('button[type="submit"]').click({ force: true });
-    cy.contains("Home").click({ force: true });
+    cy.contains('Home').click({ force: true });
   });
 
-  it('Selecionando fazenda e gerando lista de compras', () => {
+  it("Adicionando a cultura 'Tomate'", () => {
     cy.contains('CULTURAS').click({ force: true });
-    cy.contains("Registrar Nova Cultura").click({ force: true });
+    cy.contains('Registrar Nova Cultura').click({ force: true });
     cy.get('#name').type('Tomate');
     cy.get('#crop_type').select('vegetable');
     cy.get('#planting_season').type('Primavera');
@@ -46,8 +44,6 @@ describe('Calculador de Plantio ', () => {
     cy.get('#sun_exposure').type('Pleno sol');
     cy.get('#notes').type('Prefere solos férteis e bem irrigados');
     cy.get('button[type="submit"]').click();
-    cy.get('#desired_harvest').type(peso);
-    cy.get('button[type="button"]').click();
   });
 
   after(() => {
@@ -64,5 +60,4 @@ describe('Calculador de Plantio ', () => {
     cy.get('.button').click({ force: true });
     cy.get('div > [type="submit"]').click({ force: true });
   });
-  
 });

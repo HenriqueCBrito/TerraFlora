@@ -1,0 +1,195 @@
+/* TerraFlora theme colors */
+:root {
+    --terraflora-green: #3b5a41;
+    --terraflora-light-green: #a1c04d;
+    --terraflora-sand: #d8d6a8;
+    --terraflora-hover: #a1c04d;
+    --terraflora-background: #f4efd7;
+    --terraflora-highlight: #f4d35e;
+    --terraflora-dark-text: #2a2a2a;
+}
+
+/* Estilo geral */
+body {
+    background-color: var(--terraflora-background);
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Cabeçalho */
+header {
+    width: 100%;
+    padding: 20px 0;
+    background: rgba(59, 90, 65, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Navbar */
+.navbar {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+}
+
+/* Logo */
+.logo img {
+    width: 80px;
+    margin-right: 20px;
+}
+
+/* Navigation Links */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links li {
+    position: relative;
+}
+
+.nav-links li a {
+    color: var(--terraflora-sand);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: color 0.3s ease;
+}
+
+.nav-links li a:hover {
+    color: var(--terraflora-hover);
+}
+
+/* Dropdown Menu */
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--terraflora-green);
+    padding: 10px 0;
+    border-radius: 5px;
+    min-width: 150px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+.dropdown li {
+    margin: 0;
+}
+
+.dropdown li a {
+    display: block;
+    padding: 10px 20px;
+    color: var(--terraflora-sand);
+    text-decoration: none;
+    font-size: 1em;
+    font-weight: normal;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown li a:hover {
+    background-color: var(--terraflora-hover);
+    color: var(--terraflora-green);
+}
+
+/* Display dropdown on hover */
+.dropdown-parent:hover .dropdown {
+    display: block;
+}
+
+/* Informações pessoais */
+.info-bar {
+    background-color: var(--terraflora-green);
+    color: var(--terraflora-sand);
+    padding: 10px 20px;
+    padding-left: 40px;
+    text-align: left;
+    font-size: 1.5em;
+    margin: 6em auto 0;
+    width: calc(100% - 100px);
+}
+
+/* Seção principal (mantendo alinhamento original) */
+.main-content {
+    display: flex;
+    justify-content: space-between;
+    width: calc(100% - 100px);
+    margin: 20px auto;
+    padding-left: 40px;
+}
+
+/* Renda */
+.renda-section {
+    text-align: left;
+}
+
+.renda-box {
+    background-color: rgba(1, 73, 14, 0.8);
+    border: 2px solid var(--terraflora-green);
+    border-radius: 10px;
+    padding: 10px;
+    width: 250px;
+    display: flex;
+    align-items: center;
+}
+
+.renda-label {
+    color: white;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.renda-dropdown {
+    color: black;
+    background-color: white;
+    border: 1px solid var(--terraflora-green);
+    border-radius: 5px;
+    padding: 10px;
+    width: 200px;
+    cursor: pointer;
+}
+
+/* Recomendações */
+.recommendation-section {
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    margin-left: auto;
+    min-height: 250px;
+}
+
+.recommendation-header {
+    background-color: rgba(255, 165, 0, 0.6);
+    padding: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    color: black;
+}
+
+.recommendation-top {
+    background-color: white;
+    padding: 15px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: flex-start;
+    text-align: left;
+}

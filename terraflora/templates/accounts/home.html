@@ -14,17 +14,34 @@
     <header>
         <div class="navbar">
             <div class="logo">
-                <img src="{% static 'images/TREVO_LOGO.png' %}" alt="Logo TerraFlora">
+                <img src="{% static 'images/terraflora_combined.png' %}" alt="Logo TerraFlora">
             </div>
             <ul class="nav-links">
                 <li><a href="#">INÍCIO</a></li>
                 <li><a href="{% url 'farm_list' %}">FAZENDAS</a></li>
                 <li><a href="{% url 'crop_list' %}">CULTURAS</a></li>
+                <li><a href="{% url 'calendar' %}">CALENDÁRIO</a></li> <!-- Nova opção "Calendário" -->
+                <li><a href="{% url 'list_storage' %}">ARMAZENAMENTO</a></li>
+                <!-- Farm Selector placed next to the dropdown -->
+                <li style="display: flex; align-items: center; gap: 10px;">
+                    <form id="farm-form" method="GET" action="#" style="display: flex; align-items: center;">
+                        <select id="farm-select" name="farm_id" required onchange="updateFormAction()" style="padding: 5px; font-size: 16px;">
+                            <option value="">-- Escolha uma fazenda --</option>
+                            {% for farm in farms %}
+                            <option value="{{ farm.id }}">{{ farm.farm_name }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="cta-button" style="background-color: #FFC107; color: black; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: bold; margin-left: 10px;">
+                            Visualizar Campo
+                        </button>
+                    </form>
+                </li>
                 <li class="dropdown-parent">
                     <a href="#">USUÁRIO</a>
                     <ul class="dropdown">
                         <li><a href="{% url 'login' %}">Login</a></li>
                         <li><a href="{% url 'register' %}">Cadastro</a></li>
+                        <li><a href="{% url 'user_account' %}">Minha Conta</a></li>
                     </ul>
                 </li>
             </ul>
@@ -36,7 +53,7 @@
         <div class="hero-content">
             <h1>TerraFlora</h1>
             <p>Agricultura Sustentável</p>
-            <a href="#" class="cta-button">Explore Mais</a>
+            <a href="{% url 'explore' %}" class="cta-button">Explore Mais</a>
         </div>
     </section>
 
@@ -58,6 +75,21 @@
             <p>Tecnologias avançadas para melhorar sua produção agrícola.</p>
         </div>
     </section>
+    
+    <script>
+        // Update the form action dynamically based on selected farm
+        function updateFormAction() {
+            const farmSelect = document.getElementById('farm-select');
+            const form = document.getElementById('farm-form');
+            const selectedFarmId = farmSelect.value;
+
+            if (selectedFarmId) {
+                form.action = `/farms/field-areas/${selectedFarmId}/`;
+            } else {
+                form.action = '#'; // Reset to default if no farm is selected
+            }
+        }
+    </script>
 
 </body>
 </html>

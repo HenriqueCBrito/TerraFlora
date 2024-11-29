@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendário de Plantio - TerraFlora</title>
+    {% load static %}
+    
+    <!-- FullCalendar CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css" rel="stylesheet" />
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{% static 'management/css/calendar.css' %}">
+</head>
+<body>
+
+<header>
+    <div class="navbar">
+        <div class="logo">
+            <img src="{% static 'images/terraflora_combined.png' %}" alt="Logo TerraFlora">
+        </div>
+        <ul class="nav-links">
+            <li><a href="{% url 'home' %}">INÍCIO</a></li>
+            <li><a href="{% url 'farm_list' %}">FAZENDAS</a></li>
+            <li><a href="{% url 'crop_list' %}">CULTURAS</a></li>
+            <li><a href="{% url 'user_account' %}">MINHA CONTA</a></li>
+        </ul>
+    </div>
+</header>
+
+<main class="main-container">
+    <!-- Seção do Calendário -->
+    <section class="calendar-section">
+        <div id="calendar"></div>
+    </section>
+
+    <!-- Formulário de Planejamento -->
+    <section class="event-form-section">
+        <h3>Adicionar/Editar Planejamento</h3>
+        <form id="event-form">
+            <input type="hidden" id="event-id" />
+            <label for="title">Título:</label>
+            <input type="text" id="title" required>
+            
+            <label for="task_type">Tipo de Tarefa:</label>
+            <select id="task_type" required>
+                <option value="Planting">Plantar</option>
+                <option value="Harvesting">Colher</option>
+                <option value="Watering">Regar</option>
+                <option value="Pruning">Podar</option>
+                <option value="Soil Management">Remanejo do Solo</option>
+            </select>
+            
+            <label for="crop">Cultura:</label>
+            <select id="crop" required>
+                <!-- Dynamically populate crops here -->
+            </select>
+            
+            <label for="start_date">Data e Hora de Início:</label>
+            <input type="datetime-local" id="start_date" required>
+            
+            <label for="end_date">Data e Hora de Término:</label>
+            <input type="datetime-local" id="end_date" required>
+            
+            <button type="button" onclick="saveEvent()">Salvar Evento</button>
+            <button type="button" onclick="clearForm()">Cancelar</button>
+        </form>
+    </section>
+
+    <!-- Seção de Clima -->
+    <section class="weather-box">
+        <h3> Clima ☁️</h3>
+        <div id="weather-background">
+            <div id="weather-info">
+                <p id="weather-condition">Carregando...</p>
+                <p id="weather-temp">Temperatura: --</p>
+                <p id="weather-wind">Vento: --</p>
+                <p id="weather-humidity">Umidade: --</p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- FullCalendar JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
+
+<!-- Clima Simulado JavaScript -->
+<script>
+    function simulateWeather() {
+        const weatherConditions = [
+            { condition: 'Ensolarado', temp: '30°C', wind: '10 km/h', humidity: '40%', icon: '☀️', bg: '#f4d35e' },
+            { condition: 'Chuvoso', temp: '20°C', wind: '20 km/h', humidity: '80%', icon: '🌧️', bg: '#9ecae1' },
+            { condition: 'Nublado', temp: '25°C', wind: '15 km/h', humidity: '60%', icon: '☁️', bg: '#d8d6a8' },
+            { condition: 'Tempestade', temp: '18°C', wind: '30 km/h', humidity: '90%', icon: '⛈️', bg: '#6b8e23' },
+        ];
+
+        const randomIndex = Math.floor(Math.random() * weatherConditions.length);
+        const selectedWeather = weatherConditions[randomIndex];
+
+        document.getElementById('weather-condition').innerText = selectedWeather.condition + ' ' + selectedWeather.icon;
+        document.getElementById('weather-temp').innerText = 'Temperatura: ' + selectedWeather.temp;
+        document.getElementById('weather-wind').innerText = 'Vento: ' + selectedWeather.wind;
+        document.getElementById('weather-humidity').innerText = 'Umidade: ' + selectedWeather.humidity;
+
+        // Atualizar cor de fundo
+        document.getElementById('weather-background').style.backgroundColor = selectedWeather.bg;
+    }
+
+    // Simular clima ao carregar a página
+    document.addEventListener('DOMContentLoaded', simulateWeather);
+</script>
+
+<!-- Main JavaScript -->
+<script src="{% static 'management/js/calendar.js' %}"></script>
+</body>
+</html>

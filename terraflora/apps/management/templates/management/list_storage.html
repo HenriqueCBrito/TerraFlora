@@ -19,10 +19,7 @@
                 <li><a href="{% url 'farm_list' %}">FAZENDAS</a></li>
                 <li><a href="{% url 'crop_list' %}">CULTURAS</a></li>
                 <li><a href="{% url 'calendar' %}">CALENDÁRIO</a></li>
-                <li class="dropdown-parent">
-                        <li><a href="{% url 'edit_user' %}">MINHA CONTA</a></li>
-                    </ul>
-                </li>
+                <li><a href="{% url 'edit_user' %}">MINHA CONTA</a></li>
             </ul>
         </div>
     </header>
@@ -53,7 +50,7 @@
                         {% for storage in storages %}
                             <tr>
                                 <td>{{ storage.product_name }}</td>
-                                <td>{{ storage.category }}</td>
+                                <td>{{ storage.get_category_display }}</td>
                                 <td>{% if storage.culture %}{{ storage.culture.name }}{% else %}N/A{% endif %}</td>
                                 <td>{{ storage.quantity }} {{ storage.unit }}</td>
                                 <td>R$ {{ storage.average_cost }}</td>
@@ -73,7 +70,7 @@
             {% endif %}
         </section>
     </main>
-<br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br>
     <!-- Rodapé -->
     <footer>
         <p>&copy; 2024 TerraFlora. Todos os direitos reservados.</p>

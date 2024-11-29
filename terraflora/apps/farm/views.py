@@ -176,6 +176,13 @@ def view_field(request, farm_id):
         crop_id = request.POST.get('crop')
         area = get_object_or_404(FieldArea, id=area_id, farm=farm)
         crop = get_object_or_404(Storage, id=crop_id, user=request.user)
+
+        # Validate crop.recommended_area
+        if crop.recommended_area is None or crop.recommended_area <= 0:
+            messages.error(request, f"O cultivo {crop.product_name} não possui uma área recomendada válida.")
+            return redirect('view_field', farm_id=farm_id)
+
+        # Calculate the required quantity
         required_quantity = area.size / crop.recommended_area
         if crop.quantity < required_quantity:
             messages.error(request, f"Quantidade insuficiente de {crop.product_name} no armazenamento.")
@@ -184,6 +191,7 @@ def view_field(request, farm_id):
             area.save()
             messages.success(request, f"{crop.product_name} atribuído à {area.name}!")
         return redirect('view_field', farm_id=farm_id)
+
 
     return render(request, 'farm/view_field.html', {
         'farm': farm,

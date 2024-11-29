@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Produto ao Armazenamento</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'management/css/add_storage.css' %}">
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <img src="{% static 'images/terraflora_combined.png' %}" alt="Logo TerraFlora">
+            </div>
+            <ul class="nav-links">
+                <li><a href="{% url 'home' %}">INÍCIO</a></li>
+                <li><a href="{% url 'farm_list' %}">FAZENDAS</a></li>
+                <li><a href="{% url 'crop_list' %}">CULTURAS</a></li>
+                <li><a href="{% url 'list_storage' %}">ARMAZENAMENTO</a></li>
+                <li><a href="{% url 'user_account' %}">MINHA CONTA</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Conteúdo principal -->
+    <main class="main-container">
+        <section class="form-container">
+            <h2>Adicionar Produto ao Armazenamento</h2>
+            <form method="POST" action="{% url 'add_storage' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="product_name">Nome do Produto:</label>
+                    <input type="text" id="product_name" name="product_name" placeholder="Ex.: Semente de Milho" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Categoria:</label>
+                    <select id="category" name="category" required>
+                        <option value="">Selecione uma categoria</option>
+                        <option value="Seed">Semente</option>
+                        <option value="Fertilizer">Fertilizante</option>
+                        <option value="Pesticide">Pesticida</option>
+                        <option value="Tool">Ferramenta</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="culture">Cultura Associada:</label>
+                    <select id="culture" name="culture">
+                        <option value="">Nenhuma</option>
+                        {% for culture in cultures %}
+                        <option value="{{ culture.id }}">{{ culture.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="quantity">Quantidade:</label>
+                    <input type="number" id="quantity" name="quantity" placeholder="Ex.: 100" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="unit">Unidade:</label>
+                    <select id="unit" name="unit" required>
+                        <option value="kg">kg</option>
+                        <option value="liters">litros</option>
+                        <option value="units">unidades</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="average_cost">Custo Médio:</label>
+                    <input type="number" id="average_cost" name="average_cost" step="0.01" placeholder="Ex.: 15.50" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="recommended_area">Área Recomendada por Unidade (opcional):</label>
+                    <input type="number" id="recommended_area" name="recommended_area" step="0.01" placeholder="Ex.: 1.5">
+                </div>
+
+                <button type="submit" class="btn-submit">Adicionar</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

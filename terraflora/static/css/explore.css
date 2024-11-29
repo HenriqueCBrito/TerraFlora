@@ -1,0 +1,156 @@
+/* Variáveis de cores */
+:root {
+    --terraflora-green: #3b5a41;
+    --terraflora-light-green: #a1c04d;
+    --terraflora-sand: #d8d6a8;
+    --terraflora-background: #f4efd7;
+    --terraflora-highlight: #f4d35e;
+    --terraflora-dark-text: #2a2a2a;
+}
+
+/* Estilo Geral */
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--terraflora-background);
+    color: var(--terraflora-dark-text);
+}
+
+/* Cabeçalho */
+header {
+    background-color: var(--terraflora-green);
+    padding: 10px 20px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--terraflora-sand);
+    font-weight: bold;
+}
+
+.nav-links a:hover {
+    color: var(--terraflora-highlight);
+}
+
+/* Hero Section */
+.hero-section {
+    background-image: url('{% static "images/background_hero.png" %}');
+    background-size: cover;
+    background-position: center;
+    color: var(--terraflora-sand);
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.hero-content h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 1.2em;
+}
+
+/* About Section */
+.about-section {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.about-section h2 {
+    font-size: 2em;
+    color: var(--terraflora-green);
+    margin-bottom: 20px;
+}
+
+.about-section p {
+    line-height: 1.6;
+}
+
+/* Features Section */
+.features-section {
+    background-color: #fff;
+    padding: 40px 20px;
+}
+
+.features-section .features-grid {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.feature-item {
+    text-align: center;
+    flex: 1 1 calc(33% - 20px);
+    max-width: 300px;
+}
+
+.feature-item img {
+    max-width: 100px;
+    margin-bottom: 10px;
+}
+
+.feature-item h3 {
+    color: var(--terraflora-green);
+    margin-bottom: 10px;
+}
+
+/* Benefits Section */
+.benefits-section {
+    padding: 40px 20px;
+}
+
+.benefits-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.benefits-list li {
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+/* Call to Action */
+.cta-section {
+    background-color: var(--terraflora-green);
+    color: var(--terraflora-sand);
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.cta-button {
+    padding: 15px 30px;
+    background-color: var(--terraflora-highlight);
+    color: var(--terraflora-green);
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: var(--terraflora-light-green);
+}
+
+/* Footer */
+.footer {
+    background-color: var(--terraflora-green);
+    color: var(--terraflora-sand);
+    text-align: center;
+    padding: 10px 20px;
+}

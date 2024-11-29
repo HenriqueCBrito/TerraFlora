@@ -1,10 +1,14 @@
 from pathlib import Path
 import os
+
 from dotenv import load_dotenv
 
 # Base directory
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# SECURITY WARNING: Keep the secret key used in production secret!
+
+SECRET_KEY = 'django-insecure-fl_l22%v!e9d$-g_u4)^b0+=(=9t2qnsdhv2*i6!mabi4pf(br'
 # Load environment variables
 load_dotenv(BASE_DIR / '.env')
 
@@ -15,8 +19,8 @@ if NOT_PROD:
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
     # SECURITY WARNING: keep the secret key used in production secret!
-    SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-placeholder')
-    ALLOWED_HOSTS = []
+    SECRET_KEY = os.getenv('django-insecure-fl_l22%v!e9d$-g_u4)^b0+=(=9t2qnsdhv2*i6!mabi4pf(br', 'django-insecure-placeholder')
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]'] 
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -38,11 +42,12 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ.get('DBNAME'),
-            'HOST': os.environ.get('DBHOST'),
-            'USER': os.environ.get('DBUSER'),
-            'PASSWORD': os.environ.get('DBPASS'),
-            'OPTIONS': {'sslmode': 'require'},
+            'NAME': os.getenv('DBNAME'),  # Use the correct environment variable
+            'USER': os.getenv('DBUSER'),  # Use the correct environment variable
+            'PASSWORD': os.getenv('DBPASS'),  # Use the correct environment variable
+            'HOST': os.getenv('DBHOST'),  # Use the correct environment variable
+            'PORT': '5432',  # Default PostgreSQL port
+            'OPTIONS': {'sslmode': 'require'},  # Ensure SSL mode is set for Azure
         }
     }
 
@@ -60,6 +65,7 @@ INSTALLED_APPS = [
     'apps.farm',
     'apps.management',
 ]
+
 AUTH_USER_MODEL = 'accounts.Customuser'
 
 # Middleware
@@ -76,10 +82,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "terraflora.urls"
 
+# Templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        "DIRS": [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -92,9 +99,10 @@ TEMPLATES = [
     },
 ]
 
+# WSGI Application
 WSGI_APPLICATION = "terraflora.wsgi.application"
 
-# Password validation
+# Password Validation
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
@@ -102,20 +110,25 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-# Internationalization
+# Localization
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True
 
-# Static files
-STATIC_URL = os.getenv('DJANGO_STATIC_URL', '/static/')
+# STATIC_URL = "static/"
+STATIC_URL = os.environ.get('DJANGO_STATIC_URL', "/static/")
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
-# Default auto field
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  # Corrected to use string
+
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+# Default Auto Field
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# Weather API
-WEATHER_API_KEY = os.getenv('WEATHER_API_KEY')
+# Weather API Key
+WEATHER_API_KEY = '6fec7bf5aef14260b04224037241711'
+

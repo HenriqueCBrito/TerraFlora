@@ -1,0 +1,108 @@
+/* Variáveis de cor */
+:root {
+    --terraflora-green: #3b5a41;
+    --terraflora-light-green: #a1c04d;
+    --terraflora-sand: #d8d6a8;
+    --terraflora-hover: #a1c04d;
+    --terraflora-background: #f4efd7;
+    --terraflora-dark-text: #2a2a2a;
+}
+
+/* Estilo geral */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--terraflora-background);
+    margin: 0;
+    padding: 0;
+    color: var(--terraflora-dark-text);
+}
+
+/* Cabeçalho */
+header {
+    background-color: var(--terraflora-green);
+    padding: 10px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.navbar .logo img {
+    height: 50px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--terraflora-sand);
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.nav-links a:hover {
+    color: var(--terraflora-hover);
+}
+
+/* Conteúdo principal */
+.main-container {
+    max-width: 800px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h2 {
+    font-size: 1.8em;
+    color: var(--terraflora-green);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--terraflora-green);
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: var(--terraflora-light-green);
+}

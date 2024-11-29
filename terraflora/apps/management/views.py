@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import datetime, timedelta
 from django.utils.timezone import now
 import requests
 from django.conf import settings
@@ -10,7 +10,6 @@ from apps.crops.models import Culturas
 from .models import Event, CropSuggestion, Storage
 from apps.farm.models import Farm
 from django.contrib import messages
-
 
 def calendar_view(request):
     """Renders the calendar page."""
@@ -141,44 +140,108 @@ def daily_checklist(request):
 @login_required
 def shopping_list(request):
     if request.method == 'POST':
-        budget = float(request.POST.get('budget'))
+        from decimal import Decimal
+
+        budget = Decimal(request.POST.get('budget'))
         farm_id = request.POST.get('farm_id')
         farm = Farm.objects.get(id=farm_id)
 
         # Convert farm size to m²
-        farm_size_m2 = farm.size
+        farm_size_m2 = Decimal(farm.size)
         if farm.size_unit == 'ac':
-            farm_size_m2 *= 4046.86
+            farm_size_m2 *= Decimal(4046.86)
         elif farm.size_unit == 'ha':
-            farm_size_m2 *= 10000
+            farm_size_m2 *= Decimal(10000)
 
         shopping_list = []
-        total_cost = 0
-        for suggestion in CropSuggestion.objects.all():
-            if suggestion.recommended_area > 0:
-                quantity = farm_size_m2 / suggestion.recommended_area
-            else:
-                quantity = 1  # Default quantity for items without area recommendation
+        total_cost_budget = Decimal(0)
+        total_cost_recommended = Decimal(0)
 
-            cost = suggestion.average_cost * quantity
-            if total_cost + cost <= budget:
+        # Fetch crop suggestions by category
+        seeds = CropSuggestion.objects.filter(category='Seed')
+        fertilizers = CropSuggestion.objects.filter(category='Fertilizer')
+        pesticides = CropSuggestion.objects.filter(category='Pesticide')
+
+        # Essentials: ensure at least one item from each category
+        essentials = [
+            (
+                seeds.first(),
+                farm_size_m2 / Decimal(seeds.first().recommended_area) if seeds.exists() else Decimal(1),
+            ),
+            (
+                fertilizers.first(),
+                farm_size_m2 / Decimal(fertilizers.first().recommended_area) if fertilizers.exists() else Decimal(1),
+            ),
+            (
+                pesticides.first(),
+                farm_size_m2 / Decimal(pesticides.first().recommended_area) if pesticides.exists() else Decimal(1),
+            ),
+        ]
+
+        # Add essentials to the shopping list
+        for suggestion, quantity_recommended in essentials:
+            if suggestion:
+                cost_recommended = suggestion.average_cost * quantity_recommended
+
+                # Adjust quantity to fit within remaining budget
+                if total_cost_budget + cost_recommended > budget:
+                    quantity_budget = (budget - total_cost_budget) / suggestion.average_cost
+                    cost_budget = quantity_budget * suggestion.average_cost
+                else:
+                    quantity_budget = quantity_recommended
+                    cost_budget = cost_recommended
+
                 shopping_list.append({
+                    'id': suggestion.id,  # Use ID for filtering in exclude()
                     'name': suggestion.name,
                     'category': suggestion.category,
-                    'quantity': round(quantity, 2),
+                    'quantity_recommended': round(quantity_recommended, 2),
+                    'quantity_budget': max(round(quantity_budget, 2), 0),  # Ensure non-negative
                     'unit': suggestion.unit,
-                    'cost': round(cost, 2),
+                    'cost_recommended': round(cost_recommended, 2),
+                    'cost_budget': round(cost_budget, 2),
                 })
-                total_cost += cost
+                total_cost_budget += cost_budget
+                total_cost_recommended += cost_recommended
+
+        # Add remaining suggestions while staying within the budget
+        for suggestion in CropSuggestion.objects.exclude(id__in=[item['id'] for item in shopping_list]):
+            quantity_recommended = farm_size_m2 / Decimal(suggestion.recommended_area) if suggestion.recommended_area else Decimal(1)
+            cost_recommended = suggestion.average_cost * quantity_recommended
+
+            # Adjust quantity to fit within the remaining budget
+            if total_cost_budget + cost_recommended > budget:
+                quantity_budget = (budget - total_cost_budget) / suggestion.average_cost
+                cost_budget = quantity_budget * suggestion.average_cost
+            else:
+                quantity_budget = quantity_recommended
+                cost_budget = cost_recommended
+
+            if quantity_budget > 0:  # Only add if the item can fit within the budget
+                shopping_list.append({
+                    'id': suggestion.id,  # Use ID for filtering in exclude()
+                    'name': suggestion.name,
+                    'category': suggestion.category,
+                    'quantity_recommended': round(quantity_recommended, 2),
+                    'quantity_budget': max(round(quantity_budget, 2), 0),  # Ensure non-negative
+                    'unit': suggestion.unit,
+                    'cost_recommended': round(cost_recommended, 2),
+                    'cost_budget': round(cost_budget, 2),
+                })
+                total_cost_budget += cost_budget
+                total_cost_recommended += cost_recommended
 
         return render(request, 'management/shopping_list.html', {
             'shopping_list': shopping_list,
-            'total_cost': round(total_cost, 2),
-            'budget': budget,
+            'total_cost_budget': round(total_cost_budget, 2),
+            'total_cost_recommended': round(total_cost_recommended, 2),
+            'budget': round(budget, 2),
         })
 
     farms = request.user.farms.all()
     return render(request, 'management/shopping_form.html', {'farms': farms})
+
+
 
 @login_required
 def add_storage(request):
@@ -269,3 +332,9 @@ def list_storage(request):
         messages.info(request, 'Nenhum produto encontrado no seu armazenamento.')
 
     return render(request, 'management/list_storage.html', {'storages': storages})
+
+@login_required
+def manage_storage(request):
+    return render(request, 'management/manage_storage.html')
+def explore(request):
+    return render(request, 'accounts/explore.html')  # Certifique-se de salvar o HTML em 'templates/accounts/explore.html'

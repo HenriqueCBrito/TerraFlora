@@ -42,6 +42,7 @@ Com o Terraflora, agricultores podem otimizar o cultivo, aumentar a produtividad
     <li><a href="img/backlogSR2.png">Print do Backlog das histórias</a></li>
     <li><a href="img/sprintSR2.png">Quadro da Sprint com as Histórias Finalizadas</a></li>
     <li><a href="https://youtu.be/tzjuHoqHKk4">Screencast</a></li>
+    <li><a href="https://youtu.be/7r--Qo_q-BE">Screencast testes</a></li>
 </ul>
 </details>
 
